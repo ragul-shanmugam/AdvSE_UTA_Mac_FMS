@@ -14,7 +14,7 @@
 	<div class="offset-md-1">
 		<h1>Login to UTA Mac FMS</h1>
 		<div>
-			<form action="/LoginController" method="GET" name="login_form">
+			<form action="/UTA_Mac_FMS/LoginController" method="GET" name="login_form">
 				<br> Username: <input type="text" name="username" required><br>
 				<br> Password: <input type="password" name="password" required><br>
 				<div class="button-box col-lg-12 offset-md-1">

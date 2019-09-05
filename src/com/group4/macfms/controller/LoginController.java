@@ -29,7 +29,7 @@ public class LoginController extends HttpServlet {
 		
 		if(userExists)
 		{
-			
+			response.sendRedirect("/homepage.jsp");
 		}
 		else
 		{

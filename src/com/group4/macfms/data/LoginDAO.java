@@ -12,10 +12,9 @@ public class LoginDAO {
 	
 	static SQLConnection DBMgr = SQLConnection.getInstance();
 	
-	@SuppressWarnings("unused")
 	public boolean userCheck (String username, String password) {
 		boolean userExists = false;
-		String queryString = "SELECT * from DB.table where username = "+username+";";
+		String queryString = "SELECT * from mac_fms.login where username = '"+username+"' && password = '"+password+"';";
 		
 		Statement stmt = null;
 		Connection conn = SQLConnection.getDBConnection();  
@@ -23,11 +22,15 @@ public class LoginDAO {
 			stmt = conn.createStatement();
 			ResultSet userList = stmt.executeQuery(queryString);
 			while (userList.next()) {
-				User user = new User(); 
-				user.setUsername(userList.getString("username"));
-				user.setPassword(userList.getString("password"));	
+				userExists = true;	
 			}
 		} catch (SQLException e) {}
+		
+		if(!userExists)
+		{
+			System.out.println("User not exists in the DB");
+		}
+		
 		return userExists;
 	}	
 }
