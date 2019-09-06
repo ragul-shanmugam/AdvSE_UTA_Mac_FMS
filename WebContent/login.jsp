@@ -11,16 +11,18 @@
 <title>User Login</title>
 </head>
 <body>
+	<h1>Login to UTA Mac FMS</h1>
 	<div class="offset-md-1">
-		<h1>Login to UTA Mac FMS</h1>
+
 		<div>
-			<form action="/UTA_Mac_FMS/LoginController" method="GET" name="login_form">
+			<form action="/UTA_Mac_FMS/LoginController?action=login" method="POST"
+				name="login_form">
 				<br> Username: <input type="text" name="username" required><br>
 				<br> Password: <input type="password" name="password" required><br>
 				<div class="button-box col-lg-12 offset-md-1">
-					<br> <input type="submit" class="btn btn-info" role="button"
-						value="Login"> <input type="reset" class="btn btn-info"
-						role="button" value="Clear"> <br>
+					<br> <input type="submit" class="btn btn-primary"
+						role="button" value="Login"> <input type="reset"
+						class="btn btn-primary" role="button" value="Clear"> <br>
 				</div>
 			</form>
 		</div>

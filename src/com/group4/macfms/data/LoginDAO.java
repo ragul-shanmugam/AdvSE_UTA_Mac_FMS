@@ -32,5 +32,51 @@ public class LoginDAO {
 		}
 		
 		return userExists;
-	}	
+	}
+	public void insertUser(User register)
+	{
+		System.out.println("Inside insertuser....");
+		//User register = new User();
+		if(register.getUsername() != null)
+		{
+			String userSql = "Select * from mac_fms.user where username = '"+register.getUsername()+"';";
+			
+			Statement stmt = null;
+			Connection conn = SQLConnection.getDBConnection();  
+			try {
+				stmt = conn.createStatement();
+				ResultSet userStatus = stmt.executeQuery(userSql);
+				System.out.println("Printing User status...."+userStatus);
+				if (userStatus.next()) {
+					//add validation error message here
+					System.err.println("User already exists in DB");
+				}
+				else 
+				{
+					String queryString = "INSERT INTO mac_fms.user (`username`,`password`,`firstname`,`lastname`,`utaid`,`phone`,`email`,`address`,`city`,`state`,`zipcode`,`role`) VALUES "
+							+ "('"+register.getUsername()+"','"+register.getPassword()+"','"+register.getFirstname()+"','"+register.getLastname()+"','"+register.getId()+"','"+register.getPhone()+"','"+register.getEmail()+"','"
+							+register.getAddress()+"','"+register.getCity()+"','"+register.getState()+"','"+register.getZipcode()+"','"+register.getRole()+"');";
+					System.out.println("Printing query...."+queryString);
+					
+					try {
+						stmt = conn.createStatement();
+						int status = stmt.executeUpdate(queryString);
+						conn.commit(); 
+						
+						System.out.println("Printing status...."+status);
+						System.err.println("User Inserted Succesfully.....");
+						
+						if(status == 1)
+						{
+
+						}
+						conn.commit(); 
+						
+					} catch (SQLException e) {}
+					
+				}
+			} catch (SQLException e) {}
+		}
+	}
+	
 }
