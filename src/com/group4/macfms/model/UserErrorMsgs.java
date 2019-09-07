@@ -22,7 +22,7 @@ public class UserErrorMsgs {
 		if(!usernameError.equals("") || !passwordError.equals("") || !fnameError.equals("") || !lnameError.equals("") 
 				|| !idError.equals("") || !emailError.equals("") || !addressError.equals("") || !cityError.equals("") 
 				|| !stateError.equals("") || !zipCodeError.equals("") || !roleError.equals(""))
-			commonerrorMsg = "Please correct the following";
+			commonerrorMsg = "Please correct the following:";
 		else
 			commonerrorMsg = "";
 	}

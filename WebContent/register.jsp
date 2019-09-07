@@ -93,7 +93,7 @@
 			<div class="row">
 				<div class="col">
 					<label for="username">Email Address</label> <input name="email"
-						type="email" class="form-control" placeholder="Email">
+						type="text" class="form-control" placeholder="Email">
 				</div>
 				<div class="col"></div>
 			</div>
