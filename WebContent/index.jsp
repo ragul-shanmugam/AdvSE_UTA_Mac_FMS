@@ -10,8 +10,8 @@
 <title>Login/Register</title>
 </head>
 <body>
-	<h1>Login/Register to UTA's MAC FMS</h1>
 	<div class="button-box col-lg-12 offset-md-1">
+	<h1>Login/Register to UTA's MAC FMS</h1>	
 		<br> <a class="btn btn-primary" href="/UTA_Mac_FMS/login.jsp" role="button">Login</a>
 			<a class="btn btn-primary" href="/UTA_Mac_FMS/register.jsp" role="button">Register</a> <br>
 	</div>

@@ -19,7 +19,9 @@ public class UserErrorMsgs {
 		return commonerrorMsg;
 	}
 	public void setCommonerrorMsg(String commonerrorMsg) {
-		if(!usernameError.equals("") || !passwordError.equals("") || !fnameError.equals("") || !lnameError.equals("") )
+		if(!usernameError.equals("") || !passwordError.equals("") || !fnameError.equals("") || !lnameError.equals("") 
+				|| !idError.equals("") || !emailError.equals("") || !addressError.equals("") || !cityError.equals("") 
+				|| !stateError.equals("") || !zipCodeError.equals("") || !roleError.equals(""))
 			commonerrorMsg = "Please correct the following";
 		else
 			commonerrorMsg = "";

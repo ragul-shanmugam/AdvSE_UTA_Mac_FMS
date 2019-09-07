@@ -10,9 +10,8 @@
 <title>User Registration</title>
 </head>
 <body>
-	<h1>User Registration to UTA Mac FMS</h1>
 	<div class="offset-md-1">
-
+	<h1>User Registration to UTA Mac FMS</h1>
 		<form action="/UTA_Mac_FMS/LoginController?action=register"
 			method="POST" name="registration_form">
 			<div class="row">
@@ -22,8 +21,7 @@
 				</div>
 				<div class="col">
 					<label for="usernameError"> <br>
-					</label> <input name="usernameError" type="text" class="form-control"
-						placeholder="User name">
+					</label> <input name="usernameError" type="text" class="form-control" placeholder="Add Error message in this 'div'">
 				</div>
 			</div>
 			<br>
@@ -72,6 +70,20 @@
 			<br>
 			<div class="row">
 				<div class="col">
+					<label for="role">User Role</label> <select name="role"
+						class="form-control">
+						<!-- <option selected>Choose...</option> -->
+						<option value="user">User</option>
+						<option value="fmanager">Facility Manager</option>
+						<option value="repairer">Repairer</option>
+						<option value="admin">Admin</option>
+					</select>
+				</div>
+				<div class="col"></div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col">
 					<label for="phone">Phone</label> <input name="phone" type="text"
 						class="form-control" placeholder="Phone">
 				</div>
@@ -104,8 +116,61 @@
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="state">State</label> <input name="state" type="text"
-						class="form-control" placeholder="State (For Example., TX)">
+					<label for="rostatele">State</label> <select name="state"
+						class="form-control">
+						<!-- <option selected>Choose...</option> -->
+						<option value="AL">Alabama</option>
+						<option value="AK">Alaska</option>
+						<option value="AZ">Arizona</option>
+						<option value="AR">Arkansas</option>
+						<option value="CA">California</option>
+						<option value="CO">Colorado</option>
+						<option value="CT">Connecticut</option>
+						<option value="DE">Delaware</option>
+						<option value="DC">District Of Columbia</option>
+						<option value="FL">Florida</option>
+						<option value="GA">Georgia</option>
+						<option value="HI">Hawaii</option>
+						<option value="ID">Idaho</option>
+						<option value="IL">Illinois</option>
+						<option value="IN">Indiana</option>
+						<option value="IA">Iowa</option>
+						<option value="KS">Kansas</option>
+						<option value="KY">Kentucky</option>
+						<option value="LA">Louisiana</option>
+						<option value="ME">Maine</option>
+						<option value="MD">Maryland</option>
+						<option value="MA">Massachusetts</option>
+						<option value="MI">Michigan</option>
+						<option value="MN">Minnesota</option>
+						<option value="MS">Mississippi</option>
+						<option value="MO">Missouri</option>
+						<option value="MT">Montana</option>
+						<option value="NE">Nebraska</option>
+						<option value="NV">Nevada</option>
+						<option value="NH">New Hampshire</option>
+						<option value="NJ">New Jersey</option>
+						<option value="NM">New Mexico</option>
+						<option value="NY">New York</option>
+						<option value="NC">North Carolina</option>
+						<option value="ND">North Dakota</option>
+						<option value="OH">Ohio</option>
+						<option value="OK">Oklahoma</option>
+						<option value="OR">Oregon</option>
+						<option value="PA">Pennsylvania</option>
+						<option value="RI">Rhode Island</option>
+						<option value="SC">South Carolina</option>
+						<option value="SD">South Dakota</option>
+						<option value="TN">Tennessee</option>
+						<option value="TX">Texas</option>
+						<option value="UT">Utah</option>
+						<option value="VT">Vermont</option>
+						<option value="VA">Virginia</option>
+						<option value="WA">Washington</option>
+						<option value="WV">West Virginia</option>
+						<option value="WI">Wisconsin</option>
+						<option value="WY">Wyoming</option>
+					</select>
 				</div>
 				<div class="col"></div>
 			</div>
@@ -118,21 +183,8 @@
 				<div class="col"></div>
 			</div>
 			<br>
-			<div class="row">
-				<div class="col">
-					<label for="role">User Role</label> <select name="role"
-						class="form-control">
-						<option selected>Choose...</option>
-						<option>User</option>
-						<option>Facility Manager</option>
-						<option>Repairer</option>
-						<option>Admin</option>
-					</select>
-				</div>
-				<div class="col"></div>
-			</div>
-			<br>
 			<button type="submit" class="btn btn-primary">Register</button>
+			<button type="reset" class="btn btn-primary">Reset</button>
 			<br>
 		</form>
 	</div>

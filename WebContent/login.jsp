@@ -11,9 +11,8 @@
 <title>User Login</title>
 </head>
 <body>
-	<h1>Login to UTA Mac FMS</h1>
 	<div class="offset-md-1">
-
+	<h1>Login to UTA Mac FMS</h1>
 		<div>
 			<form action="/UTA_Mac_FMS/LoginController?action=login" method="POST"
 				name="login_form">
