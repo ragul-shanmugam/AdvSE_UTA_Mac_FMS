@@ -12,9 +12,10 @@ public class LoginDAO {
 	
 	static SQLConnection DBMgr = SQLConnection.getInstance();
 	
-	public boolean userCheck (String username, String password) {
+	public String userCheck (String username, String password) {
 		boolean userExists = false;
-		String queryString = "SELECT * from mac_fms.login where username = '"+username+"' && password = '"+password+"';";
+		String role = null;
+		String queryString = "SELECT password, role from mac_fms.user where username = '"+username+"';";
 		
 		Statement stmt = null;
 		Connection conn = SQLConnection.getDBConnection();  
@@ -22,16 +23,20 @@ public class LoginDAO {
 			stmt = conn.createStatement();
 			ResultSet userList = stmt.executeQuery(queryString);
 			while (userList.next()) {
-				userExists = true;	
+				userExists = true;
+				password = userList.getString(1);
+				role = userList.getString(2);
 			}
 		} catch (SQLException e) {}
 		
-		if(!userExists)
+		if(userExists)
 		{
 			System.out.println("User not exists in the DB");
+			//check for password match here and return role
+			System.out.println("Printing the role..."+role);
 		}
 		
-		return userExists;
+		return role;
 	}
 	public void insertUser(User register)
 	{

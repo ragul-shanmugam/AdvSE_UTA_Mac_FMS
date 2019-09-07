@@ -17,49 +17,54 @@ import com.group4.macfms.model.User;
 @WebServlet("/LoginController")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private void getUserParam (HttpServletRequest request, User user) {
+
+	private void getUserParam(HttpServletRequest request, User user) {
 		System.out.println("Inside getuserParam");
-		user.setUser(request.getParameter("username"),request.getParameter("password"),request.getParameter("fname"),request.getParameter("lname"), 
-				request.getParameter("id"),request.getParameter("phone"),request.getParameter("email"),request.getParameter("address"), 
-				request.getParameter("city"),request.getParameter("state"),request.getParameter("zip"),request.getParameter("role")); 
-		System.out.println("Username...."+request.getParameter("username"));
-		System.out.println("First Name...."+request.getParameter("fname"));
-		System.out.println("Last Name...."+request.getParameter("lname"));
+		user.setUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("fname"),
+				request.getParameter("lname"), request.getParameter("id"), request.getParameter("phone"),
+				request.getParameter("email"), request.getParameter("address"), request.getParameter("city"),
+				request.getParameter("state"), request.getParameter("zip"), request.getParameter("role"));
+		System.out.println("Username...." + request.getParameter("username"));
+		System.out.println("First Name...." + request.getParameter("fname"));
+		System.out.println("Last Name...." + request.getParameter("lname"));
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String action = request.getParameter("action");
-		
-		
-		if (action.equalsIgnoreCase("login") ) {
+
+		if (action.equalsIgnoreCase("login")) {
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			LoginDAO login = new LoginDAO();
-			boolean userExists = login.userCheck(username, password);
-			
-			if(userExists)
-			{
-				response.sendRedirect("/homepage.jsp");
+			String userRole = login.userCheck(username, password);
+
+			if (userRole.equalsIgnoreCase("user")) {
+				response.sendRedirect("/UTA_Mac_FMS/userHome.jsp");
+			} else if (userRole.equalsIgnoreCase("manager")) {
+				response.sendRedirect("/UTA_Mac_FMS/managerHome.jsp");
+			} else if (userRole.equalsIgnoreCase("repairer")) {
+				response.sendRedirect("/UTA_Mac_FMS/repairerHome.jsp");
+			} else if (userRole.equalsIgnoreCase("admin")) {
+				response.sendRedirect("/UTA_Mac_FMS/adminHome.jsp");
 			}
 			else
 			{
-				
+				session.setAttribute("nouser", "usererror");
 			}
 		}
-		
-		if (action.equalsIgnoreCase("register") ) {
+
+		if (action.equalsIgnoreCase("register")) {
 			User user = new User();
 			LoginDAO register = new LoginDAO();
-			getUserParam(request,user);
+			getUserParam(request, user);
 			register.insertUser(user);
-			
 		}
-		}
-		
-		
 	}
+
+}

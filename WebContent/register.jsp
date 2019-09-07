@@ -75,7 +75,7 @@
 						class="form-control">
 						<!-- <option selected>Choose...</option> -->
 						<option value="User">User</option>
-						<option value="Facility Manager">Facility Manager</option>
+						<option value="Manager">Facility Manager</option>
 						<option value="Repairer">Repairer</option>
 						<option value="Admin">Admin</option>
 					</select>
