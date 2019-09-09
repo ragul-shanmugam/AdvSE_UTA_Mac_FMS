@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div class="offset-md-1">
-	<h1>User Registration to UTA Mac FMS</h1>
+	<h1>User Registration - UTA Mac FMS</h1>
 		<form action="/UTA_Mac_FMS/LoginController?action=register"
 			method="POST" name="registration_form">
 			<div class="row">
