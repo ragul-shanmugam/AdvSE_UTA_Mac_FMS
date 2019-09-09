@@ -19,7 +19,7 @@
 				method="POST" name="login_form">
 				<br> <div class="row">
 				<div class="col">
-					<label for="username">Enter your User Name:</label> <input name="username" type="text" class="form-control" placeholder="Username">
+					<label for="username">Enter your User Name:</label> <input name="username" id="username" type="text" class="form-control" placeholder="Username">
 				</div>
 				<div class="col">
 				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
@@ -28,7 +28,7 @@
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="passowrd">Enter your Password:</label> <input name="password"
+					<label for="passowrd">Enter your Password:</label> <input name="password" id="password"
 						type="password" class="form-control" placeholder="Password">
 				</div>
 				<div class="col">

@@ -12,8 +12,7 @@
 </head>
 <body>
 	<div class="button-box col-lg-12 offset-md-1">
-		<h1>Hey, "Add name here", Welcome to FMS</h1>
-		<h1><a class="btn btn-danger col-md-4 offset-md-4 col-auto"
+		<h1>Hello, "Add name here"! <a class="btn btn-danger offset-md-1"
 			href="/UTA_Mac_FMS/LogoutController">Logout</a></h1> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/profile.jsp"
 			role="button">My Profile</a> <br> <br> <a
