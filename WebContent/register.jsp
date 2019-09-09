@@ -8,21 +8,20 @@
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<title>User Registration</title>
+<title>User Registration - UTA Mac FMS</title>
 </head>
 <body>
 	<div class="offset-md-1">
-	<h1>User Registration - UTA Mac FMS</h1>
+	<h1>User Registration</h1>
 		<form action="/UTA_Mac_FMS/LoginController?action=register"
 			method="POST" name="registration_form">
 			<div class="row">
 				<div class="col">
 					<label for="username">User Name</label> <input name="username"
-						type="text" class="form-control" placeholder="User name">
+						type="text" class="form-control" placeholder="Username">
 				</div>
 				<div class="col">
-					<label for="usernameError"> <br>
-					</label> <input name="usernameError" type="text" class="form-control" placeholder="Add Error message in this 'div'">
+				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
 				</div>
 			</div>
 			<br>
@@ -31,7 +30,9 @@
 					<label for="passowrd">Password</label> <input name="password"
 						type="password" class="form-control" placeholder="Password">
 				</div>
-				<div class="col"></div>
+				<div class="col">
+				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60"> 
+				</div>
 			</div>
 			<br>
 			<div class="row">
@@ -41,7 +42,7 @@
 						placeholder="Confirm Password">
 				</div>
 				<div class="col">
-					<div id="msg"></div>
+					<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
 				</div>
 			</div>
 			<br>
@@ -50,7 +51,9 @@
 					<label for="fname">First Name</label> <input name="fname"
 						type="text" class="form-control" placeholder="First name">
 				</div>
-				<div class="col"></div>
+				<div class="col">
+				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
+				</div>
 			</div>
 			<br>
 			<div class="row">
@@ -58,7 +61,9 @@
 					<label for="lname">Last Name</label> <input name="lname"
 						type="text" class="form-control" placeholder="Last name">
 				</div>
-				<div class="col"></div>
+				<div class="col">
+				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
+				</div>
 			</div>
 			<br>
 			<div class="row">
@@ -66,7 +71,9 @@
 					<label for="name">UTA ID</label> <input name="id" type="text"
 						class="form-control" placeholder="UTA ID">
 				</div>
-				<div class="col"></div>
+				<div class="col">
+				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
+				</div>
 			</div>
 			<br>
 			<div class="row">
@@ -88,7 +95,9 @@
 					<label for="phone">Phone</label> <input name="phone" type="text"
 						class="form-control" placeholder="Phone">
 				</div>
-				<div class="col"></div>
+				<div class="col">
+				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
+				</div>
 			</div>
 			<br>
 			<div class="row">
@@ -96,7 +105,9 @@
 					<label for="username">Email Address</label> <input name="email"
 						type="text" class="form-control" placeholder="Email">
 				</div>
-				<div class="col"></div>
+				<div class="col">
+				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
+				</div>
 			</div>
 			<br>
 			<div class="row">
@@ -104,7 +115,9 @@
 					<label for="address">Address</label> <input name="address"
 						type="text" class="form-control" placeholder="Address">
 				</div>
-				<div class="col"></div>
+				<div class="col">
+				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
+				</div>
 			</div>
 			<br>
 			<div class="row">
@@ -112,7 +125,9 @@
 					<label for="city">City</label> <input name="city" type="text"
 						class="form-control" placeholder="City">
 				</div>
-				<div class="col"></div>
+				<div class="col">
+				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
+				</div>
 			</div>
 			<br>
 			<div class="row">
@@ -181,7 +196,9 @@
 					<label for="zip">Zip Code</label> <input name="zip" type="text"
 						class="form-control" placeholder="Zip Code">
 				</div>
-				<div class="col"></div>
+				<div class="col">
+				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
+				</div>
 			</div>
 			<br>
 			<button type="submit" class="btn btn-primary">Register</button>

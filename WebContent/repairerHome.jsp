@@ -8,13 +8,13 @@
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<title>Repairer - Welcome to FMS</title>
+<title>Repairer - UTA Mac FMS</title>
 </head>
 <body>
 	<div class="button-box col-lg-12 offset-md-1">
 		<h1>Hey, "Add name here", Welcome to FMS</h1>
-		<br> <a class="btn btn-danger col-md-3 offset-md-3 col-auto"
-			href="/UTA_Mac_FMS/LogoutController">Logout</a> <br> <br> <a
+		<h1><a class="btn btn-danger col-md-4 offset-md-4 col-auto"
+			href="/UTA_Mac_FMS/LogoutController">Logout</a></h1>  <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/profile.jsp"
 			role="button">My Profile</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"

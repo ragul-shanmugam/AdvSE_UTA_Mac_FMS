@@ -9,7 +9,7 @@
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<title>User Login</title>
+<title>User Login/Register - UTA Mac FMS</title>
 </head>
 <body>
 	<div class="button-box col-lg-12 offset-md-1">
@@ -19,10 +19,9 @@
 				method="POST" name="login_form">
 				<br> Username: <input type="text" name="username"><br>
 				<br> Password: <input type="password" name="password"><br>
-					<br> <input type="submit" class="btn btn-primary offset-md-1"
-						role="button" value="Login"> 
+					<br> <input type="submit" class="btn btn-primary offset-md-1" role="button" value="Login"> 
 						<input type="reset" class="btn btn-primary" role="button" value="Clear"> <br> <br>
-						<a class="btn btn-success col-md-4" href="/UTA_Mac_FMS/register.jsp" role="button">Register here!!!</a> <br> <br>
+						<a class="btn btn-success col-md-2" href="/UTA_Mac_FMS/register.jsp" role="button">Register here!!!</a> <br> <br>
 			</form>
 		</div>
 	</div>
