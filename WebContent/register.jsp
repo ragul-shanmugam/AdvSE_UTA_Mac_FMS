@@ -4,15 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="ISO-8859-1" name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <title>User Registration - UTA Mac FMS</title>
 </head>
 <body>
-	<div class="offset-md-1">
-	<h1>User Registration</h1>
+	<div class="button-box col-lg-12 offset-md-1">
+	<h1>User Registration <a id="login" href="/UTA_Mac_FMS/index.jsp" class="btn btn-primary col-md-2 offset-md-2">Login</a></h1>
 		<form action="/UTA_Mac_FMS/LoginController?action=register"
 			method="POST" name="registration_form">
 			<div class="row">
@@ -201,8 +201,8 @@
 				</div>
 			</div>
 			<br>
-			<button type="submit" class="btn btn-primary">Register</button>
-			<button type="reset" class="btn btn-primary">Reset</button>
+			<button type="submit" class="btn btn-primary col-md-3">Register</button>
+			<button type="reset" class="btn btn-primary col-md-3">Reset</button>
 			<br>
 		</form>
 	</div>

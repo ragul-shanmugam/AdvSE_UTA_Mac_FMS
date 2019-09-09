@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="ISO-8859-1" name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
@@ -37,9 +37,9 @@ function editDetails(){
 <title>Profile - UTA Mac FMS</title>
 </head>
 <body onload='onPageLoad();'>
-	<div class="offset-md-1">
+	<div class="button-box col-lg-12 offset-md-1">
 	<h1>My Profile <input id="edit" type="button" class="btn btn-primary col-md-3 offset-md-2 col-auto" value = "Edit Details" onclick="editDetails();" style="color:white; cursor: pointer;"/> 
-	<a class="btn btn-danger col-md-1 offset-md-1 col-auto" href="/UTA_Mac_FMS/LogoutController">Logout</a></h1>
+	<a class="btn btn-danger col-md-1 offset-md-1 col-auto" href="/UTA_Mac_FMS/LogoutController">Logout</a></h1> <br>
 		<form action="/UTA_Mac_FMS/UpdateProfileController"	method="POST" id="profile_form">
 			<div class="row">
 				<div class="col">
