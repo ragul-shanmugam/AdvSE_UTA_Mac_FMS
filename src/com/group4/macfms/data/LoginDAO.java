@@ -15,7 +15,7 @@ public class LoginDAO {
 	public String userCheck (String username, String password) {
 		boolean userExists = false;
 		String role = null;
-		String queryString = "SELECT password, role from mac_fms.user where username = '"+username+"';";
+		String queryString = "SELECT password, role from mac_fms.users where username = '"+username+"';";
 		
 		Statement stmt = null;
 		Connection conn = SQLConnection.getDBConnection();  
@@ -44,7 +44,8 @@ public class LoginDAO {
 		//User register = new User();
 		if(register.getUsername() != null)
 		{
-			String userSql = "Select * from mac_fms.user where username = '"+register.getUsername()+"';";
+			System.out.println("Printing user name inside insert user..."+register.getUsername());
+			String userSql = "Select * from mac_fms.users where username = '"+register.getUsername()+"';";
 			
 			Statement stmt = null;
 			Connection conn = SQLConnection.getDBConnection();  
@@ -58,7 +59,7 @@ public class LoginDAO {
 				}
 				else 
 				{
-					String queryString = "INSERT INTO mac_fms.user (`username`,`password`,`firstname`,`lastname`,`utaid`,`phone`,`email`,`address`,`city`,`state`,`zipcode`,`role`) VALUES "
+					String queryString = "INSERT INTO mac_fms.users (`username`,`password`,`firstname`,`lastname`,`utaid`,`phone`,`email`,`address`,`city`,`state`,`zipcode`,`role`) VALUES "
 							+ "('"+register.getUsername()+"','"+register.getPassword()+"','"+register.getFirstname()+"','"+register.getLastname()+"','"+register.getId()+"','"+register.getPhone()+"','"+register.getEmail()+"','"
 							+register.getAddress()+"','"+register.getCity()+"','"+register.getState()+"','"+register.getZipcode()+"','"+register.getRole()+"');";
 					System.out.println("Printing query...."+queryString);
@@ -73,7 +74,7 @@ public class LoginDAO {
 						
 						if(status == 1)
 						{
-
+							//redirect to respective home page
 						}
 						conn.commit(); 
 						

@@ -13,7 +13,7 @@ public class SQLConnection {
 	private SQLConnection() {
 		DB_DRIVER = "com.mysql.jdbc.Driver";
 		DB_CONNECTION  = "jdbc:mysql://localhost:3306/mac_fms?autoReconnect=true&useSSL=false";
-		DB_USER  = "root";
+		DB_USER  = "admin";
 		DB_PASSWORD = "admin";
 	}
 	public static synchronized SQLConnection getInstance() {
