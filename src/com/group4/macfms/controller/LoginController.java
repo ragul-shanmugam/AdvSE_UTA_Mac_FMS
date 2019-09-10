@@ -58,17 +58,21 @@ public class LoginController extends HttpServlet {
 			dbUser = login.userCheck(request.getParameter("username"));
 
 			if (dbUser.getRole().equalsIgnoreCase("user")) {
-				session.setAttribute("homePage", dbUser);
+				session.setAttribute("user", dbUser);
 				response.sendRedirect("/UTA_Mac_FMS/userHome.jsp");
-			} else if (dbUser.getRole().equalsIgnoreCase("manager")) {
-				session.setAttribute("homePage", dbUser);
+				session.setAttribute("homePage", "userHome.jsp");
+			} else if (dbUser.getRole().equalsIgnoreCase("facility manager")) {
+				session.setAttribute("user", dbUser);
 				response.sendRedirect("/UTA_Mac_FMS/managerHome.jsp");
+				session.setAttribute("homePage", "managerHome.jsp");
 			} else if (dbUser.getRole().equalsIgnoreCase("repairer")) {
-				session.setAttribute("homePage", dbUser);
+				session.setAttribute("user", dbUser);
 				response.sendRedirect("/UTA_Mac_FMS/repairerHome.jsp");
+				session.setAttribute("homePage", "repairerHome.jsp");
 			} else if (dbUser.getRole().equalsIgnoreCase("admin")) {
-				session.setAttribute("homePage", dbUser);
+				session.setAttribute("user", dbUser);
 				response.sendRedirect("/UTA_Mac_FMS/adminHome.jsp");
+				session.setAttribute("homePage", "adminHome.jsp");
 			}
 		}
 

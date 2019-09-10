@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div class="button-box col-lg-12 offset-md-1">
-		<h1>Hello, ${homePage.lastname},${homePage.firstname}!<a class="btn btn-danger offset-md-1"
+		<h1>Hello, ${user.lastname},${user.firstname}!<a class="btn btn-danger offset-md-1"
 			href="/UTA_Mac_FMS/LogoutController">Logout</a></h1> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/ProfileController?action=view"
 			role="button">View/Modify Profile Details</a> <br> <br> <a
