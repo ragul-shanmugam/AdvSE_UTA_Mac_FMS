@@ -16,6 +16,7 @@ public class LoginDAO {
 	
 	public User userCheck (String username) {
 		String queryString = "SELECT * from mac_fms.users where username = '"+username+"';";
+		System.out.println("Printing login query..."+queryString);
 		User user = new User();
 		  
 		try {

@@ -72,6 +72,7 @@ public class LoginController extends HttpServlet {
 		if (action.equalsIgnoreCase("register")) {
 			User user = new User();
 			LoginDAO register = new LoginDAO();
+			String confirmPassword = request.getParameter("confirm");
 			//validate user details here
 			getUserParam(request, user);
 			register.insertUser(user);
