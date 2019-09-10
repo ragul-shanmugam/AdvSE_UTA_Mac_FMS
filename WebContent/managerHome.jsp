@@ -12,9 +12,9 @@
 </head>
 <body>
 	<div class="button-box col-lg-12 offset-md-1">
-		<h1>Hello, "Add name here"! <a class="btn btn-danger offset-md-1"
+		<h1>Hello, ${homePage.lastname} , ${homePage.firstname}!a class="btn btn-danger offset-md-1"
 			href="/UTA_Mac_FMS/LogoutController">Logout</a></h1> <br> <a
-			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/profile.jsp"
+			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/profilePage.jsp"
 			role="button">My Profile</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
 			role="button">Search Facilities</a> <br> <br> <a

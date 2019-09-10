@@ -40,28 +40,28 @@ function editDetails(){
 	<div class="button-box col-lg-12 offset-md-1">
 	<h1>My Profile <input id="edit" type="button" class="btn btn-primary col-md-3 offset-md-2 col-auto" value = "Edit Details" onclick="editDetails();" style="color:white; cursor: pointer;"/> 
 	<a class="btn btn-danger col-md-1 offset-md-1 col-auto" href="/UTA_Mac_FMS/LogoutController">Logout</a></h1> <br>
-		<form action="/UTA_Mac_FMS/UpdateProfileController"	method="POST" id="profile_form">
+		<form action="/UTA_Mac_FMS/ProfileController?action=updateUserDetails"	method="POST" id="profile_form">
 			<div class="row">
 				<div class="col">
-					<label for="username">User Name</label> <input name="username" id="username" value= "advse" class="form-control" READONLY>
+					<label for="username">User Name</label> <input name="username" id="username" value= '${profile.username}' class="form-control" READONLY>
 				</div>
 				<div class="col">
-				<br> <input value='${my_profile.username}' class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
+				<br> <input value='${profile.username}' class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
 				</div>
 			</div>
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="passowrd">Password</label> <input name="password" id='password' type='password' value='${my_profile.password}' class="form-control" disabled>
+					<label for="passowrd">Password</label> <input name="password" id='password' type='password' value='${profile.password}' class="form-control" disabled>
 				</div>
 				<div class="col">
-				<br> <input value='${my_profile.password}' class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60"> 
+				<br> <input value='${profile.password}' class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60"> 
 				</div>
 			</div>
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="fname">First Name</label> <input name="fname" id="firstname" type="text" class="form-control" value='${my_profile.firstname}' disabled>
+					<label for="fname">First Name</label> <input name="fname" id="firstname" type="text" class="form-control" value='${profile.firstname}' disabled>
 				</div>
 				<div class="col">
 				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
@@ -70,7 +70,7 @@ function editDetails(){
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="lname">Last Name</label> <input name="lname" id="lastname" type="text" class="form-control" value='${my_profile.lastname}' disabled>
+					<label for="lname">Last Name</label> <input name="lname" id="lastname" type="text" class="form-control" value='${profile.lastname}' disabled>
 				</div>
 				<div class="col">
 				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
@@ -79,7 +79,7 @@ function editDetails(){
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="name">UTA ID</label> <input name="id" id="id" type="text" class="form-control" value='${my_profile.id}' disabled>
+					<label for="name">UTA ID</label> <input name="id" id="id" type="text" class="form-control" value='${profile.id}' disabled>
 				</div>
 				<div class="col">
 				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
@@ -88,7 +88,7 @@ function editDetails(){
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="role">User Role</label> <select name="role" id="role" class="form-control" value='${my_profile.role}' READONLY>
+					<label for="role">User Role</label> <select name="role" id="role" class="form-control" value='${profile.role}' READONLY>
 						<!-- <option selected>Choose...</option> -->
 						<option value="User">User</option>
 						<option value="Manager">Facility Manager</option>
@@ -101,7 +101,7 @@ function editDetails(){
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="phone">Phone</label> <input name="phone" type="text" id="phone" class="form-control" value='${my_profile.phone}' disabled>
+					<label for="phone">Phone</label> <input name="phone" type="text" id="phone" class="form-control" value='${profile.phone}' disabled>
 				</div>
 				<div class="col">
 				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60" disabled>
@@ -110,7 +110,7 @@ function editDetails(){
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="username">Email Address</label> <input name="email" id="email" type="text" class="form-control" value='${my_profile.email}' disabled>
+					<label for="username">Email Address</label> <input name="email" id="email" type="text" class="form-control" value='${profile.email}' disabled>
 				</div>
 				<div class="col">
 				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
@@ -119,7 +119,7 @@ function editDetails(){
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="address">Address</label> <input name="address" id="address" type="text" class="form-control" value='${my_profile.address}' disabled>
+					<label for="address">Address</label> <input name="address" id="address" type="text" class="form-control" value='${profile.address}' disabled>
 				</div>
 				<div class="col">
 				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
@@ -128,7 +128,7 @@ function editDetails(){
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="city">City</label> <input name="city" type="text" id="city" class="form-control" value='${my_profile.city}' disabled>
+					<label for="city">City</label> <input name="city" type="text" id="city" class="form-control" value='${profile.city}' disabled>
 				</div>
 				<div class="col">
 				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
@@ -137,7 +137,7 @@ function editDetails(){
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="rostatele">State</label> <select name="state" id="state" class="form-control" value='${my_profile.state}' disabled>
+					<label for="rostatele">State</label> <select name="state" id="state" class="form-control" value='${profile.state}' disabled>
 						<!-- <option selected>Choose...</option> -->
 						<option value="AL">Alabama</option>
 						<option value="AK">Alaska</option>
@@ -197,7 +197,7 @@ function editDetails(){
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="zip">Zip Code</label> <input name="zip" id="zip" type="text" class="form-control" value='${my_profile.zip}' disabled>
+					<label for="zip">Zip Code</label> <input name="zip" id="zip" type="text" class="form-control" value='${profile.zip}' disabled>
 				</div>
 				<div class="col">
 				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">

@@ -19,14 +19,13 @@ public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private void getUserParam(HttpServletRequest request, User user) {
-		System.out.println("Inside getuserParam");
 		user.setUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("fname"),
 				request.getParameter("lname"), request.getParameter("id"), request.getParameter("phone"),
 				request.getParameter("email"), request.getParameter("address"), request.getParameter("city"),
 				request.getParameter("state"), request.getParameter("zip"), request.getParameter("role"));
-		System.out.println("Username...." + request.getParameter("username"));
-		System.out.println("First Name...." + request.getParameter("fname"));
-		System.out.println("Last Name...." + request.getParameter("lname"));
+		System.out.println("Inside getuserParam...Username...." + request.getParameter("username"));
+		System.out.println("Inside getuserParam...First Name...." + request.getParameter("fname"));
+		System.out.println("Inside getuserParam...Last Name...." + request.getParameter("lname"));
 	}
 
 	/**
@@ -36,34 +35,47 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		session.removeAttribute("errorMsg");
+		session.removeAttribute("incorrectPassword");
 		String action = request.getParameter("action");
+		User loginUser = new User();
+		LoginDAO login = new LoginDAO();
 
 		if (action.equalsIgnoreCase("login")) {
-			String username = request.getParameter("username");
-			String password = request.getParameter("password");
-			LoginDAO login = new LoginDAO();
-			String userRole = login.userCheck(username, password);
+			loginUser.setUsername(request.getParameter("username"));
+			loginUser.setPassword(request.getParameter("password"));
+			//validate username and password here
+			//if(username validation fails) 
+			//set error message attribute to index.jsp page here
+			//else
+			//setattribute("userInfo", loginUser)
+			//if(password validation fails)
+			//set error message attribute to index.jsp page here
+			//else
+			loginUser = login.userCheck(request.getParameter("username"));
 
-			if (userRole.equalsIgnoreCase("user")) {
+			if (loginUser.getRole().equalsIgnoreCase("user")) {
+				session.setAttribute("homePage", loginUser);
 				response.sendRedirect("/UTA_Mac_FMS/userHome.jsp");
-			} else if (userRole.equalsIgnoreCase("manager")) {
+			} else if (loginUser.getRole().equalsIgnoreCase("manager")) {
+				session.setAttribute("homePage", loginUser);
 				response.sendRedirect("/UTA_Mac_FMS/managerHome.jsp");
-			} else if (userRole.equalsIgnoreCase("repairer")) {
+			} else if (loginUser.getRole().equalsIgnoreCase("repairer")) {
+				session.setAttribute("homePage", loginUser);
 				response.sendRedirect("/UTA_Mac_FMS/repairerHome.jsp");
-			} else if (userRole.equalsIgnoreCase("admin")) {
+			} else if (loginUser.getRole().equalsIgnoreCase("admin")) {
+				session.setAttribute("homePage", loginUser);
 				response.sendRedirect("/UTA_Mac_FMS/adminHome.jsp");
-			}
-			else
-			{
-				session.setAttribute("nouser", "usererror");
 			}
 		}
 
 		if (action.equalsIgnoreCase("register")) {
 			User user = new User();
 			LoginDAO register = new LoginDAO();
+			//validate user details here
 			getUserParam(request, user);
 			register.insertUser(user);
+			//show registration success message and redirect to login page
 		}
 	}
 
