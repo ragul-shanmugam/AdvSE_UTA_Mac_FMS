@@ -39,6 +39,7 @@ public class LoginController extends HttpServlet {
 		session.removeAttribute("incorrectPassword");
 		String action = request.getParameter("action");
 		User loginUser = new User();
+		User dbUser = new User();
 		LoginDAO login = new LoginDAO();
 
 		if (action.equalsIgnoreCase("login")) {
@@ -52,19 +53,21 @@ public class LoginController extends HttpServlet {
 			//if(password validation fails)
 			//set error message attribute to index.jsp page here
 			//else
-			loginUser = login.userCheck(request.getParameter("username"));
+			
+			session.setAttribute("userInfo", loginUser);
+			dbUser = login.userCheck(request.getParameter("username"));
 
-			if (loginUser.getRole().equalsIgnoreCase("user")) {
-				session.setAttribute("homePage", loginUser);
+			if (dbUser.getRole().equalsIgnoreCase("user")) {
+				session.setAttribute("homePage", dbUser);
 				response.sendRedirect("/UTA_Mac_FMS/userHome.jsp");
-			} else if (loginUser.getRole().equalsIgnoreCase("manager")) {
-				session.setAttribute("homePage", loginUser);
+			} else if (dbUser.getRole().equalsIgnoreCase("manager")) {
+				session.setAttribute("homePage", dbUser);
 				response.sendRedirect("/UTA_Mac_FMS/managerHome.jsp");
-			} else if (loginUser.getRole().equalsIgnoreCase("repairer")) {
-				session.setAttribute("homePage", loginUser);
+			} else if (dbUser.getRole().equalsIgnoreCase("repairer")) {
+				session.setAttribute("homePage", dbUser);
 				response.sendRedirect("/UTA_Mac_FMS/repairerHome.jsp");
-			} else if (loginUser.getRole().equalsIgnoreCase("admin")) {
-				session.setAttribute("homePage", loginUser);
+			} else if (dbUser.getRole().equalsIgnoreCase("admin")) {
+				session.setAttribute("homePage", dbUser);
 				response.sendRedirect("/UTA_Mac_FMS/adminHome.jsp");
 			}
 		}

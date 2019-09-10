@@ -30,7 +30,6 @@ function editDetails(){
 	 document.getElementById('state').disabled=false;
 	 document.getElementById('zip').disabled=false;
 	 document.getElementById('update').disabled=false;
-	 document.getElementById('reset').disabled=false;
 	 document.getElementById('edit').disabled=true;
 }
 </script>
@@ -197,7 +196,7 @@ function editDetails(){
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="zip">Zip Code</label> <input name="zip" id="zip" type="text" class="form-control" value='${profile.zip}' disabled>
+					<label for="zip">Zip Code</label> <input name="zip" id="zip" type="text" class="form-control" value='${profile.zipcode}' disabled>
 				</div>
 				<div class="col">
 				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
@@ -206,8 +205,8 @@ function editDetails(){
 			<br>
 			<div class="row">
 			<div class="col">
-			<input id="update" type="submit" class="btn btn-primary col-md-3" value="Update Details" disabled/>
-			<button id="reset" type="reset" class="btn btn-primary col-md-3" onClick="window.location.reload();" disabled>Reset</button>
+			<input id="update" type="submit" class="btn btn-primary col-md-5" value="Update Details" disabled/>
+			<!-- <input id="reset" type="reset" class="btn btn-primary col-md-3" value="Reset" onClick="onPageLoad();" disabled/> -->
 			</div>
 			</div>
 			<br>
