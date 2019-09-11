@@ -93,7 +93,7 @@ public class MarController extends HttpServlet {
 			
 			if (request.getParameter("radioMar")!=null) {
 				selectedMarIndex = Integer.parseInt(request.getParameter("radioMar")) - 1;
-				marInDB = MarDAO.listMars(); 
+				marInDB = MarDAO.listAssignedMars(); 
 				selectedMar.setMar(marInDB.get(selectedMarIndex).getMarNumber(), marInDB.get(selectedMarIndex).getFacilityType(), marInDB.get(selectedMarIndex).getReservationId(), 
 										marInDB.get(selectedMarIndex).getReportedBy(), marInDB.get(selectedMarIndex).getUrgency(), marInDB.get(selectedMarIndex).getDescription(), 
 											marInDB.get(selectedMarIndex).getDateCreated(), marInDB.get(selectedMarIndex).getAssignedTo(), marInDB.get(selectedMarIndex).getAssignedDate(),
