@@ -35,9 +35,14 @@ public class ProfileController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User user = new User();
+		//String action = request.getParameter("action");
 		ProfileDAO retriveUser = new ProfileDAO();
 		User temp = (User) session.getAttribute("userInfo");
-		user = retriveUser.retrieveUserDetails(temp.getUsername());		
+		//System.out.println("Printing useInfo details..."+temp.getUsername());
+		user = retriveUser.retrieveUserDetails(temp.getUsername());
+		
+		session.setAttribute("profile", user);
+		response.sendRedirect("profilePage.jsp");
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,7 +53,12 @@ public class ProfileController extends HttpServlet {
 		if(action.equalsIgnoreCase("updateUserDetails"))
 		{
 		//validate user here
-			int status = updateUser.updateUserDetails(user);	
+			int status = updateUser.updateUserDetails(user);
+			if(status == 1)
+			{
+			session.setAttribute("profile", user);
+			response.sendRedirect("profilePage.jsp");
+			}
 		}
 	}
 }
