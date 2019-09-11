@@ -9,9 +9,16 @@
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	function onPageLoad() {
+		$(document).ready(function() {
+			$("#submit :input").prop("disabled", true);
+		});
+	}
+</script>
 <title>UTA Mac FMS</title>
 </head>
-<body>
+<body onload='onPageLoad();'>
 		<h1>
 			List of MARs created <a class="btn btn-secondary offset-md-1 "
 				href='${homePage}'>Home Page</a> <a
@@ -38,7 +45,7 @@
 						<tbody>
 							<c:forEach items="${MARS}" var="mar" varStatus="status">
 								<tr>
-									<td style="text-align: center"><input type="radio" id="radioMar${status.count}" name="radioMar" value="${status.count}"></td>
+									<td style="text-align: center"><input onclick="document.getElementById('submit').disabled = false;"  type="radio" id="radioMar${status.count}" name="radioMar" value="${status.count}"></td>
 									<td><c:out value="${mar.marNumber}" /></td>
 									<td><c:out value="${mar.facilityType}" /></td>
 									<td><c:out value="${mar.reservationId}" /></td>
@@ -52,7 +59,7 @@
 						</tbody>
 					</table>
 				</div>
-				<br> <input type="submit" class="btn btn-primary col-md-3 offset-md-3" value="Submit"> <br> <br>
+				<br> <input type="submit" class="btn btn-primary col-md-3 offset-md-3" id="submit" value="Submit" disabled> <br> <br>
 			</form>
 		</div>
 </body>

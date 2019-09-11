@@ -19,9 +19,9 @@
 <title>UTA Mac FMS</title>
 </head>
 <body onload='onPageLoad();'>
-	<%-- <c:if test="${'Repairer'==loggedinuserrole}"></c:if> --%>
 	<div class="button-box col-lg-12 offset-md-1">
-		<h1><a	class="btn btn-secondary " href='${backListPage}'>Back</a>  Repair Details for ${mar.marNumber}  <a	class="btn btn-primary offset-md-1 " href='${homePage}'>Home Page</a>
+	<h1><a	class="btn btn-secondary " href='${backListPage}'>Back</a> </h1>
+		<h1> Repair Details for ${mar.marNumber}  <a	class="btn btn-primary offset-md-1 " href='${homePage}'>Home Page</a>
 		 <a	class="btn btn-danger offset-md-1" href="/UTA_Mac_FMS/LogoutController">Logout</a>
 		</h1>
 		<div>
@@ -53,7 +53,7 @@
 				</div><br>
 				<div class="row">
 					<div class="col">
-						<label for="datecreated">Date Created</label> <input type="date" name="datecreated" id="datecreated" class="form-control" value='${mar.dateCreated}' disabled>
+						<label for="datecreated">Date Created (MM/DD/YYYY)</label> <input type="text" name="datecreated" id="datecreated" class="form-control" value='${mar.dateCreated}' disabled>
 					</div>
 					<div class="col"></div>
 				</div><br>

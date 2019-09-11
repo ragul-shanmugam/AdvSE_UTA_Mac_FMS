@@ -11,7 +11,6 @@ import com.group4.macfms.util.SQLConnection;
 
 public class MarDAO {
 	static SQLConnection DBMgr = SQLConnection.getInstance();
-	
 
 	/*public MarDetails retrieveMarDetails(String date) {
 		MarDetails mar = new MarDetails();
@@ -108,8 +107,8 @@ public class MarDAO {
 	return ReturnMatchingMarsList(" SELECT * from mac_fms.mar ORDER BY mar_number;");
 	}
 	
-	public static ArrayList<MarDetails>  listAssignedMars() {  
-		return ReturnMatchingMarsList(" SELECT * from mac_fms.mar where assigned_to ='repairer';");
+	public static ArrayList<MarDetails>  listAssignedMars(String username) {  
+		return ReturnMatchingMarsList(" SELECT * from mac_fms.mar where assigned_to ='"+username+"';");
 		}
 
 }

@@ -2,17 +2,17 @@ package com.group4.macfms.model;
 
 public class User {
 
-	private String username;
+	private String userName;
 	private String password;
-	private String firstname;
-	private String lastname;
+	private String firstName;
+	private String lastName;
 	private String id;
 	private String phone;
 	private String email;
 	private String address;
 	private String city;
 	private String state;
-	private String zipcode;
+	private String zipCode;
 	private String role;
 
 	public void setUser(String username, String password, String firstname, String lastname, String id, String phone, 
@@ -33,11 +33,11 @@ public class User {
 	
 
 	public String getUsername() {
-		return username;
+		return userName;
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		this.userName = username;
 	}
 
 	public String getPassword() {
@@ -49,19 +49,19 @@ public class User {
 	}
 
 	public String getFirstname() {
-		return firstname;
+		return firstName;
 	}
 
 	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+		this.firstName = firstname;
 	}
 
 	public String getLastname() {
-		return lastname;
+		return lastName;
 	}
 
 	public void setLastname(String lastname) {
-		this.lastname = lastname;
+		this.lastName = lastname;
 	}
 
 	public String getId() {
@@ -113,11 +113,11 @@ public class User {
 	}
 
 	public String getZipcode() {
-		return zipcode;
+		return zipCode;
 	}
 
 	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
+		this.zipCode = zipcode;
 	}
 
 	public String getRole() {

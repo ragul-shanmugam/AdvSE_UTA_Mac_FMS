@@ -1,9 +1,7 @@
 package com.group4.macfms.controller;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.group4.macfms.data.MarDAO;
 import com.group4.macfms.model.MarDetails;
+import com.group4.macfms.model.User;
 
 /**
  * Servlet implementation class MarController
@@ -28,6 +27,9 @@ public class MarController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String action = request.getParameter("action");
+		User user = (User) session.getAttribute("userInfo");
+		String username = user.getUsername();
+		
 		/*MarDetails viewMar = new MarDetails();
 		MarDAO marDetails = new MarDAO();
 		String date = request.getParameter("date"); 
@@ -49,7 +51,7 @@ public class MarController extends HttpServlet {
 		
 		if (action.equalsIgnoreCase("viewAssignedMars")) {
 			ArrayList<MarDetails> marInDB = new ArrayList<MarDetails>();
-			marInDB = MarDAO.listAssignedMars();
+			marInDB = MarDAO.listAssignedMars(username);
 			session.setAttribute("MARS", marInDB);				
 			getServletContext().getRequestDispatcher("/listAssignedRepairs.jsp").forward(request, response);
 		}
@@ -63,6 +65,8 @@ public class MarController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("userInfo");
+		String username = user.getUsername();
 		
 		if (action.equalsIgnoreCase("listSpecificMar")) {
 			ArrayList<MarDetails> marInDB = new ArrayList<MarDetails>();
@@ -93,7 +97,7 @@ public class MarController extends HttpServlet {
 			
 			if (request.getParameter("radioMar")!=null) {
 				selectedMarIndex = Integer.parseInt(request.getParameter("radioMar")) - 1;
-				marInDB = MarDAO.listAssignedMars(); 
+				marInDB = MarDAO.listAssignedMars(username); 
 				selectedMar.setMar(marInDB.get(selectedMarIndex).getMarNumber(), marInDB.get(selectedMarIndex).getFacilityType(), marInDB.get(selectedMarIndex).getReservationId(), 
 										marInDB.get(selectedMarIndex).getReportedBy(), marInDB.get(selectedMarIndex).getUrgency(), marInDB.get(selectedMarIndex).getDescription(), 
 											marInDB.get(selectedMarIndex).getDateCreated(), marInDB.get(selectedMarIndex).getAssignedTo(), marInDB.get(selectedMarIndex).getAssignedDate(),

@@ -19,7 +19,7 @@
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
 			role="button">Request Repairs</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/MarController?action=viewAssignedMars"
-			role="button">View Assigned Repairs</a> <br> <br> <a
+			role="button">View My Assigned Repairs</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
 			role="button">Modify Assigned Repairs</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"

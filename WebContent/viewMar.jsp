@@ -9,12 +9,19 @@
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	function onPageLoad() {
+		$(document).ready(function() {
+			$("#updatemar :input").prop("disabled", true);
+		});
+	}
+</script>
 <title>UTA Mac FMS</title>
 </head>
-<body>
-	<%-- <c:if test="${'Repairer'==loggedinuserrole}"></c:if> --%>
+<body onload='onPageLoad();'>
 	<div class="button-box col-lg-12 offset-md-1">
-		<h1><a	class="btn btn-secondary " href='${backListPage}'>Back</a> MAR Details for ${mar.marNumber} <a	class="btn btn-primary offset-md-1 " href='${homePage}'>Home Page</a>
+	<h1><a	class="btn btn-secondary " href='${backListPage}'>Back</a></h1>
+		<h1> MAR Details for ${mar.marNumber} <a	class="btn btn-primary offset-md-1 " href='${homePage}'>Home Page</a>
 		 <a	class="btn btn-danger offset-md-1" href="/UTA_Mac_FMS/LogoutController">Logout</a>
 		</h1>
 		<div>
@@ -57,7 +64,7 @@
 				</div><br>
 				<div class="row">
 					<div class="col">
-						<label for="datecreated">Date Created</label> <input type="date" name="datecreated" id="datecreated" class="form-control"	value='${mar.dateCreated}'>
+						<label for="datecreated">Date Created (MM/DD/YYYY)</label> <input type="text" name="datecreated" id="datecreated" class="form-control"	value='${mar.dateCreated}'>
 					</div>
 					<div class="col"></div>
 				</div><br>
@@ -69,7 +76,7 @@
 				</div><br>
 				<div class="row">
 					<div class="col">
-						<label for="assigneddate">Assigned Date</label> <input type="date" name="assigneddate" id="assigneddate" class="form-control"	value='${mar.assignedDate}'>
+						<label for="assigneddate">Assigned Date (MM/DD/YYYY)</label> <input type="text" name="assigneddate" id="assigneddate" class="form-control"	value='${mar.assignedDate}'>
 					</div>
 					<div class="col"></div>
 				</div><br>
@@ -86,7 +93,7 @@
 					<div class="col"></div>
 				</div>
 				<br> <input type="submit"
-					class="btn btn-primary col-md-3" role="button" value="Update MAR Details">
+					class="btn btn-primary col-md-3" id="updatemar" role="button" value="Update MAR Details" disabled>
 			</form>
 		</div>
 	</div>
