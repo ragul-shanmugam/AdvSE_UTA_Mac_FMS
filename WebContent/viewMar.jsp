@@ -14,7 +14,7 @@
 <body>
 	<%-- <c:if test="${'Repairer'==loggedinuserrole}"></c:if> --%>
 	<div class="button-box col-lg-12 offset-md-1">
-		<h1>MAR Details for ${mar.marNumber} <a	class="btn btn-secondary offset-md-1 " href='${homePage}'>Home Page</a>
+		<h1><a	class="btn btn-secondary " href='${backListPage}'>Back</a> MAR Details for ${mar.marNumber} <a	class="btn btn-primary offset-md-1 " href='${homePage}'>Home Page</a>
 		 <a	class="btn btn-danger offset-md-1" href="/UTA_Mac_FMS/LogoutController">Logout</a>
 		</h1>
 		<div>
