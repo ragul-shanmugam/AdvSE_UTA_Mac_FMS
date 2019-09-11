@@ -54,6 +54,7 @@ public class ProfileController extends HttpServlet {
 		{
 		//validate user here
 			int status = updateUser.updateUserDetails(user);
+			System.err.println("Printing user role..."+user.getRole());
 			if(status == 1)
 			{
 			session.setAttribute("profile", user);

@@ -1,6 +1,8 @@
 package com.group4.macfms.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -83,8 +85,27 @@ public class LoginController extends HttpServlet {
 			String confirmPassword = request.getParameter("confirm");
 			//validate user details here
 			getUserParam(request, user);
-			register.insertUser(user);
+			int status = register.insertUser(user);
 			//show registration success message and redirect to login page
+			if(status == 1)
+			{
+				PrintWriter out = response.getWriter();
+				 String htmlRespone = "<html>";
+				 htmlRespone += "<meta charset=\"ISO-8859-1\" name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no\">\r\n" + 
+				 		"<link href=\"bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n" + 
+				 		"<script type=\"text/javascript\" src=\"bootstrap/js/bootstrap.min.js\"></script>";
+				 htmlRespone += "	<div class=\"alert alert-success alert-dismissible fade show\">\r\n" + 
+				 		"    <strong>Registration Successful!</strong> Please login to view your profile!!\r\n" + 
+				 		"    <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\r\n" + 
+				 		"	</div>";     
+			        htmlRespone += "<h2><a id='login_link' class=\"btn btn-primary offset-md-1 \" href = 'index.jsp'> Login</a></h2>";    
+			        htmlRespone += "</html>";
+			         
+			        // return response
+			        out.println(htmlRespone);
+				/*session.setAttribute("success", "Registration Successful! Please login to view your profile!!");
+				response.sendRedirect("register.jsp");*/
+			}
 		}
 	}
 

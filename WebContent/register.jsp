@@ -12,7 +12,7 @@
 <title>User Registration - UTA Mac FMS</title>
 </head>
 <body>
-	<div class="button-box col-lg-12 offset-md-1">
+	<div class="button-box col-lg-12 offset-md-1 ">
 		<h1>
 			User Registration <a id="login" href="/UTA_Mac_FMS/index.jsp"
 				class="btn btn-primary col-md-2 offset-md-2">Login</a>

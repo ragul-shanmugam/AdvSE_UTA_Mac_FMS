@@ -24,6 +24,7 @@
 		document.getElementById('id').disabled = false;
 		document.getElementById('role').style.background = "#e6e6e6";
 		document.getElementById('role').style.color = "#666666";
+		/* document.getElementById('role').disabled = true; */
 		document.getElementById('phone').disabled = false;
 		document.getElementById('email').disabled = false;
 		document.getElementById('address').disabled = false;
@@ -120,14 +121,7 @@
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="role">User Role</label> <select name="role" id="role" class="form-control" disabled>
-						<!-- <option selected>Choose...</option> -->
-						<option>${profile.role}</option>
-						<option value="User">User</option>
-						<option value="Facility Manager">Facility Manager</option>
-						<option value="Repairer">Repairer</option>
-						<option value="Admin">Admin</option>
-					</select>
+					<label for="role">User Role</label> <input name="role" type="text" id="role" class="form-control" value='${profile.role}' READONLY>
 				</div>
 				<div class="col"></div>
 			</div>
