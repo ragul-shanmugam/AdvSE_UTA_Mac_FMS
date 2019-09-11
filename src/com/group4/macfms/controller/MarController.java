@@ -29,15 +29,12 @@ public class MarController extends HttpServlet {
 		MarDetails viewMar = new MarDetails();
 		MarDAO marDetails = new MarDAO();
 		String date = request.getParameter("date"); 
-	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");  
-	    String formattedDate= formatter.format(date);  
-	    System.out.println(formattedDate);  
-		viewMar = marDetails.retrieveMarDetails(formattedDate);
+		viewMar = marDetails.retrieveMarDetails(date);
 		
 		if(viewMar != null)
 		{
 			session.setAttribute("marDetails", viewMar);
-			response.sendRedirect("marDetails.jsp");
+			response.sendRedirect("marResults.jsp");
 		}
 		
 	}

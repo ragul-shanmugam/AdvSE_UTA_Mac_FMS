@@ -56,6 +56,7 @@ public class LoginController extends HttpServlet {
 			
 			session.setAttribute("userInfo", loginUser);
 			dbUser = login.userCheck(request.getParameter("username"));
+			System.err.println("Printing user role..."+dbUser.getRole());
 
 			if (dbUser.getRole().equalsIgnoreCase("user")) {
 				session.setAttribute("user", dbUser);

@@ -47,10 +47,10 @@ public class ProfileDAO {
 		/*String queryString = "UPDATE mac_fms.users SET (`username`,`password`,`firstname`,`lastname`,`utaid`,`phone`,`email`,`address`,`city`,`state`,`zipcode`,`role`) VALUES "
 				+ "('"+updateDetails.getUsername()+"','"+updateDetails.getPassword()+"','"+updateDetails.getFirstname()+"','"+updateDetails.getLastname()+"','"+updateDetails.getId()+"','"+updateDetails.getPhone()+"','"+updateDetails.getEmail()+"','"
 				+updateDetails.getAddress()+"','"+updateDetails.getCity()+"','"+updateDetails.getState()+"','"+updateDetails.getZipcode()+"','"+updateDetails.getRole()+"');";*/
-		String queryString = "UPDATE `mac_fms`.`users` SET `username` = '"+updateDetails.getUsername()+"', `password` = '"+updateDetails.getPassword()+"', "
+		String queryString = "UPDATE `mac_fms`.`users` SET `password` = '"+updateDetails.getPassword()+"', "
 				+ "`firstname` = '"+updateDetails.getFirstname()+"', `lastname` = '"+updateDetails.getLastname()+"', `utaid` = '"+updateDetails.getId()+"', `phone` = '"+updateDetails.getPhone()+"', "
 						+ "`email` = '"+updateDetails.getEmail()+"', `address` = '"+updateDetails.getAddress()+"', `city` = '"+updateDetails.getCity()+"', `state` = '"+updateDetails.getState()+"', "
-								+ "`zipcode` = '"+updateDetails.getZipcode()+"', `role` = '"+updateDetails.getRole()+"' WHERE `username` = '"+updateDetails.getUsername()+"';";
+								+ "`zipcode` = '"+updateDetails.getZipcode()+"' WHERE `username` = '"+updateDetails.getUsername()+"';";
 		System.out.println("Printing query...."+queryString);
 		try {
 			stmt = conn.createStatement();

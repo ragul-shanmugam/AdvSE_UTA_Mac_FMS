@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,7 @@
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <title>UTA Mac FMS</title>
 </head>
-<body onload='onPageLoad();'>
+<body>
 	<div class="button-box col-lg-12 offset-md-1">
 		<h1>MAR Details</h1>
 		<div>

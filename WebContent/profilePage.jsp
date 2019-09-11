@@ -120,8 +120,7 @@
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="role">User Role</label> <select name="role" id="role"
-						class="form-control" READONLY>
+					<label for="role">User Role</label> <select name="role" id="role" class="form-control" disabled>
 						<!-- <option selected>Choose...</option> -->
 						<option>${profile.role}</option>
 						<option value="User">User</option>
