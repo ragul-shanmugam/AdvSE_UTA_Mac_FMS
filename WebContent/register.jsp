@@ -102,8 +102,7 @@
 				<div class="col">
 					<label for="role">User Role</label> <select name="role"
 						class="form-control">
-						<!-- <option selected>Choose...</option> -->
-						<option value="User">User</option>
+						<option value="Student/Faculty">Student/Faculty</option>
 						<option value="Facility Manager">Facility Manager</option>
 						<option value="Repairer">Repairer</option>
 						<option value="Admin">Admin</option>

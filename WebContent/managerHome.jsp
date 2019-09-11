@@ -26,7 +26,7 @@
 			role="button">Assign a MAR</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
 			role="button">Search for Assigned Repairs</a> <br> <br> <a
-			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
+			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/MarController?action=viewMars"
 			role="button">View a MAR</a> <br> <br>
 	</div>
 </body>

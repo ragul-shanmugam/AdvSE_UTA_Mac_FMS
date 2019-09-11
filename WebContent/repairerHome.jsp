@@ -16,11 +16,11 @@
 			href="/UTA_Mac_FMS/LogoutController">Logout</a></h1>  <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/ProfileController"
 			role="button">View/Modify Profile Details</a> <br> <br> <a
-			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/MarController"
+			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/MarController?action=viewMars"
 			role="button">View a MAR</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
 			role="button">Request Repairs</a> <br> <br> <a
-			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
+			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/MarController?action=viewAssignedMars"
 			role="button">View Assigned Repairs</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
 			role="button">Modify Assigned Repairs</a> <br> <br> <a

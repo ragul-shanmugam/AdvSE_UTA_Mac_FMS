@@ -4,28 +4,89 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1" name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<meta charset="ISO-8859-1" name="viewport"
+	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <title>UTA Mac FMS</title>
 </head>
 <body>
+	<%-- <c:if test="${'Repairer'==loggedinuserrole}"></c:if> --%>
 	<div class="button-box col-lg-12 offset-md-1">
-		<h1>MAR Details</h1>
+		<h1>MAR Details for ${mar.marNumber} <a	class="btn btn-secondary offset-md-1 " href='${homePage}'>Home Page</a>
+		 <a	class="btn btn-danger offset-md-1" href="/UTA_Mac_FMS/LogoutController">Logout</a>
+		</h1>
 		<div>
-			<form action="/UTA_Mac_FMS/MarController" method="GET" name="mar_form">
+			<form action="/UTA_Mac_FMS/MarController?action=updateMarDetails" method="POST" name="mar_form">
 				<div class="row">
 					<div class="col">
-						<label for="calendar">Choose a date:</label> 
-						<input type ="date" name="calendar" id="date" class="form-control" pattern="yyyy-MM-dd">
-					</div> 
-					<div class="col">
-					<br> <input value="Add cout Error here" class="form-control" id="login_errorMessage" type="text"	style="background-color: white; color: red; border: none; width: 800px"
-							disabled="disabled" maxlength="60">
+						<label for="marnumber">MAR number</label> <input type="text" name="marnumber" id="marnumber" class="form-control" value='${mar.marNumber}'>
 					</div>
+					<div class="col"></div>
+				</div> <br>
+				<div class="row">
+					<div class="col">
+						<label for="type">Facility Type</label> <input type="text" name="type" id="type" class="form-control"	value='${mar.facilityType}'>
+					</div>
+					<div class="col"></div>
+				</div><br>
+				<div class="row">
+					<div class="col">
+						<label for="rid">Reservation ID</label> <input type="text" name="rid" id="rid" class="form-control"	value='${mar.reservationId}'>
+					</div>
+					<div class="col"></div>
+				</div><br>
+				<div class="row">
+					<div class="col">
+						<label for="reportedby">Reported By</label> <input type="text" name="reportedby" id="reportedby" class="form-control"	value='${mar.reportedBy}'>
+					</div>
+					<div class="col"></div>
+				</div><br>
+				<div class="row">
+					<div class="col">
+						<label for="urgency">Urgency</label> <input type="text" name="urgency" id="urgency" class="form-control"	value='${mar.urgency}'>
+					</div>
+					<div class="col"></div>
+				</div><br>
+				<div class="row">
+					<div class="col">
+						<label for="description">Description</label> <input type="text" name="description" id="description" class="form-control"	value='${mar.description}'>
+					</div>
+					<div class="col"></div>
+				</div><br>
+				<div class="row">
+					<div class="col">
+						<label for="datecreated">Date Created</label> <input type="date" name="datecreated" id="datecreated" class="form-control"	value='${mar.dateCreated}'>
+					</div>
+					<div class="col"></div>
+				</div><br>
+				<div class="row">
+					<div class="col">
+						<label for="assignedto">Assigned To</label> <input type="text" name="assignedto" id="assignedto" class="form-control"	value='${mar.assignedTo}'>
+					</div>
+					<div class="col"></div>
+				</div><br>
+				<div class="row">
+					<div class="col">
+						<label for="assigneddate">Assigned Date</label> <input type="date" name="assigneddate" id="assigneddate" class="form-control"	value='${mar.assignedDate}'>
+					</div>
+					<div class="col"></div>
+				</div><br>
+				<div class="row">
+					<div class="col">
+						<label for="time">Estimated Time</label> <input type="text" name="time" id="time" class="form-control"	value='${mar.estimatedTime}'>
+					</div>
+					<div class="col"></div>
+				</div><br>
+				<div class="row">
+					<div class="col">
+						<label for="status">MAR Status</label> <input type="text" name="status" id="status" class="form-control"	value='${mar.marStatus}'>
+					</div>
+					<div class="col"></div>
 				</div>
-				<br> <br> <input type="submit"
-					class="btn btn-primary col-md-3" role="button" value="View MAR Details">
+				<br> <input type="submit"
+					class="btn btn-primary col-md-3" role="button" value="Update MAR Details">
 			</form>
 		</div>
 	</div>

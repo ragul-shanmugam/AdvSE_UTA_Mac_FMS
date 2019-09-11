@@ -18,12 +18,9 @@ public class User {
 	public void setUser(String username, String password, String firstname, String lastname, String id, String phone, 
 			String email, String address, String city, String state, String zipcode, String role) {
 		setUsername(username);
-		
 		setPassword(password);
 		setFirstname(firstname);
-		System.out.println("Printing first inside USER...."+getFirstname());
 		setLastname(lastname);
-		System.out.println("Printing last inside USER...."+getLastname());
 		setId(id);
 		setPhone(phone);
 		setEmail(email);

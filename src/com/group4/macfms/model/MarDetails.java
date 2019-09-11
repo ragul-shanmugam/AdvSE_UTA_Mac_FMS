@@ -13,6 +13,22 @@ public class MarDetails {
 	private String estimatedTime;
 	private String marStatus;
 	
+	public void setMar(String marNumber, String facilityType, String reservationId, String reportedBy,
+			String urgency, String description, String dateCreated, String assignedTo, String assignedDate,
+			String estimatedTime, String marStatus) {
+		setMarNumber(marNumber);
+		setFacilityType(facilityType);
+		setReservationId(reservationId);
+		setReportedBy(reportedBy);
+		setUrgency(urgency);
+		setDescription(description);
+		setDateCreated(dateCreated);
+		setAssignedTo(assignedTo);
+		setAssignedDate(assignedDate);
+		setEstimatedTime(estimatedTime);
+		setMarStatus(marStatus);		
+	}
+	
 	public String getMarNumber() {
 		return marNumber;
 	}

@@ -60,7 +60,7 @@ public class LoginController extends HttpServlet {
 			dbUser = login.userCheck(request.getParameter("username"));
 			System.err.println("Printing user role..."+dbUser.getRole());
 
-			if (dbUser.getRole().equalsIgnoreCase("user")) {
+			if (dbUser.getRole().equalsIgnoreCase("student/faculty")) {
 				session.setAttribute("user", dbUser);
 				response.sendRedirect("/UTA_Mac_FMS/userHome.jsp");
 				session.setAttribute("homePage", "userHome.jsp");
