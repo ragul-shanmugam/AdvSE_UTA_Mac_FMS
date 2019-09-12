@@ -12,8 +12,25 @@
 <script type="text/javascript">
 	function onPageLoad() {
 		$(document).ready(function() {
-			$("#updatemar :input").prop("disabled", true);
+			/* $("#updatemar :input").prop("disabled", true); */
+			$("#mar_form :input").prop("disabled", true);
 		});
+	}
+function editDetails() {
+	document.getElementById('marnumber').style.background = "#e6e6e6";
+	document.getElementById('marnumber').style.color = "#666666";
+	document.getElementById('type').disabled = false;
+	document.getElementById('rid').disabled = false;
+	document.getElementById('reportedby').disabled = false;
+	document.getElementById('urgency').disabled = false;
+	document.getElementById('description').disabled = false;
+	document.getElementById('datecreated').disabled = false;
+	document.getElementById('assignedto').disabled = false;
+	document.getElementById('assigneddate').disabled = false;
+	document.getElementById('time').disabled = false;
+	document.getElementById('status').disabled = false;
+	document.getElementById('updatemar').disabled = false;
+	document.getElementById('edit').disabled = true;
 	}
 </script>
 <title>UTA Mac FMS</title>
@@ -22,73 +39,77 @@
 	<div class="button-box col-lg-12 offset-md-1">
 	<h1><a	class="btn btn-secondary " href='${backListPage}'>Back</a></h1>
 		<h1> MAR Details for ${mar.marNumber} <a	class="btn btn-primary offset-md-1 " href='${homePage}'>Home Page</a>
+		<input id="edit" type="button"
+				class="btn btn-primary offset-md-1"
+				value="Edit Details" onclick="editDetails();"
+				style="color: white; cursor: pointer;" />
 		 <a	class="btn btn-danger offset-md-1" href="/UTA_Mac_FMS/LogoutController">Logout</a>
 		</h1>
 		<div>
 			<form action="/UTA_Mac_FMS/MarController?action=updateMarDetails" method="POST" name="mar_form">
 				<div class="row">
 					<div class="col">
-						<label for="marnumber">MAR number</label> <input type="text" name="marnumber" id="marnumber" class="form-control" value='${mar.marNumber}'>
+						<label for="marnumber">MAR number</label> <input type="text" name="marnumber" id="marnumber" class="form-control" value='${mar.marNumber}' READONLY>
 					</div>
 					<div class="col"></div>
 				</div> <br>
 				<div class="row">
 					<div class="col">
-						<label for="type">Facility Type</label> <input type="text" name="type" id="type" class="form-control"	value='${mar.facilityType}'>
+						<label for="type">Facility Type</label> <input type="text" name="type" id="type" class="form-control" value='${mar.facilityType}' disabled>
 					</div>
 					<div class="col"></div>
 				</div><br>
 				<div class="row">
 					<div class="col">
-						<label for="rid">Reservation ID</label> <input type="text" name="rid" id="rid" class="form-control"	value='${mar.reservationId}'>
+						<label for="rid">Reservation ID</label> <input type="text" name="rid" id="rid" class="form-control"	value='${mar.reservationId}' disabled>
 					</div>
 					<div class="col"></div>
 				</div><br>
 				<div class="row">
 					<div class="col">
-						<label for="reportedby">Reported By</label> <input type="text" name="reportedby" id="reportedby" class="form-control"	value='${mar.reportedBy}'>
+						<label for="reportedby">Reported By</label> <input type="text" name="reportedby" id="reportedby" class="form-control" value='${mar.reportedBy}' disabled>
 					</div>
 					<div class="col"></div>
 				</div><br>
 				<div class="row">
 					<div class="col">
-						<label for="urgency">Urgency</label> <input type="text" name="urgency" id="urgency" class="form-control"	value='${mar.urgency}'>
+						<label for="urgency">Urgency</label> <input type="text" name="urgency" id="urgency" class="form-control" value='${mar.urgency}' disabled>
 					</div>
 					<div class="col"></div>
 				</div><br>
 				<div class="row">
 					<div class="col">
-						<label for="description">Description</label> <input type="text" name="description" id="description" class="form-control"	value='${mar.description}'>
+						<label for="description">Description</label> <input type="text" name="description" id="description" class="form-control" value='${mar.description}' disabled>
 					</div>
 					<div class="col"></div>
 				</div><br>
 				<div class="row">
 					<div class="col">
-						<label for="datecreated">Date Created (MM/DD/YYYY)</label> <input type="text" name="datecreated" id="datecreated" class="form-control"	value='${mar.dateCreated}'>
+						<label for="datecreated">Date Created (MM/DD/YYYY)</label> <input type="text" name="datecreated" id="datecreated" class="form-control" value='${mar.dateCreated}' disabled>
 					</div>
 					<div class="col"></div>
 				</div><br>
 				<div class="row">
 					<div class="col">
-						<label for="assignedto">Assigned To</label> <input type="text" name="assignedto" id="assignedto" class="form-control"	value='${mar.assignedTo}'>
+						<label for="assignedto">Assigned To</label> <input type="text" name="assignedto" id="assignedto" class="form-control" value='${mar.assignedTo}' disabled>
 					</div>
 					<div class="col"></div>
 				</div><br>
 				<div class="row">
 					<div class="col">
-						<label for="assigneddate">Assigned Date (MM/DD/YYYY)</label> <input type="text" name="assigneddate" id="assigneddate" class="form-control"	value='${mar.assignedDate}'>
+						<label for="assigneddate">Assigned Date (MM/DD/YYYY)</label> <input type="text" name="assigneddate" id="assigneddate" class="form-control" value='${mar.assignedDate}' disabled>
 					</div>
 					<div class="col"></div>
 				</div><br>
 				<div class="row">
 					<div class="col">
-						<label for="time">Estimated Time</label> <input type="text" name="time" id="time" class="form-control"	value='${mar.estimatedTime}'>
+						<label for="time">Estimated Time</label> <input type="text" name="time" id="time" class="form-control"	value='${mar.estimatedTime}' disabled>
 					</div>
 					<div class="col"></div>
 				</div><br>
 				<div class="row">
 					<div class="col">
-						<label for="status">MAR Status</label> <input type="text" name="status" id="status" class="form-control"	value='${mar.marStatus}'>
+						<label for="status">MAR Status</label> <input type="text" name="status" id="status" class="form-control" value='${mar.marStatus}' disabled>
 					</div>
 					<div class="col"></div>
 				</div>

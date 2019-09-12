@@ -24,9 +24,6 @@ public class ProfileController extends HttpServlet {
 				request.getParameter("lname"), request.getParameter("id"), request.getParameter("phone"),
 				request.getParameter("email"), request.getParameter("address"), request.getParameter("city"),
 				request.getParameter("state"), request.getParameter("zip"), request.getParameter("role"));
-		System.out.println("Inside getuserParam...Username...." + request.getParameter("username"));
-		System.out.println("Inside getuserParam...First Name...." + request.getParameter("fname"));
-		System.out.println("Inside getuserParam...Last Name...." + request.getParameter("lname"));
 	}
  
 	/**

@@ -20,6 +20,13 @@ import com.group4.macfms.model.User;
 @WebServlet("/MarController")
 public class MarController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private void getUserParam(HttpServletRequest request, MarDetails mar) {
+		mar.setMar(request.getParameter("marnumber"), request.getParameter("type"), request.getParameter("rid"),
+				request.getParameter("reportedby"), request.getParameter("urgency"), request.getParameter("description"),
+				request.getParameter("datecreated"), request.getParameter("assignedto"), request.getParameter("assigneddate"),
+				request.getParameter("time"), request.getParameter("status"));
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -29,24 +36,21 @@ public class MarController extends HttpServlet {
 		String action = request.getParameter("action");
 		User user = (User) session.getAttribute("userInfo");
 		String username = user.getUsername();
-		
-		/*MarDetails viewMar = new MarDetails();
-		MarDAO marDetails = new MarDAO();
-		String date = request.getParameter("date"); 
-		viewMar = marDetails.retrieveMarDetails(date);
-		
-		if(viewMar != null)
-		{
-			session.setAttribute("marDetails", viewMar);
-			response.sendRedirect("marResults.jsp");
-		}*/
-		
+				
 		if (action.equalsIgnoreCase("viewMars")) {
 			ArrayList<MarDetails> marInDB = new ArrayList<MarDetails>();
 			marInDB = MarDAO.listMars();
 			session.setAttribute("MARS", marInDB);	
 			//session.setAttribute("backListPage", "/listMars.jsp");
 			getServletContext().getRequestDispatcher("/listMars.jsp").forward(request, response);
+		}
+		
+		if (action.equalsIgnoreCase("viewUnassignedMars")) {
+			ArrayList<MarDetails> marInDB = new ArrayList<MarDetails>();
+			marInDB = MarDAO.listUnassignedMars();
+			session.setAttribute("MARS", marInDB);	
+			//session.setAttribute("backListPage", "/listMars.jsp");
+			getServletContext().getRequestDispatcher("/listUnassignedMars.jsp").forward(request, response);
 		}
 		
 		if (action.equalsIgnoreCase("viewAssignedMars")) {
@@ -86,10 +90,38 @@ public class MarController extends HttpServlet {
 				response.sendRedirect("viewMar.jsp");
 			}
 		}
-		if (action.equalsIgnoreCase("updatemarDetails"))
+		if (action.equalsIgnoreCase("updateMarDetails"))
 		{
-			System.out.println("Inside updatemarDetails if....");
+			MarDAO marUpdate = new MarDAO();
+			MarDetails mar = new MarDetails();
+			getUserParam(request, mar);
+			int status = marUpdate.updateMarDetails(mar);
+			if(status == 1)
+			{
+			session.setAttribute("mar", mar);
+			response.sendRedirect("viewMar.jsp");
+			}
 		}
+		
+		if (action.equalsIgnoreCase("listSpecificUnassignedMar")) {
+			ArrayList<MarDetails> marInDB = new ArrayList<MarDetails>();
+			MarDetails selectedMar = new MarDetails();
+			int selectedMarIndex;
+			
+			if (request.getParameter("radioMar")!=null) {
+				selectedMarIndex = Integer.parseInt(request.getParameter("radioMar")) - 1;
+				marInDB = MarDAO.listUnassignedMars(); 
+				selectedMar.setMar(marInDB.get(selectedMarIndex).getMarNumber(), marInDB.get(selectedMarIndex).getFacilityType(), marInDB.get(selectedMarIndex).getReservationId(), 
+										marInDB.get(selectedMarIndex).getReportedBy(), marInDB.get(selectedMarIndex).getUrgency(), marInDB.get(selectedMarIndex).getDescription(), 
+											marInDB.get(selectedMarIndex).getDateCreated(), marInDB.get(selectedMarIndex).getAssignedTo(), marInDB.get(selectedMarIndex).getAssignedDate(),
+											marInDB.get(selectedMarIndex).getEstimatedTime(), marInDB.get(selectedMarIndex).getMarStatus());
+				session.setAttribute("mar", selectedMar);
+				session.setAttribute("backListPage", "listUnassignedMars.jsp");
+				//getServletContext().getRequestDispatcher("/viewMar.jsp").forward(request, response);			
+				response.sendRedirect("viewMar.jsp");
+			}
+		}
+		
 		if (action.equalsIgnoreCase("listSpecificRepair")) {
 			ArrayList<MarDetails> marInDB = new ArrayList<MarDetails>();
 			MarDetails selectedMar = new MarDetails();

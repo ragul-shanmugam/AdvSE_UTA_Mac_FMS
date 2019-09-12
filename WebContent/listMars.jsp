@@ -25,6 +25,7 @@
 				class="btn btn-danger offset-md-1"
 				href="/UTA_Mac_FMS/LogoutController">Logout</a>
 		</h1>
+		<h3><small class="offset-md-6"><strong>Select a MAR and click on View MAR Details to view more details!!</strong></small></h3>
 		<div>
 			<form action="/UTA_Mac_FMS/MarController?action=listSpecificMar" method="POST">
 				<div class="table-responsive">
@@ -59,7 +60,7 @@
 						</tbody>
 					</table>
 				</div>
-				<br> <input type="submit" class="btn btn-primary col-md-3 offset-md-3" id="submit" value="Submit" disabled> <br> <br>
+				<br> <input type="submit" class="btn btn-primary col-md-3 offset-md-3" id="submit" value="View MAR Details" disabled> <br> <br>
 			</form>
 		</div>
 </body>
