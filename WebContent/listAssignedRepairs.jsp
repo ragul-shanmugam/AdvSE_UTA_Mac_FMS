@@ -4,8 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="ISO-8859-1 name="
-	viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"">
+<meta charset="ISO-8859-1" name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"">
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
@@ -31,7 +30,7 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th scope="col">Select Repair</th>
+								<th scope="col" style="text-align: center">Select Repair</th>
 								<th scope="col">MAR number</th>
 								<th scope="col">Facility Type</th>
 								<th scope="col">Urgency</th>

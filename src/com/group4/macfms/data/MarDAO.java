@@ -6,24 +6,24 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import com.group4.macfms.model.MarDetails;
+import com.group4.macfms.model.Mar;
 import com.group4.macfms.util.SQLConnection;
 
 public class MarDAO {
 	static SQLConnection DBMgr = SQLConnection.getInstance();
 
-	public static ArrayList<MarDetails> ReturnMatchingMarsList(String queryString) {
+	public static ArrayList<Mar> ReturnMatchingMarsList(String queryString) {
 		
 		Statement stmt = null;
 		Connection conn = SQLConnection.getDBConnection();
-		ArrayList<MarDetails> marsListInDB = new ArrayList<MarDetails>();
+		ArrayList<Mar> marsListInDB = new ArrayList<Mar>();
 		//String queryString = "SELECT * from mac_fms.mar order by mar_number;";
 		System.out.println("Printing mar query..."+queryString);
 		try {
 			stmt = conn.createStatement();
 			ResultSet marList = stmt.executeQuery(queryString);
 			while (marList.next()) {
-				MarDetails mar = new MarDetails();
+				Mar mar = new Mar();
 				mar.setMarNumber(marList.getString("mar_number"));
 				mar.setFacilityType(marList.getString("facility_type"));
 				mar.setReservationId(marList.getString("reservation_id"));
@@ -44,7 +44,7 @@ public class MarDAO {
 		return marsListInDB;
 	}
 	
-	public int updateMarDetails(MarDetails mar) {
+	public int updateMarDetails(Mar mar) {
 		
 	Statement stmt = null;
 	Connection conn = SQLConnection.getDBConnection();
@@ -65,15 +65,15 @@ public class MarDAO {
 		return status;
 	}
 
-	public static ArrayList<MarDetails>  listMars() {  
+	public static ArrayList<Mar>  listMars() {  
 	return ReturnMatchingMarsList(" SELECT * from mac_fms.mar ORDER BY mar_number;");
 	}
 	
-	public static ArrayList<MarDetails>  listUnassignedMars() {  
+	public static ArrayList<Mar>  listUnassignedMars() {  
 		return ReturnMatchingMarsList(" SELECT * from mac_fms.mar where assigned_to ='"+null+"';");
 		}
 	
-	public static ArrayList<MarDetails>  listAssignedMars(String username) {  
+	public static ArrayList<Mar>  listAssignedMars(String username) {  
 		return ReturnMatchingMarsList(" SELECT * from mac_fms.mar where assigned_to ='"+username+"';");
 		}
 }

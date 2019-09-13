@@ -118,6 +118,5 @@ function editDetails() {
 			</form>
 		</div>
 	</div>
-
 </body>
 </html>

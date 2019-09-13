@@ -16,10 +16,10 @@
 			href="/UTA_Mac_FMS/LogoutController">Logout</a></h1> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/ProfileController"
 			role="button">View/Modify Profile Details</a> <br> <br> <a
-			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
-			role="button">Search Facilities</a> <br> <br> <a
-			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
-			role="button">View Facility Details</a> <br> <br> <a
+			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/searchFacility.jsp"
+			role="button">Search/View Facility Details</a> <br> <br> <a
+			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/searchFacility.jsp"
+			role="button">Update Availability of Facility</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
 			role="button">Add a Facility</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/MarController?action=viewUnassignedMars"

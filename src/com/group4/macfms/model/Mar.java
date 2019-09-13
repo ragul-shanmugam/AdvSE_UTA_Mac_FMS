@@ -1,6 +1,6 @@
 package com.group4.macfms.model;
 
-public class MarDetails {
+public class Mar {
 	private String marNumber;
 	private String facilityType;
 	private String reservationId;
