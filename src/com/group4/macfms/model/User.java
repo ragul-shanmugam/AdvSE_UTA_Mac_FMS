@@ -1,9 +1,12 @@
 package com.group4.macfms.model;
 
+import com.group4.macfms.data.LoginDAO;
+
 public class User {
 
 	private String userName;
 	private String password;
+	private String confirmPassword;
 	private String firstName;
 	private String lastName;
 	private String id;
@@ -46,6 +49,15 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 
 	public String getFirstname() {
@@ -128,9 +140,21 @@ public class User {
 		this.role = role;
 	}
 
-	public void validateUser() {
-
+	public void validateUser(User loginUser, UserErrorMsgs errorMsg) {
+		if((loginUser.getUsername().equals("")) || (loginUser.getPassword().equals("")))
+		{
+			System.out.println("inside validate user else ");
+			errorMsg.setLoginErrMsg("Username or Password cannot be empty.");
+		}
 	}
-	
 
+	public void validateUserPassword(User loginUser, UserErrorMsgs errorMsg) {
+		LoginDAO regDb = new LoginDAO();
+		User userInDB = regDb.userCheck(loginUser.getUsername());
+		System.out.println("Printing password from user.... "+loginUser.getPassword());
+		if(userInDB.getPassword() == null || !(userInDB.getPassword().equals(loginUser.getPassword())))
+		{
+			errorMsg.setLoginErrMsg("Incorrect Username or Password.");
+		}		
+	}
 }

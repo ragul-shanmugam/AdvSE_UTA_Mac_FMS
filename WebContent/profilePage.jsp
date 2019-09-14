@@ -258,7 +258,7 @@
 			<div class="row">
 				<div class="col">
 					<input id="update" type="submit" class="btn btn-primary col-md-5"
-						value="Update Details" disabled />
+						value="Update Details" disabled /> <br><br>
 					<!-- <input id="reset" type="reset" class="btn btn-primary col-md-3" value="Reset" onClick="onPageLoad();" disabled/> -->
 				</div>
 			</div>

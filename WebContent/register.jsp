@@ -238,7 +238,7 @@
 			<br>
 			<button type="submit" class="btn btn-primary col-md-3">Register</button>
 			<button type="reset" class="btn btn-primary col-md-3">Reset</button>
-			<br>
+			<br><br>
 		</form>
 	</div>
 </body>

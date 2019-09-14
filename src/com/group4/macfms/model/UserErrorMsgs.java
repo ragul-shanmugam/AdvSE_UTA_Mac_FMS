@@ -5,23 +5,24 @@ public class UserErrorMsgs {
 	private String commonerrorMsg = "";
 	private String usernameError = "";
 	private String passwordError = "";
+	private String confirmPasswordError = "";
 	private String fnameError = "";
 	private String lnameError = "";
 	private String idError = "";
 	private String emailError = "";
 	private String addressError = "";
 	private String cityError = "";
-	private String stateError = "";
 	private String zipCodeError = "";
-	private String roleError = "";
 	
+	private String loginErrMsg = "";
+
 	public String getCommonerrorMsg() {
 		return commonerrorMsg;
 	}
 	public void setCommonerrorMsg(String commonerrorMsg) {
-		if(!usernameError.equals("") || !passwordError.equals("") || !fnameError.equals("") || !lnameError.equals("") 
+		if(!usernameError.equals("") || !passwordError.equals("") || !confirmPasswordError.equals("") || !fnameError.equals("") || !lnameError.equals("") 
 				|| !idError.equals("") || !emailError.equals("") || !addressError.equals("") || !cityError.equals("") 
-				|| !stateError.equals("") || !zipCodeError.equals("") || !roleError.equals(""))
+				|| !zipCodeError.equals(""))
 			commonerrorMsg = "Please correct the following:";
 		else
 			commonerrorMsg = "";
@@ -37,6 +38,12 @@ public class UserErrorMsgs {
 	}
 	public void setPasswordError(String passwordError) {
 		this.passwordError = passwordError;
+	}
+	public String getConfirmPasswordError() {
+		return confirmPasswordError;
+	}
+	public void setConfirmPasswordError(String confirmPasswordError) {
+		this.confirmPasswordError = confirmPasswordError;
 	}
 	public String getFnameError() {
 		return fnameError;
@@ -74,23 +81,16 @@ public class UserErrorMsgs {
 	public void setCityError(String cityError) {
 		this.cityError = cityError;
 	}
-	public String getStateError() {
-		return stateError;
-	}
-	public void setStateError(String stateError) {
-		this.stateError = stateError;
-	}
 	public String getZipCodeError() {
 		return zipCodeError;
 	}
 	public void setZipCodeError(String zipCodeError) {
 		this.zipCodeError = zipCodeError;
 	}
-	public String getRoleError() {
-		return roleError;
+	public String getLoginErrMsg() {
+		return loginErrMsg;
 	}
-	public void setRoleError(String roleError) {
-		this.roleError = roleError;
+	public void setLoginErrMsg(String loginErrMsg) {
+		this.loginErrMsg = loginErrMsg;
 	}
-	
 }

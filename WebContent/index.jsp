@@ -16,12 +16,13 @@
 		<div>
 			<form action="/UTA_Mac_FMS/LoginController?action=login"
 				method="POST" name="login_form">
+				<input value="<c:out value='${commonErrorMsg}'/>" id = "common_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
 				<br> <div class="row">
 				<div class="col">
 					<label for="username">Enter your User Name</label> <input name="username" id="username" type="text" class="form-control" placeholder="Username">
 				</div>
 				<div class="col">
-				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
+				<br> <input value="<c:out value='${errorMessage}'/>" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
 				</div>
 			</div>
 			<br>
@@ -31,13 +32,14 @@
 						type="password" class="form-control" placeholder="Password">
 				</div>
 				<div class="col">
-				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60"> 
+				<br> <input value="<c:out value='${incorrectPassword}'/>" class="form-control" id = "password_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60"> 
 				</div>
 			</div>
 			<br>
 					<br> <input type="submit" class="btn btn-primary col-md-3" role="button" value="Login"> 
-						<input type="reset" class="btn btn-primary col-md-3" role="button" value="Clear"> <br> <br>
+						<input type="reset" class="btn btn-primary col-md-3" role="button" value="Clear""> <br> <br>
 						<a class="btn btn-success col-md-6" href="/UTA_Mac_FMS/register.jsp" role="button">Register here!!!</a> <br> <br>
+						<%-- <input value="<c:out value='${errorMessage}'/>" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60"> --%>
 			</form>
 		</div>
 	</div>
