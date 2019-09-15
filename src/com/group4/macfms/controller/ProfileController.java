@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import com.group4.macfms.data.ProfileDAO;
 import com.group4.macfms.model.User;
+import com.group4.macfms.model.UserErrorMsgs;
 
 /**
  * Servlet implementation class ViewProfileController
@@ -20,7 +21,7 @@ public class ProfileController extends HttpServlet {
 	User user = new User();
 	
 	private void getUserParam(HttpServletRequest request, User user) {
-		user.setUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("fname"),
+		user.setUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("confirm"), request.getParameter("fname"),
 				request.getParameter("lname"), request.getParameter("id"), request.getParameter("phone"),
 				request.getParameter("email"), request.getParameter("address"), request.getParameter("city"),
 				request.getParameter("state"), request.getParameter("zip"), request.getParameter("role"));
@@ -47,15 +48,31 @@ public class ProfileController extends HttpServlet {
 		String action = request.getParameter("action");
 		ProfileDAO updateUser = new ProfileDAO();
 		getUserParam(request, user);
+		UserErrorMsgs errorMsgs = new UserErrorMsgs();
 		if(action.equalsIgnoreCase("updateUserDetails"))
 		{
-		//validate user here
+			//validate user here
+			user.validateUserDetails(user, errorMsgs);
+			if (errorMsgs.getCommonerrorMsg() != "" || !errorMsgs.getCommonerrorMsg().isEmpty()) {
+				System.out.println("inside register error user  ");
+				session.setAttribute("errorMessage", errorMsgs);
+				//session.setAttribute("commonErrorMsg", errorMsg.getCommonerrorMsg());
+				getServletContext().getRequestDispatcher("/profilePage.jsp").forward(request, response);
+			}
+			else
+			{
+				
 			int status = updateUser.updateUserDetails(user);
-			System.err.println("Printing user role..."+user.getRole());
 			if(status == 1)
 			{
 			session.setAttribute("profile", user);
 			response.sendRedirect("profilePage.jsp");
+			}
+			else
+			{
+				session.setAttribute("dbError", "There is a system issue updating your profile! Please try again in sometime");
+				getServletContext().getRequestDispatcher("/profilePage.jsp").forward(request, response);				
+			}
 			}
 		}
 	}

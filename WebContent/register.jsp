@@ -25,8 +25,8 @@
 						type="text" class="form-control" placeholder="Username">
 				</div>
 				<div class="col">
-					<br> <input value="Add cout Error here" class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.usernameError}'/>" class="form-control"
+						id="user_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>
@@ -38,8 +38,8 @@
 						type="password" class="form-control" placeholder="Password">
 				</div>
 				<div class="col">
-					<br> <input value="Add cout Error here" class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.passwordError}'/>" class="form-control"
+						id="password_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>
@@ -52,8 +52,8 @@
 						placeholder="Confirm Password">
 				</div>
 				<div class="col">
-					<br> <input value="Add cout Error here" class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.confirmPasswordError}'/>" class="form-control"
+						id="cPassword_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>
@@ -65,8 +65,8 @@
 						type="text" class="form-control" placeholder="First name">
 				</div>
 				<div class="col">
-					<br> <input value="Add cout Error here" class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.fnameError}'/>" class="form-control"
+						id="fname_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>
@@ -78,8 +78,8 @@
 						type="text" class="form-control" placeholder="Last name">
 				</div>
 				<div class="col">
-					<br> <input value="Add cout Error here" class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.lnameError}'/>" class="form-control"
+						id="lname_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>
@@ -91,8 +91,8 @@
 						class="form-control" placeholder="UTA ID">
 				</div>
 				<div class="col">
-					<br> <input value="Add cout Error here" class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.idError}'/>" class="form-control"
+						id="id_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>
@@ -113,12 +113,12 @@
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="phone">Phone</label> <input name="phone" type="text"
+					<label for="phone">Phone Number</label> <input name="phone" type="text"
 						class="form-control" placeholder="Phone">
 				</div>
 				<div class="col">
-					<br> <input value="Add cout Error here" class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.phoneError}'/>" class="form-control"
+						id="phone_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>
@@ -130,8 +130,8 @@
 						type="text" class="form-control" placeholder="Email">
 				</div>
 				<div class="col">
-					<br> <input value="Add cout Error here" class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.emailError}'/>" class="form-control"
+						id="email_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>
@@ -143,8 +143,8 @@
 						type="text" class="form-control" placeholder="Address">
 				</div>
 				<div class="col">
-					<br> <input value="Add cout Error here" class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.addressError}'/>" class="form-control"
+						id="address_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>
@@ -156,8 +156,8 @@
 						class="form-control" placeholder="City">
 				</div>
 				<div class="col">
-					<br> <input value="Add cout Error here" class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.cityError}'/>" class="form-control"
+						id="city_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>
@@ -229,8 +229,8 @@
 						class="form-control" placeholder="Zip Code">
 				</div>
 				<div class="col">
-					<br> <input value="Add cout Error here" class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.zipCodeError}'/>" class="form-control"
+						id="zip_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>

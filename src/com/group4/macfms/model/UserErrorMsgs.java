@@ -10,6 +10,7 @@ public class UserErrorMsgs {
 	private String lnameError = "";
 	private String idError = "";
 	private String emailError = "";
+	private String phoneError = "";
 	private String addressError = "";
 	private String cityError = "";
 	private String zipCodeError = "";
@@ -19,7 +20,7 @@ public class UserErrorMsgs {
 	public String getCommonerrorMsg() {
 		return commonerrorMsg;
 	}
-	public void setCommonerrorMsg(String commonerrorMsg) {
+	public void setCommonerrorMsg() {
 		if(!usernameError.equals("") || !passwordError.equals("") || !confirmPasswordError.equals("") || !fnameError.equals("") || !lnameError.equals("") 
 				|| !idError.equals("") || !emailError.equals("") || !addressError.equals("") || !cityError.equals("") 
 				|| !zipCodeError.equals(""))
@@ -68,6 +69,12 @@ public class UserErrorMsgs {
 	}
 	public void setEmailError(String emailError) {
 		this.emailError = emailError;
+	}
+	public String getPhoneError() {
+		return phoneError;
+	}
+	public void setPhoneError(String phoneError) {
+		this.phoneError = phoneError;
 	}
 	public String getAddressError() {
 		return addressError;

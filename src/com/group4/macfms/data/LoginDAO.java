@@ -61,4 +61,23 @@ public class LoginDAO {
 			}
 		return status;
 		}
+	
+	public static boolean checkUniqueUsername(String username) {
+		Statement stmt = null;
+		Connection conn = SQLConnection.getDBConnection();
+		boolean userNameExists = false;
+		
+		String sql = "SELECT * from mac_fms.users where username = '"+username+"';";
+		try {
+			stmt = conn.createStatement();
+			ResultSet userList = stmt.executeQuery(sql);
+			if (userList.next()) {
+				userNameExists = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return userNameExists;
+	}
 	}

@@ -22,7 +22,7 @@ public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private void getUserParam(HttpServletRequest request, User user) {
-		user.setUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("fname"),
+		user.setUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("confirm"), request.getParameter("fname"),
 				request.getParameter("lname"), request.getParameter("id"), request.getParameter("phone"),
 				request.getParameter("email"), request.getParameter("address"), request.getParameter("city"),
 				request.getParameter("state"), request.getParameter("zip"), request.getParameter("role"));
@@ -102,9 +102,23 @@ public class LoginController extends HttpServlet {
 		if (action.equalsIgnoreCase("register")) {
 			User user = new User();
 			LoginDAO register = new LoginDAO();
-			String confirmPassword = request.getParameter("confirm");
+			//User registerUser = new User();
+			UserErrorMsgs errorMsgs = new UserErrorMsgs();
 			// validate user details here
 			getUserParam(request, user);
+			
+			user.validateUserDetails(user, errorMsgs);
+			
+			if (errorMsgs.getCommonerrorMsg() != "" || !errorMsgs.getCommonerrorMsg().isEmpty()) {
+				url = "/register.jsp";
+				System.out.println("inside register error user  ");
+				session.setAttribute("errorMessage", errorMsgs);
+				//session.setAttribute("commonErrorMsg", errorMsg.getCommonerrorMsg());
+				getServletContext().getRequestDispatcher(url).forward(request, response);
+			}
+			else
+			{
+			
 			int status = register.insertUser(user);
 			// show registration success message and redirect to login page
 			if (status == 1) {
@@ -127,6 +141,13 @@ public class LoginController extends HttpServlet {
 				 * "Registration Successful! Please login to view your profile!!");
 				 * response.sendRedirect("register.jsp");
 				 */
+				}
+			else
+			{
+				url = "/register.jsp";
+				session.setAttribute("dbError", "There is a system issue registering a user! Please try again in sometime");
+				getServletContext().getRequestDispatcher(url).forward(request, response);				
+			}
 			}
 		}
 	}

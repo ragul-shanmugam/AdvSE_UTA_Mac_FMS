@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.group4.macfms.model.Mar;
 import com.group4.macfms.util.SQLConnection;
@@ -70,10 +71,32 @@ public class MarDAO {
 	}
 	
 	public static ArrayList<Mar>  listUnassignedMars() {  
-		return ReturnMatchingMarsList(" SELECT * from mac_fms.mar where assigned_to ='"+null+"';");
+		return ReturnMatchingMarsList(" SELECT * from mac_fms.mar where TRIM(assigned_to) IS NULL or assigned_to ='"+null+"';");
 		}
 	
 	public static ArrayList<Mar>  listAssignedMars(String username) {  
 		return ReturnMatchingMarsList(" SELECT * from mac_fms.mar where assigned_to ='"+username+"';");
 		}
+
+	public int insertMar(Mar mar, String userName) {
+		int status = 0;
+		Statement stmt = null;
+		Connection conn = SQLConnection.getDBConnection();
+		Random random = new Random();
+		int x = random.nextInt(900) + 100;
+		String marNumber = "MAR "+x;
+		String reservationId = "R "+x;
+			
+		String querystring = "INSERT INTO mac_fms.mar (`mar_number`, `facility_type`, `reservation_id`, `reported_by`, `urgency`,`description`,`date_created`) VALUES "
+							+ "('"+marNumber+"','"+mar.getFacilityType()+"','"+reservationId+"', '"+userName+"', '"+mar.getUrgency()+"','"+mar.getDescription()+"','"+mar.getDateCreated()+"');";							
+					System.out.println("Printing query...."+querystring);
+					try {
+						stmt = conn.createStatement();
+						status = stmt.executeUpdate(querystring);
+						conn.commit(); 
+					}catch (SQLException e) {
+						e.printStackTrace();
+					}			
+		return status;
+	}
 }

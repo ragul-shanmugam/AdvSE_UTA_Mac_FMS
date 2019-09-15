@@ -1,6 +1,7 @@
 package com.group4.macfms.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -138,6 +139,53 @@ public class MarController extends HttpServlet {
 				//getServletContext().getRequestDispatcher("/viewMar.jsp").forward(request, response);		
 				session.setAttribute("backListPage", "listAssignedRepairs.jsp");
 				response.sendRedirect("viewRepair.jsp");
+			}
+		}
+		if(action.equalsIgnoreCase("reportProblem"))
+		{
+			MarDAO marInsert = new MarDAO();
+			Mar mar = new Mar();
+			mar.setFacilityType(request.getParameter("fname"));
+			mar.setUrgency(request.getParameter("urgency"));
+			mar.setDescription(request.getParameter("description"));
+			mar.setDateCreated(request.getParameter("date"));
+			User userInfo = (User) session.getAttribute("userInfo");
+			String userName = userInfo.getUsername();
+			
+			System.err.println("Printing username.."+userName);
+			
+			int status = marInsert.insertMar(mar, userName);
+			if(status == 1)
+			{
+				PrintWriter out = response.getWriter();
+				 String htmlRespone = "<html>";
+				 htmlRespone += "<meta charset=\"ISO-8859-1\" name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no\">\r\n" + 
+				 		"<link href=\"bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n" + 
+				 		"<script type=\"text/javascript\" src=\"bootstrap/js/bootstrap.min.js\"></script>";
+				 htmlRespone += "	<div class=\"alert alert-success alert-dismissible fade show\">\r\n" + 
+				 		"    <strong>Report submitted successfully! The issue will be addressed by a technician ASAP!!</strong>\r\n" + 
+				 		"    <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\r\n" + 
+				 		"	</div>";     
+			        htmlRespone += "<h2><a id='userhome' class=\"btn btn-primary offset-md-1 \" href='userHome.jsp'>Back to Home Page</a></h2>";    
+			        htmlRespone += "</html>";
+			       
+			        out.println(htmlRespone);
+			}
+			else
+			{
+				PrintWriter out = response.getWriter();
+				 String htmlRespone = "<html>";
+				 htmlRespone += "<meta charset=\"ISO-8859-1\" name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no\">\r\n" + 
+				 		"<link href=\"bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n" + 
+				 		"<script type=\"text/javascript\" src=\"bootstrap/js/bootstrap.min.js\"></script>";
+				 htmlRespone += "	<div class=\"alert alert-danger alert-dismissible fade show\">\r\n" + 
+				 		"    <strong>We are facing some system issues! Please try reporting the problem again! Sorry for the inconvinience!</strong>\r\n" + 
+				 		"    <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\r\n" + 
+				 		"	</div>";     
+			        htmlRespone += "<h2><a id='userhome' class=\"btn btn-primary offset-md-1 \" href='userHome.jsp'>Back to Home Page</a></h2>";    
+			        htmlRespone += "</html>";
+			       
+			        out.println(htmlRespone);
 			}
 		}
 	}

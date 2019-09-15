@@ -13,7 +13,7 @@
 <title>Repairer - UTA Mac FMS</title>
 </head>
 <body>
-<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/mac_fms?autoReconnect=true&useSSL=false" user="root" password="MyNewPass"/>
+<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false" user="root" password="*****"/>
 <sql:query dataSource="${dsfacility}" var="facilityresult">
     SELECT distinct Facility FROM mac_fms.facility;
 </sql:query>
