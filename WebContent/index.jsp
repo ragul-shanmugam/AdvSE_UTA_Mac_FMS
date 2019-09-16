@@ -19,7 +19,7 @@
 				<input value="<c:out value='${commonErrorMsg}'/>" id = "common_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
 				<br> <div class="row">
 				<div class="col">
-					<label for="username">Enter your User Name</label> <input name="username" id="username" type="text" class="form-control" placeholder="Username">
+					<label for="username">Enter your Username</label> <input name="username" id="username" type="text" class="form-control" placeholder="Username">
 				</div>
 				<div class="col">
 				<br> <input value="<c:out value='${errorMessage}'/>" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  

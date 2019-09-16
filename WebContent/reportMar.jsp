@@ -41,6 +41,7 @@ $(function () {
 		</h1>
 		<form action="/UTA_Mac_FMS/MarController?action=reportProblem"
 			method="POST" name="reportProblem_form">
+			<input value="<c:out value='${commonErrorMsg}'/>" id = "common_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
 			<div class="row">
 				<div class="col">
 					<label for="role">Select Facility Type</label> <select name="ftype"

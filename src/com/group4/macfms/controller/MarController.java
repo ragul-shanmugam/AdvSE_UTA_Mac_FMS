@@ -42,6 +42,8 @@ public class MarController extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String action = request.getParameter("action");
+		session.removeAttribute("commonErrorMsg");
+		session.removeAttribute("errorMessage");
 		User user = (User) session.getAttribute("userInfo");
 		String username = user.getUsername();
 
@@ -78,6 +80,8 @@ public class MarController extends HttpServlet {
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
+		session.removeAttribute("commonErrorMsg");
+		session.removeAttribute("errorMessage");
 		User user = (User) session.getAttribute("userInfo");
 		String username = user.getUsername();
 
@@ -182,7 +186,7 @@ public class MarController extends HttpServlet {
 
 			if (errorMsgs.getCommonerrorMsg() != "" || !errorMsgs.getCommonerrorMsg().isEmpty()) {
 				session.setAttribute("errorMessage", errorMsgs);
-				// session.setAttribute("commonErrorMsg", errorMsg.getCommonerrorMsg());
+				session.setAttribute("commonErrorMsg", "Please correct the following errors");
 				getServletContext().getRequestDispatcher("/reportMar.jsp").forward(request, response);
 			} 
 			else {

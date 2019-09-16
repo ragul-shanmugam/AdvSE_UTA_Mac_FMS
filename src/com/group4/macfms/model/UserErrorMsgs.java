@@ -24,9 +24,9 @@ public class UserErrorMsgs {
 		if(!usernameError.equals("") || !passwordError.equals("") || !confirmPasswordError.equals("") || !fnameError.equals("") || !lnameError.equals("") 
 				|| !idError.equals("") || !emailError.equals("") || !addressError.equals("") || !cityError.equals("") 
 				|| !zipCodeError.equals(""))
-			commonerrorMsg = "Please correct the following:";
+			this.commonerrorMsg = "Please correct the following:";
 		else
-			commonerrorMsg = "";
+			this.commonerrorMsg = "";
 	}
 	public String getUsernameError() {
 		return usernameError;
