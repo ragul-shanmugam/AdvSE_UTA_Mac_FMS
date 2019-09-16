@@ -43,10 +43,6 @@ public class ProfileDAO {
 
 	public int updateUserDetails(User updateDetails) {
 		int status = 0;
-		//TODO:Need to modify this Query
-		/*String queryString = "UPDATE mac_fms.users SET (`username`,`password`,`firstname`,`lastname`,`utaid`,`phone`,`email`,`address`,`city`,`state`,`zipcode`,`role`) VALUES "
-				+ "('"+updateDetails.getUsername()+"','"+updateDetails.getPassword()+"','"+updateDetails.getFirstname()+"','"+updateDetails.getLastname()+"','"+updateDetails.getId()+"','"+updateDetails.getPhone()+"','"+updateDetails.getEmail()+"','"
-				+updateDetails.getAddress()+"','"+updateDetails.getCity()+"','"+updateDetails.getState()+"','"+updateDetails.getZipcode()+"','"+updateDetails.getRole()+"');";*/
 		String queryString = "UPDATE `mac_fms`.`users` SET `password` = '"+updateDetails.getPassword()+"', "
 				+ "`firstname` = '"+updateDetails.getFirstname()+"', `lastname` = '"+updateDetails.getLastname()+"', `utaid` = '"+updateDetails.getId()+"', `phone` = '"+updateDetails.getPhone()+"', "
 						+ "`email` = '"+updateDetails.getEmail()+"', `address` = '"+updateDetails.getAddress()+"', `city` = '"+updateDetails.getCity()+"', `state` = '"+updateDetails.getState()+"', "
