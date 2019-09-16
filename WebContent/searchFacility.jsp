@@ -10,10 +10,10 @@
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<title>Repairer - UTA Mac FMS</title>
+<title>Search for a Facility - UTA Mac FMS</title>
 </head>
-<body>
-<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false" user="root" password="*****"/>
+<body><br>
+<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/mac_fms?autoReconnect=true&useSSL=false" user="root" password="MyNewPass"/>
 <sql:query dataSource="${dsfacility}" var="facilityresult">
     SELECT distinct Facility FROM mac_fms.facility;
 </sql:query>

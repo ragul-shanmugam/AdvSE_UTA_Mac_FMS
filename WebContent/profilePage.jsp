@@ -38,7 +38,7 @@
 </script>
 <title>Profile - UTA Mac FMS</title>
 </head>
-<body onload='onPageLoad();'>
+<body onload='onPageLoad();'><br>
 	<div class="button-box col-lg-12 offset-md-1">
 		<h1> My Profile <a	class="btn btn-secondary offset-md-1 " href='${homePage}'>Home Page</a>
 		 <input id="edit" type="button"

@@ -11,7 +11,7 @@
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <title>User Registration - UTA Mac FMS</title>
 </head>
-<body>
+<body><br>
 	<div class="button-box col-lg-12 offset-md-1 ">
 		<h1>
 			User Registration <a id="login" href="/UTA_Mac_FMS/index.jsp"

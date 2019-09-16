@@ -26,57 +26,30 @@ public class FacilityController extends HttpServlet {
 				request.getParameter("duration"), request.getParameter("type"), request.getParameter("availability"));
 	}
        
-	/*protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
 				
+		if(action.equalsIgnoreCase("listFacilities"))
+		{
 			ArrayList<Facility> facilityInDB = new ArrayList<Facility>();
-			String facility = request.getParameter("ftype");
-			String facilityName = request.getParameter("fname");
-			if(facility.equalsIgnoreCase("selectfacility") && facilityName.equalsIgnoreCase("selectname"))
-			{
-				facilityInDB = FacilityDAO.listFacilities();
-				session.setAttribute("FACILITIES", facilityInDB);	
-				session.setAttribute("backSearchFacilityPage", "searchFacility.jsp");
-				getServletContext().getRequestDispatcher("/listFacilities.jsp").forward(request, response);
-			}
-			if(facilityName.equalsIgnoreCase("selectname"))
-			{
-				facilityInDB = FacilityDAO.listFacilitiesWithType(facility);
-				session.setAttribute("FACILITIES", facilityInDB);	
-				session.setAttribute("backSearchFacilityPage", "searchFacility.jsp");
-				getServletContext().getRequestDispatcher("/listFacilities.jsp").forward(request, response);
-			}
-			if(facility.equalsIgnoreCase("selectfacility"))
-			{
-				facilityInDB = FacilityDAO.listFacilitiesWithName(facilityName);
-				session.setAttribute("FACILITIES", facilityInDB);	
-				session.setAttribute("backSearchFacilityPage", "searchFacility.jsp");
-				getServletContext().getRequestDispatcher("/listFacilities.jsp").forward(request, response);
-			}
-			if(facility!= null && facilityName != null)
-			{
-				facilityInDB = FacilityDAO.listSpecificFacility(facility, facilityName);
-				if(facilityInDB != null)
-				{
-				session.setAttribute("FACILITIES", facilityInDB);	
-				session.setAttribute("backSearchFacilityPage", "searchFacility.jsp");
-				getServletContext().getRequestDispatcher("/listFacilities.jsp").forward(request, response);
-				}
-				else
-				{
-					//session.setAttribute("backSearchFacilityPage", "searchFacility.jsp"); - set this a error message
-					getServletContext().getRequestDispatcher("/searchFacility.jsp").forward(request, response);
-				}
-			}
-		}*/
+			facilityInDB = FacilityDAO.listFacilities();
+			session.setAttribute("FACILITIES", facilityInDB);
+			response.sendRedirect("listFacilities.jsp");
+		}
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
 		
-		if(action.equalsIgnoreCase("listFacilities"))
+		/*if(action.equalsIgnoreCase("listFacilities"))
 		{
 			ArrayList<Facility> facilityInDB = new ArrayList<Facility>();
+			facilityInDB = FacilityDAO.listFacilities();
+			session.setAttribute("FACILITIES", facilityInDB);
+			response.sendRedirect("listFacilities.jsp");
+			
 			String facility = request.getParameter("ftype");
 			String facilityName = request.getParameter("fname");
 			if(facility.equalsIgnoreCase("selectfacility") && facilityName.equalsIgnoreCase("selectname"))
@@ -120,7 +93,7 @@ public class FacilityController extends HttpServlet {
 					response.sendRedirect("searchFacility.jsp");
 				}
 			}
-		}
+		}*/
 
 		if (action.equalsIgnoreCase("listSpecificFacility")) {
 			ArrayList<Facility> facilityInDB = new ArrayList<Facility>();

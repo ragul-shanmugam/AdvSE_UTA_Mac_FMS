@@ -10,7 +10,7 @@
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <title>Repairer - UTA Mac FMS</title>
 </head>
-<body>
+<body><br>
 	<div class="button-box col-lg-12 offset-md-1">
 		<h1>Hello, ${user.lastname},${user.firstname}! <a class="btn btn-danger offset-md-1"
 			href="/UTA_Mac_FMS/LogoutController">Logout</a></h1>  <br> <a

@@ -15,9 +15,9 @@
 		});
 	}
 </script>
-<title>UTA Mac FMS</title>
+<title>Assigned Repairs - UTA Mac FMS</title>
 </head>
-<body onload='onPageLoad();'>
+<body onload='onPageLoad();'><br>
 		<h1>
 			List of Repairs Assigned <a class="btn btn-secondary offset-md-1 "
 				href='${homePage}'>Home Page</a>  <a
@@ -54,7 +54,7 @@
 						</tbody>
 					</table>
 				</div>
-				<br> <input type="submit" class="btn btn-primary col-md-3 offset-md-3" id="submit" value="View MAR Details" disabled> <br> <br>
+				<br> <input type="submit" class="btn btn-primary col-md-3 offset-md-3" id="submit" value="View Repair Details" disabled> <br> <br>
 			</form>
 		</div>
 </body>

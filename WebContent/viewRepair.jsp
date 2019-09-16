@@ -16,9 +16,9 @@
 		});
 	}
 </script>
-<title>UTA Mac FMS</title>
+<title>Repair Details - UTA Mac FMS</title>
 </head>
-<body onload='onPageLoad();'>
+<body onload='onPageLoad();'><br>
 	<div class="button-box col-lg-12 offset-md-1">
 	<h1><a	class="btn btn-secondary " href='${backListPage}'>Back</a> </h1>
 		<h1> Repair Details for ${mar.marNumber}  <a	class="btn btn-primary offset-md-1 " href='${homePage}'>Home Page</a>

@@ -15,9 +15,9 @@
 		});
 	}
 </script>
-<title>UTA Mac FMS</title>
+<title>MARs - UTA Mac FMS</title>
 </head>
-<body onload='onPageLoad();'>
+<body onload='onPageLoad();'><br>
 		<h1>
 			List of MARs created <a class="btn btn-secondary offset-md-1 "
 				href='${homePage}'>Home Page</a> <a

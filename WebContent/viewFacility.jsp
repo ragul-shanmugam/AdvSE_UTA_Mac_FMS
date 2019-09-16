@@ -9,9 +9,9 @@
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<title>UTA Mac FMS</title>
+<title>Facility Details - UTA Mac FMS</title>
 </head>
-<body>
+<body><br>
 <div class="button-box col-lg-12 offset-md-1">
 	<h1><a	class="btn btn-secondary " href='${backFacilityListPage}'>Back</a> </h1>
 		<h1> Facility Details for ${facility.facilityName}  <a	class="btn btn-primary offset-md-1 " href='${homePage}'>Home Page</a>

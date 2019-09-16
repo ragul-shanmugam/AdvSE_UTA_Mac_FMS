@@ -10,15 +10,15 @@
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <title>Manager - UTA Mac FMS</title>
 </head>
-<body>
+<body><br>
 	<div class="button-box col-lg-12 offset-md-1">
 		<h1>Hello, ${user.lastname},${user.firstname}!<a class="btn btn-danger offset-md-1"
 			href="/UTA_Mac_FMS/LogoutController">Logout</a></h1> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/ProfileController"
 			role="button">View/Modify Profile Details</a> <br> <br> <a
-			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/searchFacility.jsp"
+			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/FacilityController?action=listFacilities"
 			role="button">Search/View Facility Details</a> <br> <br> <a
-			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/searchFacility.jsp"
+			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/FacilityController?action=listFacilities"
 			role="button">Update Availability of Facility</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
 			role="button">Add a Facility</a> <br> <br> <a

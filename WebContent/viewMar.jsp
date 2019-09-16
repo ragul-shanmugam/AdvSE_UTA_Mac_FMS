@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,14 +30,19 @@ function editDetails() {
 	document.getElementById('assignedto').disabled = false;
 	document.getElementById('assigneddate').disabled = false;
 	document.getElementById('time').disabled = false;
-	document.getElementById('status').disabled = false;
 	document.getElementById('updatemar').disabled = false;
 	document.getElementById('edit').disabled = true;
 	}
 </script>
-<title>UTA Mac FMS</title>
+<title>MAR Details - UTA Mac FMS</title>
 </head>
-<body onload='onPageLoad();'>
+<body onload='onPageLoad();'><br>
+<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/mac_fms?autoReconnect=true&useSSL=false"
+		user="root" password="MyNewPass" />
+	<sql:query dataSource="${dsfacility}" var="repairerresult">
+    SELECT username FROM mac_fms.users where role='Repairer';
+</sql:query>
 	<div class="button-box col-lg-12 offset-md-1">
 	<h1><a	class="btn btn-secondary " href='${backListPage}'>Back</a></h1>
 		<h1> MAR Details for ${mar.marNumber} <a	class="btn btn-primary offset-md-1 " href='${homePage}'>Home Page</a>
@@ -90,11 +97,25 @@ function editDetails() {
 					<div class="col"></div>
 				</div><br>
 				<div class="row">
+				<div class="col">
+					<label for="assignedto">Assigned To</label> <select name="assignedto"
+						id="assignedto" class="form-control" disabled>
+						<option value="${mar.assignedTo}">${mar.assignedTo}</option>
+						<c:forEach var="row" items="${repairerresult.rows}">
+							<option value='<c:out value="${row.username}"/>'><c:out
+									value="${row.username}" /></option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="col"></div>
+			</div>
+			<br>
+				<%-- <div class="row">
 					<div class="col">
 						<label for="assignedto">Assigned To</label> <input type="text" name="assignedto" id="assignedto" class="form-control" value='${mar.assignedTo}' disabled>
 					</div>
 					<div class="col"></div>
-				</div><br>
+				</div><br> --%>
 				<div class="row">
 					<div class="col">
 						<label for="assigneddate">Assigned Date (MM/DD/YYYY)</label> <input type="text" name="assigneddate" id="assigneddate" class="form-control" value='${mar.assignedDate}' disabled>
@@ -113,8 +134,8 @@ function editDetails() {
 					</div>
 					<div class="col"></div>
 				</div>
-				<br> <input type="submit"
-					class="btn btn-primary col-md-3" id="updatemar" role="button" value="Update MAR Details" disabled>
+				<br> 
+				<input type="submit" class="btn btn-primary col-md-3" id="updatemar" role="button" value="Update MAR Details" disabled>
 			</form>
 		</div>
 	</div>

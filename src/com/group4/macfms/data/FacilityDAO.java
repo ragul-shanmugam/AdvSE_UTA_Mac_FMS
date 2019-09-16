@@ -48,6 +48,7 @@ public class FacilityDAO {
 			try {
 				stmt = conn.createStatement();
 				status = stmt.executeUpdate(queryString);
+				conn.commit();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}		

@@ -96,6 +96,11 @@ public class MarController extends HttpServlet {
 			MarDAO marUpdate = new MarDAO();
 			Mar mar = new Mar();
 			getUserParam(request, mar);
+			System.err.println("Printing mar getassignedto...."+mar.getAssignedTo());
+			if(mar.getAssignedTo() != null || !mar.getAssignedTo().isEmpty() || !mar.getAssignedTo().contains(""))
+			{
+				mar.setMarStatus("Assigned");
+			}
 			int status = marUpdate.updateMarDetails(mar);
 			if(status == 1)
 			{
@@ -149,6 +154,7 @@ public class MarController extends HttpServlet {
 			mar.setUrgency(request.getParameter("urgency"));
 			mar.setDescription(request.getParameter("description"));
 			mar.setDateCreated(request.getParameter("date"));
+			mar.setMarStatus("Unassigned");
 			User userInfo = (User) session.getAttribute("userInfo");
 			String userName = userInfo.getUsername();
 			

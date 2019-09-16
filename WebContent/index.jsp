@@ -10,7 +10,7 @@
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <title>User Login/Register - UTA Mac FMS</title>
 </head>
-<body>
+<body><br>
 	<div class="button-box col-lg-12 offset-md-1">
 		<h1>Login to UTA Mac FMS</h1>
 		<div>
