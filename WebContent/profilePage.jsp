@@ -19,11 +19,13 @@
 		document.getElementById('username').style.background = "#e6e6e6";
 		document.getElementById('username').style.color = "#666666";
 		document.getElementById('password').disabled = false;
+		document.getElementById('confirm').disabled = false;
 		document.getElementById('firstname').disabled = false;
 		document.getElementById('lastname').disabled = false;
 		document.getElementById('id').disabled = false;
 		document.getElementById('role').style.background = "#e6e6e6";
 		document.getElementById('role').style.color = "#666666";
+		/* document.getElementById('role').disabled = true; */
 		document.getElementById('phone').disabled = false;
 		document.getElementById('email').disabled = false;
 		document.getElementById('address').disabled = false;
@@ -36,7 +38,7 @@
 </script>
 <title>Profile - UTA Mac FMS</title>
 </head>
-<body onload='onPageLoad();'>
+<body onload='onPageLoad();'><br>
 	<div class="button-box col-lg-12 offset-md-1">
 		<h1> My Profile <a	class="btn btn-secondary offset-md-1 " href='${homePage}'>Home Page</a>
 		 <input id="edit" type="button"
@@ -56,10 +58,10 @@
 						READONLY>
 				</div>
 				<div class="col">
-					<br> <input value='${profile.username}' class="form-control"
+					<%-- <br> <input value='${profile.username}' class="form-control"
 						id="login_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
-						disabled="disabled" maxlength="60">
+						disabled="disabled" maxlength="60"> --%>
 				</div>
 			</div>
 			<br>
@@ -70,8 +72,22 @@
 						class="form-control" disabled>
 				</div>
 				<div class="col">
-					<br> <input value='${profile.password}' class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.passwordError}'/>" class="form-control"
+						id="password_errorMessage" type="text"
+						style="background-color: white; color: red; border: none; width: 800px"
+						disabled="disabled" maxlength="60">
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col">
+					<label for="confirm">Confirm Password</label> <input name="confirm" id="confirm"
+						type="password" class="form-control" value='${profile.password}'
+						placeholder="Confirm Password" disabled>
+				</div>
+				<div class="col">
+					<br> <input value="<c:out value='${errorMessage.confirmPasswordError}'/>" class="form-control"
+						id="cPassword_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>
@@ -84,8 +100,8 @@
 						value='${profile.firstname}' disabled>
 				</div>
 				<div class="col">
-					<br> <input value="Add cout Error here" class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.fnameError}'/>" class="form-control"
+						id="fname_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>
@@ -98,8 +114,8 @@
 						value='${profile.lastname}' disabled>
 				</div>
 				<div class="col">
-					<br> <input value="Add cout Error here" class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.lnameError}'/>" class="form-control"
+						id="lname_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>
@@ -111,8 +127,8 @@
 						type="text" class="form-control" value='${profile.id}' disabled>
 				</div>
 				<div class="col">
-					<br> <input value="Add cout Error here" class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.idError}'/>" class="form-control"
+						id="id_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>
@@ -120,14 +136,7 @@
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="role">User Role</label> <select name="role" id="role" class="form-control" disabled>
-						<!-- <option selected>Choose...</option> -->
-						<option>${profile.role}</option>
-						<option value="User">User</option>
-						<option value="Facility Manager">Facility Manager</option>
-						<option value="Repairer">Repairer</option>
-						<option value="Admin">Admin</option>
-					</select>
+					<label for="role">User Role</label> <input name="role" type="text" id="role" class="form-control" value='${profile.role}' READONLY>
 				</div>
 				<div class="col"></div>
 			</div>
@@ -138,10 +147,10 @@
 						id="phone" class="form-control" value='${profile.phone}' disabled>
 				</div>
 				<div class="col">
-					<br> <input value="Add cout Error here" class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.phoneError}'/>" class="form-control"
+						id="phone_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
-						disabled="disabled" maxlength="60" disabled>
+						disabled="disabled" maxlength="60">
 				</div>
 			</div>
 			<br>
@@ -152,8 +161,8 @@
 						value='${profile.email}' disabled>
 				</div>
 				<div class="col">
-					<br> <input value="Add cout Error here" class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.emailError}'/>" class="form-control"
+						id="email_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>
@@ -166,8 +175,8 @@
 						value='${profile.address}' disabled>
 				</div>
 				<div class="col">
-					<br> <input value="Add cout Error here" class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.addressError}'/>" class="form-control"
+						id="address_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>
@@ -179,8 +188,8 @@
 						id="city" class="form-control" value='${profile.city}' disabled>
 				</div>
 				<div class="col">
-					<br> <input value="Add cout Error here" class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.cityError}'/>" class="form-control"
+						id="city_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>
@@ -254,8 +263,8 @@
 						disabled>
 				</div>
 				<div class="col">
-					<br> <input value="Add cout Error here" class="form-control"
-						id="login_errorMessage" type="text"
+					<br> <input value="<c:out value='${errorMessage.zipCodeError}'/>" class="form-control"
+						id="zip_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>
@@ -264,7 +273,7 @@
 			<div class="row">
 				<div class="col">
 					<input id="update" type="submit" class="btn btn-primary col-md-5"
-						value="Update Details" disabled />
+						value="Update Details" disabled /> <br><br>
 					<!-- <input id="reset" type="reset" class="btn btn-primary col-md-3" value="Reset" onClick="onPageLoad();" disabled/> -->
 				</div>
 			</div>

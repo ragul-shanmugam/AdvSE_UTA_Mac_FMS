@@ -10,18 +10,16 @@
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <title>Repairer - UTA Mac FMS</title>
 </head>
-<body>
+<body><br>
 	<div class="button-box col-lg-12 offset-md-1">
 		<h1>Hello, ${user.lastname},${user.firstname}! <a class="btn btn-danger offset-md-1"
 			href="/UTA_Mac_FMS/LogoutController">Logout</a></h1>  <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/ProfileController"
 			role="button">View/Modify Profile Details</a> <br> <br> <a
-			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/MarController"
-			role="button">View a MAR</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
 			role="button">Request Repairs</a> <br> <br> <a
-			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
-			role="button">View Assigned Repairs</a> <br> <br> <a
+			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/MarController?action=viewAssignedMars"
+			role="button">View My Assigned Repairs</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
 			role="button">Modify Assigned Repairs</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"

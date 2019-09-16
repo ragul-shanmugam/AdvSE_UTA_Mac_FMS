@@ -1,6 +1,6 @@
 package com.group4.macfms.model;
 
-public class MarDetails {
+public class Mar {
 	private String marNumber;
 	private String facilityType;
 	private String reservationId;
@@ -12,6 +12,22 @@ public class MarDetails {
 	private String assignedDate;
 	private String estimatedTime;
 	private String marStatus;
+	
+	public void setMar(String marNumber, String facilityType, String reservationId, String reportedBy,
+			String urgency, String description, String dateCreated, String assignedTo, String assignedDate,
+			String estimatedTime, String marStatus) {
+		setMarNumber(marNumber);
+		setFacilityType(facilityType);
+		setReservationId(reservationId);
+		setReportedBy(reportedBy);
+		setUrgency(urgency);
+		setDescription(description);
+		setDateCreated(dateCreated);
+		setAssignedTo(assignedTo);
+		setAssignedDate(assignedDate);
+		setEstimatedTime(estimatedTime);
+		setMarStatus(marStatus);		
+	}
 	
 	public String getMarNumber() {
 		return marNumber;
@@ -78,5 +94,19 @@ public class MarDetails {
 	}
 	public void setMarStatus(String marStatus) {
 		this.marStatus = marStatus;
+	}
+
+	public void validateDescription(Mar mar, MarErrorMsgs errorMsg) {
+		errorMsg.setDescriptionError(validateDescription(mar.getDescription()));
+		errorMsg.setCommonerrorMsg();
+		
+	}
+
+	private String validateDescription(String description) {
+		String result = "";
+		if(description == null || description.isEmpty()) {
+			result = "Please provide us the description of the problem";
+		}
+		return result;
 	}
 }
