@@ -11,6 +11,14 @@
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+$(function () {
+    $("#datepicker").datepicker();
+});
+</script>
 <title>Report a Problem - UTA Mac FMS</title>
 </head>
 </head>
@@ -35,9 +43,8 @@
 			method="POST" name="reportProblem_form">
 			<div class="row">
 				<div class="col">
-					<label for="role">Facility Type</label> <select name="ftype"
+					<label for="role">Select Facility Type</label> <select name="ftype"
 						id="ftype" class="form-control">
-						<option value="selectfacility">Select a Facility</option>
 						<c:forEach var="row" items="${facilityresult.rows}">
 							<option value='<c:out value="${row.Facility}"/>'><c:out
 									value="${row.Facility}" /></option>
@@ -49,9 +56,8 @@
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="role">Facility Name</label> <select name="fname"
+					<label for="role">Select Facility Name</label> <select name="fname"
 						id="fname" class="form-control">
-						<option value="selectname">Select a Facility Name</option>
 						<c:forEach var="row" items="${facilitynameresult.rows}">
 							<option value='<c:out value="${row.FacilityName}"/>'><c:out
 									value="${row.Facilityname}" /></option>
@@ -67,8 +73,8 @@
 						class="form-control">
 						<option value="Unusable">Unusable</option>
 						<option value="Major">Major</option>
-						<option value="Minor">Minor</option>
 						<option value="Medium">Medium</option>
+						<option value="Minor">Minor</option>
 					</select>
 				</div>
 				<div class="col"></div>
@@ -76,20 +82,22 @@
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="phone">Description</label> <input name="description"
-						type="text" class="form-control" placeholder="Description">
+					<label for="description">Description</label> <input name="description"
+						maxlength="200" type="text" class="form-control" placeholder="Description">
 				</div>
-				<div class="col"></div>
-			</div>
-			<br>
-			<div class="row">
 				<div class="col">
-					<label for="date">Date (MM/DD/YYYY)</label> <input name="date" type="text"
-						class="form-control" placeholder="Date">
+				<br> <input value="<c:out value='${errorMessage.descriptionError}'/>" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
 				</div>
-				<div class="col"></div>
 			</div>
 			<br>
+			<!-- <div class="row">
+				<div class="col">
+					<label for="date">Date (MM/DD/YYYY)</label> <input name="date" type="text"  id="datepicker"
+						class="form-control" placeholder="Today's Date">
+                </div>
+				<div class="col"></div>
+			</div>
+			<br> -->
 			<button type="submit" class="btn btn-primary col-md-3">Report</button>
 			<button type="reset" class="btn btn-primary col-md-3">Reset</button>
 			<br><br>

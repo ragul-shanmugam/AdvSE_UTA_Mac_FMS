@@ -172,8 +172,6 @@ public class User {
 		errorMsg.setIdError(validateId(user.getId()));
 		errorMsg.setEmailError(validateEmail(user.getEmail()));
 		errorMsg.setPhoneError(validatePhone(user.getPhone()));
-		System.out.println("Printing password ...."+user.getPassword());
-		System.out.println("Printing confirm password..."+user.getConfirmPassword());
 		errorMsg.setConfirmPasswordError(validateConfirmPassword(user.getConfirmPassword(), user.getPassword()));
 		errorMsg.setAddressError(validateAddress(user.getAddress()));
 		errorMsg.setCityError(validateCity(user.getCity()));
@@ -188,7 +186,6 @@ public class User {
 		}
 		return result;
 	}
-
 
 	private String validateCity(String city) {
 		String result="";

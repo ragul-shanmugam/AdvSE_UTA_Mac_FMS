@@ -128,7 +128,7 @@ public class LoginController extends HttpServlet {
 						+ "<link href=\"bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n"
 						+ "<script type=\"text/javascript\" src=\"bootstrap/js/bootstrap.min.js\"></script>";
 				htmlRespone += "	<div class=\"alert alert-success alert-dismissible fade show\">\r\n"
-						+ "    <strong>Registration Successful!</strong> Please login to view your profile!!\r\n"
+						+ "    <strong>Woohoo! Registration Successful!</strong> Please login to view your profile!!\r\n"
 						+ "    <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\r\n"
 						+ "	</div>";
 				htmlRespone += "<h2><a id='login_link' class=\"btn btn-primary offset-md-1 \" href = 'index.jsp'> Login</a></h2>";
@@ -136,17 +136,22 @@ public class LoginController extends HttpServlet {
 
 				// return response
 				out.println(htmlRespone);
-				/*
-				 * session.setAttribute("success",
-				 * "Registration Successful! Please login to view your profile!!");
-				 * response.sendRedirect("register.jsp");
-				 */
 				}
 			else
 			{
-				url = "/register.jsp";
-				session.setAttribute("dbError", "There is a system issue registering a user! Please try again in sometime");
-				getServletContext().getRequestDispatcher(url).forward(request, response);				
+				PrintWriter out = response.getWriter();
+				 String htmlRespone = "<html>";
+				 htmlRespone += "<meta charset=\"ISO-8859-1\" name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no\">\r\n" + 
+				 		"<link href=\"bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n" + 
+				 		"<script type=\"text/javascript\" src=\"bootstrap/js/bootstrap.min.js\"></script>";
+				 htmlRespone += "	<div class=\"alert alert-danger alert-dismissible fade show\">\r\n" + 
+				 		"    <strong>We are facing system issues! Please try registering again! Sorry for the inconvinience!</strong>\r\n" + 
+				 		"    <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\r\n" + 
+				 		"	</div>";     
+			        htmlRespone += "<h2><a id='register' class=\"btn btn-primary offset-md-1 \" href='register.jsp'>Back to Registration Page</a></h2>";    
+			        htmlRespone += "</html>";
+			       
+			        out.println(htmlRespone);		
 			}
 			}
 		}
