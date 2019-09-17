@@ -8,16 +8,17 @@
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	function onPageLoad() {
 		$(document).ready(function() {
 			$("#submit :input").prop("disabled", true);
 		});
 	}
-</script>
+</script> -->
 <title>Users - UTA Mac FMS</title>
 </head>
-<body onload='onPageLoad();'><br>
+<body><br>
+	<div class="button-box col-lg-12 offset-md-1">
 <h1><a	class="btn btn-secondary " href='${backSearchPage}'>Back</a></h1>
 <h1>
 			List of Users <a class="btn btn-secondary offset-md-1 "
@@ -26,14 +27,13 @@
 				href="/UTA_Mac_FMS/LogoutController">Logout</a>
 		</h1>
 
-<h3><small class="offset-md-5"><strong>Select a User and click on View User Details to view more details!!</strong></small></h3>
+<h3><small class="offset-md-5"><strong>Click on User Name to view more details!!</strong></small></h3>
 		<div>
-			<form action="/UTA_Mac_FMS/AdminController?action=listSpecificUser" method="POST">
+			<form action="/UTA_Mac_FMS/AdminController" method="GET">
 				<div class="table-responsive">
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th scope="col" style="text-align: center">Select User</th>
 								<th scope="col">User Name</th>
 								<th scope="col">First Name</th>
 								<th scope="col">Last Name</th>
@@ -44,8 +44,8 @@
 						<tbody>
 							<c:forEach items="${USERS}" var="user" varStatus="status">
 								<tr>
-									<td style="text-align: center"><input onclick="document.getElementById('submit').disabled = false;"  type="radio" id="radioUser${status.count}" name="radioUser" value="${status.count}"></td>
-									<td><c:out value="${user.username}" /></td>
+									<%-- <td style="text-align: center"><input onclick="document.getElementById('submit').disabled = false;"  type="radio" id="radioUser${status.count}" name="radioUser" value="${status.count}"></td> --%>
+									<td><a href="/UTA_Mac_FMS/ViewSpecificUserController?action=viewUser&viewSpecificUser=${user.username}"> <c:out value="${user.username}"/> </a></td>
 									<td><c:out value="${user.firstname}" /></td>
 									<td><c:out value="${user.lastname}" /></td>
 									<td><c:out value="${user.role}" /></td>
@@ -54,8 +54,9 @@
 						</tbody>
 					</table>
 				</div>
-				<br> <input type="submit" class="btn btn-primary col-md-3 offset-md-3" id="submit" value="View User Details" disabled> <br> <br>
+				<!-- <br> <input type="submit" class="btn btn-primary col-md-3 offset-md-3" id="submit" value="View User Details" disabled> <br> <br> -->
 			</form>
+		</div>
 		</div>
 </body>
 </html>

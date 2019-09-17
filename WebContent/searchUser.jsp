@@ -18,7 +18,7 @@
 				href="/UTA_Mac_FMS/LogoutController">Logout</a>
 		</h1>
 		<div>
-			<form action="/UTA_Mac_FMS/AdminController" method="GET" name="search_user">
+			<form action="/UTA_Mac_FMS/UserController?action=getUserDetails" method="GET" name="search_user">
 				<div class="row">
 				<div class="col">
 					<label for="lastname">Enter Last Name</label> 

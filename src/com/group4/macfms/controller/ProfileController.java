@@ -1,6 +1,8 @@
 package com.group4.macfms.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,6 +51,7 @@ public class ProfileController extends HttpServlet {
 		ProfileDAO updateUser = new ProfileDAO();
 		getUserParam(request, user);
 		UserErrorMsgs errorMsgs = new UserErrorMsgs();
+		
 		if(action.equalsIgnoreCase("updateUserDetails"))
 		{
 			//validate user here
@@ -60,8 +63,7 @@ public class ProfileController extends HttpServlet {
 				getServletContext().getRequestDispatcher("/profilePage.jsp").forward(request, response);
 			}
 			else
-			{
-				
+			{				
 			int status = updateUser.updateUserDetails(user);
 			if(status == 1)
 			{
@@ -70,8 +72,58 @@ public class ProfileController extends HttpServlet {
 			}
 			else
 			{
-				session.setAttribute("dbError", "There is a system issue updating your profile! Please try again in sometime");
-				getServletContext().getRequestDispatcher("/profilePage.jsp").forward(request, response);				
+				PrintWriter out = response.getWriter();
+				String htmlRespone = "<html>";
+				htmlRespone += "<meta charset=\"ISO-8859-1\" name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no\">\r\n"
+						+ "<link href=\"bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n"
+						+ "<script type=\"text/javascript\" src=\"bootstrap/js/bootstrap.min.js\"></script>";
+				htmlRespone += "	<div class=\"alert alert-danger alert-dismissible fade show\">\r\n"
+						+ "    <strong>We are facing some system issues! Please try your profile again! Sorry for the inconvinience!</strong>\r\n"
+						+ "    <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\r\n"
+						+ "	</div>";
+				htmlRespone += "<h2><a id='userprofile' class=\"btn btn-primary offset-md-1 \" href='profilePage.jsp'>Back to Profile Page</a></h2>";
+				htmlRespone += "</html>";
+
+				out.println(htmlRespone);			
+			}
+			}
+		}
+		
+		if(action.equalsIgnoreCase("updateUserDetailsAdmin"))
+		{
+			System.err.println("Printing user phone..."+user.getPhone());
+			//validate user here
+			user.validateUserDetails(user, errorMsgs);
+			if (errorMsgs.getCommonerrorMsg() != "" || !errorMsgs.getCommonerrorMsg().isEmpty()) {
+				System.out.println("inside register error user  ");
+				session.setAttribute("errorMessage", errorMsgs);
+				//session.setAttribute("commonErrorMsg", errorMsg.getCommonerrorMsg());
+				getServletContext().getRequestDispatcher("/viewUser.jsp").forward(request, response);
+			}
+			else
+			{
+				
+			int status = updateUser.updateUserDetails(user);
+			if(status == 1)
+			{
+			session.setAttribute("profile", user);
+			response.sendRedirect("viewUser.jsp");
+			}
+			else
+			{
+				PrintWriter out = response.getWriter();
+				String htmlRespone = "<html>";
+				htmlRespone += "<meta charset=\"ISO-8859-1\" name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no\">\r\n"
+						+ "<link href=\"bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n"
+						+ "<script type=\"text/javascript\" src=\"bootstrap/js/bootstrap.min.js\"></script>";
+				htmlRespone += "	<div class=\"alert alert-danger alert-dismissible fade show\">\r\n"
+						+ "    <strong>We are facing some system issues! Please try your profile again! Sorry for the inconvinience!</strong>\r\n"
+						+ "    <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\r\n"
+						+ "	</div>";
+				htmlRespone += "<h2><a id='userprofile' class=\"btn btn-primary offset-md-1 \" href='profilePage.jsp'>Back to Profile Page</a></h2>";
+				htmlRespone += "</html>";
+
+				out.println(htmlRespone);			
 			}
 			}
 		}

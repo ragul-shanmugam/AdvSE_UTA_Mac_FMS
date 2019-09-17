@@ -18,13 +18,10 @@
 	function editDetails() {
 		document.getElementById('username').style.background = "#e6e6e6";
 		document.getElementById('username').style.color = "#666666";
-		document.getElementById('password').disabled = false;
-		document.getElementById('confirm').disabled = false;
 		document.getElementById('firstname').disabled = false;
 		document.getElementById('lastname').disabled = false;
 		document.getElementById('id').disabled = false;
-		document.getElementById('role').style.background = "#e6e6e6";
-		document.getElementById('role').style.color = "#666666";
+		document.getElementById('role').disabled = false;
 		document.getElementById('role').disabled = false; 
 		document.getElementById('phone').disabled = false;
 		document.getElementById('email').disabled = false;
@@ -49,7 +46,7 @@
 		 <a	class="btn btn-danger offset-md-1" href="/UTA_Mac_FMS/LogoutController">Logout</a>
 		</h1>
 		<br>
-		<form action="/UTA_Mac_FMS/ProfileController?action=updateUserDetails"
+		<form action="/UTA_Mac_FMS/ProfileController?action=updateUserDetailsAdmin"
 			method="POST" id="profile_form">
 			<div class="row">
 				<div class="col">
@@ -58,24 +55,24 @@
 						READONLY>
 				</div>
 				<div class="col">
-					<%-- <br> <input value='${profile.username}' class="form-control"
+					<br> <input value='${errorMsg.usernameError}' class="form-control"
 						id="login_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
-						disabled="disabled" maxlength="60"> --%>
+						disabled="disabled" maxlength="60"> 
 				</div>
 			</div>
 			<br>
-			<%-- <div class="row">
+			 <div class="row">
 				<div class="col">
 					<label for="passowrd">Password</label> <input name="password"
 						id='password' type='password' value='${profile.password}'
-						class="form-control" disabled>
+						class="form-control" READONLY>
 				</div>
 				<div class="col">
-					<br> <input value="<c:out value='${errorMessage.passwordError}'/>" class="form-control"
+					<%-- <br> <input value="<c:out value='${errorMessage.passwordError}'/>" class="form-control"
 						id="password_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
-						disabled="disabled" maxlength="60">
+						disabled="disabled" maxlength="60"> --%>
 				</div>
 			</div>
 			<br>
@@ -83,17 +80,17 @@
 				<div class="col">
 					<label for="confirm">Confirm Password</label> <input name="confirm" id="confirm"
 						type="password" class="form-control" value='${profile.password}'
-						placeholder="Confirm Password" disabled>
+						placeholder="Confirm Password" READONLY>
 				</div>
 				<div class="col">
-					<br> <input value="<c:out value='${errorMessage.confirmPasswordError}'/>" class="form-control"
+					<br> <%-- <input value="<c:out value='${errorMessage.confirmPasswordError}'/>" class="form-control"
 						id="cPassword_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
-						disabled="disabled" maxlength="60">
+						disabled="disabled" maxlength="60"> --%>
 				</div>
 			</div>
 			<br>
- --%>			<div class="row">
+						<div class="row">
 				<div class="col">
 					<label for="fname">First Name</label> <input name="fname"
 						id="firstname" type="text" class="form-control"
