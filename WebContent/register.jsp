@@ -34,7 +34,7 @@
 			<br>
 			<div class="row">
 				<div class="col">
-					<label for="passowrd">Password</label> <input name="password"
+					<label for="password">Password</label> <input name="password"
 						type="password" class="form-control" placeholder="Password">
 				</div>
 				<div class="col">

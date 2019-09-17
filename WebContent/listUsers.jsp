@@ -44,7 +44,7 @@
 						<tbody>
 							<c:forEach items="${USERS}" var="user" varStatus="status">
 								<tr>
-									<td style="text-align: center"><input onclick="document.getElementById('submit').disabled = false;"  type="radio" id="radioMar${status.count}" name="radioMar" value="${status.count}"></td>
+									<td style="text-align: center"><input onclick="document.getElementById('submit').disabled = false;"  type="radio" id="radioUser${status.count}" name="radioUser" value="${status.count}"></td>
 									<td><c:out value="${user.username}" /></td>
 									<td><c:out value="${user.firstname}" /></td>
 									<td><c:out value="${user.lastname}" /></td>

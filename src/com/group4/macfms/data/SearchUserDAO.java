@@ -85,4 +85,46 @@ public ArrayList<User> searchUserRoleDetails(User user) throws SQLException {
 	return RetrunMatchingUsersList("select username, firstname, lastname, role from mac_fms.users where lastname = '"+user.getLastname()+"' and role = '"+user.getRole()+"';");
 }
 
+public ArrayList<User> searchSpecificUserDetails() throws SQLException {
+	System.out.println("Inside searchSpecificUserDetails method....");
+	ArrayList<User> usersInDB = new ArrayList<User>();
+	String queryString = "select * from mac_fms.users;";
+	System.out.println("User Search Query ..."+queryString);
+	
+	try {
+		
+		stmt = conn.createStatement();
+		ResultSet userList = stmt.executeQuery(queryString);
+		
+		while(userList.next()) {
+			User user = new User();
+			user.setUsername(userList.getString("username"));
+			user.setPassword(userList.getString("password"));
+			user.setConfirmPassword(userList.getString("password"));
+			user.setFirstname(userList.getString("firstname"));
+			user.setLastname(userList.getString("lastname"));
+			user.setId(userList.getString("utaid"));
+			user.setRole(userList.getString("role"));
+			user.setPhone(userList.getString("phone"));
+			user.setEmail(userList.getString("email"));
+			user.setAddress(userList.getString("address"));
+			user.setCity(userList.getString("city"));
+			user.setState(userList.getString("state"));
+			user.setZipcode(userList.getString("zipcode"));
+			
+			usersInDB.add(user);
+		}
+		
+	}catch (SQLException e) {
+		e.printStackTrace();
+	}
+	
+	finally {
+		
+		stmt.close();
+		conn.close();
+	}
+	return usersInDB;
+}
+
 }
