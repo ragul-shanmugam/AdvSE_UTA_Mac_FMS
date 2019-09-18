@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
 <!DOCTYPE html>
@@ -101,16 +102,11 @@ $(function () {
 					<div class="col"></div>
 				</div><br>
 				<div class="row">
-				<div class="col">
-					<label for="assignedto">Assigned To</label> <select name="assignedto"
-						id="assignedto" class="form-control" disabled>
-						<option value="${mar.assignedTo}">${mar.assignedTo}</option>
-						<c:forEach var="row" items="${repairerresult.rows}">
-							<option value='<c:out value="${row.username}"/>'><c:out
-									value="${row.username}" /></option>
-						</c:forEach>
-					</select>
-				</div>
+					<div class="col">
+						<label for="assignedto">Assigned To</label> <input type="text" name="assignedto" id="assignedto" class="form-control" value='${mar.assignedTo}' disabled>
+					</div>
+					<div class="col"></div>
+				</div><br>
 				<div class="col"></div>
 			</div>
 			<br>
