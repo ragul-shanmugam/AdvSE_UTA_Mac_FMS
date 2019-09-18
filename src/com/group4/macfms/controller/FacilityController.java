@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import com.group4.macfms.data.FacilityDAO;
 import com.group4.macfms.model.Facility;
-import com.group4.macfms.model.Mar;
 
 /**
  * Servlet implementation class FacilityController

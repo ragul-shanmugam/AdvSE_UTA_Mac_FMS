@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="ISO-8859-1" name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"">
+<meta charset="ISO-8859-1" name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
@@ -19,7 +19,7 @@
 				<input value="<c:out value='${commonErrorMsg}'/>" id = "common_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
 				<br> <div class="row">
 				<div class="col">
-					<label for="username">Enter your User Name</label> <input name="username" id="username" type="text" class="form-control" placeholder="Username">
+					<label for="username">Enter your Username</label> <input name="username" id="username" type="text" class="form-control" placeholder="Username">
 				</div>
 				<div class="col">
 				<br> <input value="<c:out value='${errorMessage}'/>" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
@@ -37,7 +37,7 @@
 			</div>
 			<br>
 					<br> <input type="submit" class="btn btn-primary col-md-3" role="button" value="Login"> 
-						<input type="reset" class="btn btn-primary col-md-3" role="button" value="Clear""> <br> <br>
+						<input type="reset" class="btn btn-primary col-md-3" role="button" value="Clear"> <br> <br>
 						<a class="btn btn-success col-md-6" href="/UTA_Mac_FMS/register.jsp" role="button">Register here!!!</a> <br> <br>
 						<%-- <input value="<c:out value='${errorMessage}'/>" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60"> --%>
 			</form>

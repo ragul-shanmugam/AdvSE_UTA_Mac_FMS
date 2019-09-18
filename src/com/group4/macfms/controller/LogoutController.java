@@ -19,7 +19,6 @@ public class LogoutController extends HttpServlet {
      */
     public LogoutController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

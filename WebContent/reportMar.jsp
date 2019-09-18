@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1" name="viewport"
-	content="width=device-width, initial-scale=1.0, shrink-to-fit=no"">
+	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
@@ -24,13 +24,13 @@ $(function () {
 </head>
 <body><br>
 	<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver"
-		url="jdbc:mysql://localhost:3306/mac_fms?autoReconnect=true&useSSL=false"
-		user="root" password="MyNewPass" />
+		url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false"
+		user="root" password="admin" />
 	<sql:query dataSource="${dsfacility}" var="facilityresult">
-    SELECT distinct Facility FROM mac_fms.facility;
+    SELECT distinct Facility FROM uta_mac_fms.facility;
 </sql:query>
 	<sql:query dataSource="${dsfacility}" var="facilitynameresult">
-    SELECT FacilityName FROM mac_fms.facility order by FacilityName;
+    SELECT FacilityName FROM uta_mac_fms.facility order by FacilityName;
 </sql:query>
 	<div class="button-box col-lg-12 offset-md-1">
 		<h1>
@@ -41,6 +41,7 @@ $(function () {
 		</h1>
 		<form action="/UTA_Mac_FMS/MarController?action=reportProblem"
 			method="POST" name="reportProblem_form">
+			<input value="<c:out value='${commonErrorMsg}'/>" id = "common_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
 			<div class="row">
 				<div class="col">
 					<label for="role">Select Facility Type</label> <select name="ftype"

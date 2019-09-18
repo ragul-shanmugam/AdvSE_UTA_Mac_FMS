@@ -16,13 +16,10 @@
 			href="/UTA_Mac_FMS/LogoutController">Logout</a></h1><br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/ProfileController"
 			role="button">View/Modify Profile Details</a> <br> <br> <a
-			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
-			role="button">Search for a User</a> <br> <br> <a
-			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
-			role="button">Edit User Details</a> <br> <br> <a
-			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
-			role="button">Change User Role</a> <br> <br>
-
+			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/searchUser.jsp"
+			role="button">Search for a User/Edit User Details</a> <br> <br> <a
+			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/searchUserRole.jsp"
+			role="button">Change User Role</a> <br> <br> 
 	</div>
 </body>
 </html>

@@ -12,9 +12,9 @@ public class SQLConnection {
 	private static SQLConnection single_instance = null;
 	private SQLConnection() {
 		DB_DRIVER = "com.mysql.jdbc.Driver";
-		DB_CONNECTION  = "jdbc:mysql://localhost:3306/mac_fms?autoReconnect=true&useSSL=false";
+		DB_CONNECTION  = "jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false";
 		DB_USER  = "root";
-		DB_PASSWORD = "*****";
+		DB_PASSWORD = "admin";
 	}
 	public static synchronized SQLConnection getInstance() {
         if (single_instance == null)

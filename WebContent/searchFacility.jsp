@@ -13,12 +13,12 @@
 <title>Search for a Facility - UTA Mac FMS</title>
 </head>
 <body><br>
-<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/mac_fms?autoReconnect=true&useSSL=false" user="root" password="MyNewPass"/>
+<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false" user="root" password="admin"/>
 <sql:query dataSource="${dsfacility}" var="facilityresult">
-    SELECT distinct Facility FROM mac_fms.facility;
+    SELECT distinct Facility FROM uta_mac_fms.facility;
 </sql:query>
 <sql:query dataSource="${dsfacility}" var="facilitynameresult">
-    SELECT FacilityName FROM mac_fms.facility order by FacilityName;
+    SELECT FacilityName FROM uta_mac_fms.facility order by FacilityName;
 </sql:query>
 <div class="button-box col-lg-12 offset-md-1">
 <h1>Search for a Facility <a	class="btn btn-primary offset-md-1 " href='${homePage}'>Home Page</a>
