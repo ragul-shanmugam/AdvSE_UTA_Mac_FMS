@@ -25,7 +25,7 @@ $(function () {
 <body><br>
 	<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false"
-		user="root" password="Maverick@123" />
+		user="root" password="admin" />
 	<sql:query dataSource="${dsfacility}" var="facilityresult">
     SELECT distinct Facility FROM uta_mac_fms.facility;
 </sql:query>
@@ -41,7 +41,6 @@ $(function () {
 		</h1>
 		<form action="/UTA_Mac_FMS/MarController?action=reportProblem"
 			method="POST" name="reportProblem_form">
-			<input value="<c:out value='${commonErrorMsg}'/>" id = "common_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
 			<div class="row">
 				<div class="col">
 					<label for="role">Select Facility Type</label> <select name="ftype"

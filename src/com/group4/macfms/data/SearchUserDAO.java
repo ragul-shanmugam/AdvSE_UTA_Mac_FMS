@@ -75,7 +75,12 @@ public class SearchUserDAO {
 	public ArrayList<User> searchUserRoleDetails(User user) throws SQLException {
 		return RetrunMatchingUsersList(
 				"select Username, FirstName, LastName, Role from uta_mac_fms.users where LastName = '"
-						+ user.getLastname() + "' and role = '" + user.getRole() + "';");
+						+ user.getLastname() + "' and Role = '" + user.getRole() + "';");
+	}
+	
+	public ArrayList<User> searchUserWithRole(User user) throws SQLException {
+		return RetrunMatchingUsersList(
+				"select Username, FirstName, LastName, Role from uta_mac_fms.users where Role = '" + user.getRole() + "';");
 	}
 
 	public User searchSpecificUserDetails(String username) throws SQLException {

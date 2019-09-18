@@ -29,8 +29,11 @@ public class UserController extends HttpServlet {
 
 	{
 		HttpSession session = request.getSession();
+		session.removeAttribute("userNotExist");
 		ArrayList<User> usersInDB = new ArrayList<User>();
 		User searchUser = new User();
+		User userError = new User();
+		UserErrorMsgs errorMsg = new UserErrorMsgs();
 		SearchUserDAO searchDetails = new SearchUserDAO();
 		searchUser.setLastname(request.getParameter("lastname"));
 		searchUser.setRole(request.getParameter("role"));
@@ -39,6 +42,30 @@ public class UserController extends HttpServlet {
 			try {
 				usersInDB = searchDetails.searchAllUserDetails(searchUser);
 				session.setAttribute("USERS", usersInDB);
+				if(usersInDB.isEmpty())
+				{
+					userError.validateUserExists(usersInDB, errorMsg);
+					session.setAttribute("userNotExist", errorMsg.getUserNotExistError());
+					getServletContext().getRequestDispatcher("/searchUser.jsp").forward(request, response);
+				}
+				session.setAttribute("backSearchPage", "searchUser.jsp");
+				getServletContext().getRequestDispatcher("/listUsers.jsp").forward(request, response);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		else if ((searchUser.getLastname() == null || searchUser.getLastname().isEmpty()) && !searchUser.getRole().equalsIgnoreCase("All Users"))
+		{
+			try {
+				usersInDB = searchDetails.searchUserWithRole(searchUser);
+				session.setAttribute("USERS", usersInDB);
+				if(usersInDB.isEmpty())
+				{
+					userError.validateUserExists(usersInDB, errorMsg);
+					session.setAttribute("userNotExist", errorMsg.getUserNotExistError());
+					getServletContext().getRequestDispatcher("/searchUser.jsp").forward(request, response);
+				}
 				session.setAttribute("backSearchPage", "searchUser.jsp");
 				getServletContext().getRequestDispatcher("/listUsers.jsp").forward(request, response);
 			} catch (SQLException e) {
@@ -51,18 +78,12 @@ public class UserController extends HttpServlet {
 			try {
 				usersInDB = searchDetails.searchUserDetails(searchUser);
 				session.setAttribute("USERS", usersInDB);
-				session.setAttribute("backSearchPage", "searchUser.jsp");
-				getServletContext().getRequestDispatcher("/listUsers.jsp").forward(request, response);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		else if ((searchUser.getLastname() != null || !searchUser.getLastname().isEmpty())  && !searchUser.getRole().equalsIgnoreCase("All Users"))
-		{
-			try {
-				usersInDB = searchDetails.searchUserRoleDetails(searchUser);
-				session.setAttribute("USERS", usersInDB);
+				if(usersInDB.isEmpty())
+				{
+					userError.validateUserExists(usersInDB, errorMsg);
+					session.setAttribute("userNotExist", errorMsg.getUserNotExistError());
+					getServletContext().getRequestDispatcher("/searchUser.jsp").forward(request, response);
+				}
 				session.setAttribute("backSearchPage", "searchUser.jsp");
 				getServletContext().getRequestDispatcher("/listUsers.jsp").forward(request, response);
 			} catch (SQLException e) {
@@ -74,6 +95,12 @@ public class UserController extends HttpServlet {
 			try {
 				usersInDB = searchDetails.searchUserRoleDetails(searchUser);
 				session.setAttribute("USERS", usersInDB);
+				if(usersInDB.isEmpty())
+				{
+					userError.validateUserExists(usersInDB, errorMsg);
+					session.setAttribute("userNotExist", errorMsg.getUserNotExistError());
+					getServletContext().getRequestDispatcher("/searchUser.jsp").forward(request, response);
+				}
 				getServletContext().getRequestDispatcher("/listUsers.jsp").forward(request, response);
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -82,7 +109,7 @@ public class UserController extends HttpServlet {
 	}
 
 	// Method is used to change the user role
-	// input parameters username and the role
+	// input parameters username
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
@@ -90,7 +117,6 @@ public class UserController extends HttpServlet {
 		String userName = request.getParameter("username");
 		String role = request.getParameter("role");
 		
-
 		if (action.equalsIgnoreCase("updateUserRole")) {
 
 			SearchUserDAO updateRole = new SearchUserDAO();

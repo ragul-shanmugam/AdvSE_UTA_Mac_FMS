@@ -55,7 +55,7 @@ public class ProfileController extends HttpServlet {
 		if(action.equalsIgnoreCase("updateUserDetails"))
 		{
 			//validate user here
-			user.validateUserDetails(user, errorMsgs);
+			user.validateUserDetailsAdmin(user, errorMsgs);
 			if (errorMsgs.getCommonerrorMsg() != "" || !errorMsgs.getCommonerrorMsg().isEmpty()) {
 				System.out.println("inside register error user  ");
 				session.setAttribute("errorMessage", errorMsgs);
@@ -92,11 +92,23 @@ public class ProfileController extends HttpServlet {
 		if(action.equalsIgnoreCase("updateUserDetailsAdmin"))
 		{
 			System.err.println("Printing user phone..."+user.getPhone());
+		
 			//validate user here
-			user.validateUserDetails(user, errorMsgs);
+			user.validateUserDetailsAdmin(user, errorMsgs);
 			if (errorMsgs.getCommonerrorMsg() != "" || !errorMsgs.getCommonerrorMsg().isEmpty()) {
-				System.out.println("inside register error user  ");
-				session.setAttribute("errorMessage", errorMsgs);
+				/*System.out.println("inside register error user..."+errorMsgs.getCommonerrorMsg());
+				System.out.println("inside register error user..."+errorMsgs.getFnameError());
+				System.out.println("inside register error user..."+errorMsgs.getLnameError());
+				System.out.println("inside register error user..."+errorMsgs.getConfirmPasswordError());
+				System.out.println("inside register error user..."+errorMsgs.getPasswordError());
+				System.out.println("inside register error user..."+errorMsgs.getLoginErrMsg());
+				System.out.println("inside register error user..."+errorMsgs.getEmailError());
+				System.out.println("inside register error user..."+errorMsgs.getCityError());
+				System.out.println("inside register error user..."+errorMsgs.getUsernameError());
+				System.out.println("inside register error user..."+errorMsgs.getIdError());
+				System.out.println("inside register error user..."+errorMsgs.getPhoneError());
+				System.out.println("inside register error user..."+errorMsgs.getAddressError());*/
+				session.setAttribute("errorMsg", errorMsgs);
 				//session.setAttribute("commonErrorMsg", errorMsg.getCommonerrorMsg());
 				getServletContext().getRequestDispatcher("/viewUser.jsp").forward(request, response);
 			}

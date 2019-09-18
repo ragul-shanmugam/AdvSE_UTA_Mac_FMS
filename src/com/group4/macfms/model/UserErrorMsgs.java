@@ -16,6 +16,7 @@ public class UserErrorMsgs {
 	private String zipCodeError = "";
 	
 	private String loginErrMsg = "";
+	private String userNotExistError = "";
 
 	public String getCommonerrorMsg() {
 		return commonerrorMsg;
@@ -99,5 +100,11 @@ public class UserErrorMsgs {
 	}
 	public void setLoginErrMsg(String loginErrMsg) {
 		this.loginErrMsg = loginErrMsg;
+	}
+	public String getUserNotExistError() {
+		return userNotExistError;
+	}
+	public void setUserNotExistError(String userNotExistError) {
+		this.userNotExistError = userNotExistError;
 	}
 }

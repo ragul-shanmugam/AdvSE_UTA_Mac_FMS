@@ -44,7 +44,7 @@ $(function () {
 <body onload='onPageLoad();'><br>
 <sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false"
-		user="root" password="Maverick@123" />
+		user="root" password="admin" />
 	<sql:query dataSource="${dsfacility}" var="repairerresult">
     SELECT Username FROM uta_mac_fms.schedule where Monday='Yes' and TotalMars<10;
 </sql:query>
@@ -107,9 +107,6 @@ $(function () {
 					</div>
 					<div class="col"></div>
 				</div><br>
-				<div class="col"></div>
-			</div>
-			<br>
 			<div class="row">
 					<div class="col">
 						<label for="time">Estimated Time</label> <select name="time" id="time" class="form-control" disabled>

@@ -1,5 +1,6 @@
 package com.group4.macfms.model;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -179,6 +180,65 @@ public class User {
 		errorMsg.setCommonerrorMsg();
 	}
 	
+	public void validateUserDetailsAdmin(User user, UserErrorMsgs errorMsg) {
+		//LoginDAO checkUsername = new LoginDAO();
+		errorMsg.setFnameError(validateFirstName(user.getFirstname()));
+		errorMsg.setLnameError(validateLastName(user.getLastname()));
+		errorMsg.setPasswordError(validatePassword(user.getPassword()));
+		errorMsg.setIdError(validateId(user.getId()));
+		errorMsg.setEmailError(validateEmail(user.getEmail()));
+		errorMsg.setPhoneError(validatePhone(user.getPhone()));
+		errorMsg.setConfirmPasswordError(validateConfirmPassword(user.getConfirmPassword(), user.getPassword()));
+		errorMsg.setAddressError(validateAddress(user.getAddress()));
+		errorMsg.setCityError(validateCity(user.getCity()));
+		errorMsg.setZipCodeError(validateZipCode(user.getZipcode()));
+		errorMsg.setCommonerrorMsg();
+	}
+	
+	public void validateUserExists(ArrayList<User> usersInDB, UserErrorMsgs errorMsg) {
+		if(usersInDB.isEmpty() || usersInDB == null)
+		{
+			errorMsg.setUserNotExistError("User not exists with search criteria");
+		}
+	}
+	
+	public void validateUserExists(String userName, UserErrorMsgs errorMsg) {
+		errorMsg.setUserNotExistError(validateUserExistsUsername(userName));
+	}
+
+	
+	private String validateUserExistsUsername(String userName2) {
+		boolean hasChar = false;
+		boolean hasNumber = false;
+		String result="";
+		char[] array=userName2.toCharArray();
+		if (userName2.equals(""))
+			result= "Please enter a Username to search";
+		else{
+			if (!LoginDAO.checkUniqueUsername(userName2))
+				result="Username not exists in system! Please try a different Username";
+			else if(!stringSize(userName2,3,16))
+				result = "Username should be 3 and 16 characters long";
+			
+		char[] characters = {'~', '!', '@', '#','$','%','^','&','*','(',')','_','-','+','=','{','}','[',']',':',';','"','<','>','?','/','\\'};
+		for(int i=0;i<characters.length;i++) {
+			char a = characters[i];
+			for(char b: array) {
+				if (a == b){
+					hasChar = true;
+				}
+				if(Character.isDigit(b)) {
+					hasNumber = true;
+				}
+			}
+		}
+		if(hasChar || hasNumber) {
+			result = "Username should not contain special characters or numeric characters";
+		}
+		}
+		return result;
+	}
+
 	private String validateZipCode(String zipcode) {
 		String result = "";
 		if(isTextAnInteger(zipcode) == false || zipcode.length()!=5) {
