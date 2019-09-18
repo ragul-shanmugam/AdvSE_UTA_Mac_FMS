@@ -111,7 +111,10 @@ public class MarController extends HttpServlet {
 			MarDAO marUpdate = new MarDAO();
 			Mar mar = new Mar();
 			getUserParam(request, mar);
-			System.err.println("Printing mar getassignedto...." + mar.getAssignedTo());
+			DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+			Date date = new Date();
+			String todayDate = dateFormat.format(date);
+			mar.setAssignedDate(todayDate);
 			if (mar.getAssignedTo() != null || !mar.getAssignedTo().isEmpty() || !mar.getAssignedTo().contains("")) {
 				mar.setMarStatus("Assigned");
 			}

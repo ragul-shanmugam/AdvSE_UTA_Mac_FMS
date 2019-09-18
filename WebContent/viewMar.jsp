@@ -34,14 +34,19 @@ function editDetails() {
 	document.getElementById('edit').disabled = true;
 	}
 </script>
+<script type="text/javascript">
+$(function () {
+    $("#datepicker").datepicker();
+});
+</script>
 <title>MAR Details - UTA Mac FMS</title>
 </head>
 <body onload='onPageLoad();'><br>
 <sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver"
-		url="jdbc:mysql://localhost:3306/mac_fms?autoReconnect=true&useSSL=false"
-		user="root" password="MyNewPass" />
+		url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false"
+		user="root" password="admin" />
 	<sql:query dataSource="${dsfacility}" var="repairerresult">
-    SELECT username FROM mac_fms.users where role='Repairer';
+    SELECT Username FROM uta_mac_fms.users where Role='Repairer';
 </sql:query>
 	<div class="button-box col-lg-12 offset-md-1">
 	<h1><a	class="btn btn-secondary " href='${backListPage}'>Back</a></h1>
@@ -110,22 +115,17 @@ function editDetails() {
 				<div class="col"></div>
 			</div>
 			<br>
-				<%-- <div class="row">
+			<div class="row">
 					<div class="col">
-						<label for="assignedto">Assigned To</label> <input type="text" name="assignedto" id="assignedto" class="form-control" value='${mar.assignedTo}' disabled>
-					</div>
-					<div class="col"></div>
-				</div><br> --%>
-				<div class="row">
-					<div class="col">
-						<label for="assigneddate">Assigned Date (MM/DD/YYYY)</label> <input type="text" name="assigneddate" id="assigneddate" class="form-control" value='${mar.assignedDate}' disabled>
-					</div>
-					<div class="col"></div>
-				</div><br>
-				<div class="row">
-					<div class="col">
-						<label for="time">Estimated Time</label> <input type="text" name="time" id="time" class="form-control"	value='${mar.estimatedTime}' disabled>
-					</div>
+						<label for="time">Estimated Time</label> <select name="time" id="time" class="form-control" disabled>
+						<option>${mar.estimatedTime}</option>
+						<option value="30 Minutes">30 Minutes</option>
+						<option value="1 Hour">1 Hour</option>
+						<option value="Multiple Hours">Multiple Hours</option>
+						<option value="1 Day">1 Day</option>
+						<option value="Multiple Days">Multiple Days</option>
+					</select>
+				</div>
 					<div class="col"></div>
 				</div><br>
 				<div class="row">
