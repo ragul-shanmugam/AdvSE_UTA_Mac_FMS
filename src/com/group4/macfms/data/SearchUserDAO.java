@@ -61,6 +61,11 @@ public class SearchUserDAO {
 		return status;
 	}
 
+	public ArrayList<User> searchAllUserDetails(User user) throws SQLException {
+		return RetrunMatchingUsersList(
+				"select username, firstname, lastname, role from mac_fms.users order by username;");
+	}
+	
 	public ArrayList<User> searchUserDetails(User user) throws SQLException {
 		return RetrunMatchingUsersList(
 				"select username, firstname, lastname, role from mac_fms.users where lastname = '" + user.getLastname()

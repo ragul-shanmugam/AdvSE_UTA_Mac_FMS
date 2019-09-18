@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.group4.macfms.data.SearchUserDAO;
 import com.group4.macfms.model.User;
+import com.group4.macfms.model.UserErrorMsgs;
 
 /**
  * Servlet implementation class MarController
@@ -33,8 +34,20 @@ public class UserController extends HttpServlet {
 		SearchUserDAO searchDetails = new SearchUserDAO();
 		searchUser.setLastname(request.getParameter("lastname"));
 		searchUser.setRole(request.getParameter("role"));
-
-		if (searchUser.getRole().equalsIgnoreCase("All Users")) {
+		
+		if ((searchUser.getLastname() == null || searchUser.getLastname().isEmpty()) && searchUser.getRole().equalsIgnoreCase("All Users")) {
+			try {
+				usersInDB = searchDetails.searchAllUserDetails(searchUser);
+				session.setAttribute("USERS", usersInDB);
+				session.setAttribute("backSearchPage", "searchUser.jsp");
+				getServletContext().getRequestDispatcher("/listUsers.jsp").forward(request, response);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		else if ((searchUser.getLastname() != null || !searchUser.getLastname().isEmpty())  && searchUser.getRole().equalsIgnoreCase("All Users"))
+		{
 			try {
 				usersInDB = searchDetails.searchUserDetails(searchUser);
 				session.setAttribute("USERS", usersInDB);
@@ -43,7 +56,19 @@ public class UserController extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		} 
+		}
+		
+		else if ((searchUser.getLastname() != null || !searchUser.getLastname().isEmpty())  && !searchUser.getRole().equalsIgnoreCase("All Users"))
+		{
+			try {
+				usersInDB = searchDetails.searchUserRoleDetails(searchUser);
+				session.setAttribute("USERS", usersInDB);
+				session.setAttribute("backSearchPage", "searchUser.jsp");
+				getServletContext().getRequestDispatcher("/listUsers.jsp").forward(request, response);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		else {
 			try {

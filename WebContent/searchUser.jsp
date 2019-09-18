@@ -9,7 +9,7 @@
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <title>Search User</title>
 </head>
-<body>
+<body><br>
 	<div class="button-box col-lg-12 offset-md-1">
 		<h1>
 			Search for a User <a class="btn btn-primary offset-md-1 "
@@ -21,12 +21,10 @@
 			<form action="/UTA_Mac_FMS/UserController?action=getUserDetails" method="GET" name="search_user">
 				<div class="row">
 				<div class="col">
-					<label for="lastname">Enter Last Name</label> 
+					<label for="lastname">Enter Last Name (Optional)</label> 
 					<input type="text" name="lastname" id="lastname" class="form-control" placeholder="Lastname">
 				</div>
-				<div class="col">
-				<br> <input value="" class="form-control" id = "lname_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
-				</div>
+				<div class="col"></div>
 			</div>		
 			<br>
 			<div class="row">

@@ -38,6 +38,8 @@ public class UserRoleController extends HttpServlet {
 		User dbuser = new User();	
 
 		String username = request.getParameter("username");
+		
+		//validate user name
 
 			try {
 				dbuser = searchDB.searchSpecificUserDetails(username);
