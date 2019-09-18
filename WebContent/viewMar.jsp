@@ -28,7 +28,6 @@ function editDetails() {
 	document.getElementById('description').disabled = false;
 	document.getElementById('datecreated').disabled = false;
 	document.getElementById('assignedto').disabled = false;
-	document.getElementById('assigneddate').disabled = false;
 	document.getElementById('time').disabled = false;
 	document.getElementById('updatemar').disabled = false;
 	document.getElementById('edit').disabled = true;
@@ -44,9 +43,9 @@ $(function () {
 <body onload='onPageLoad();'><br>
 <sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false"
-		user="root" password="admin" />
+		user="root" password="Maverick@123" />
 	<sql:query dataSource="${dsfacility}" var="repairerresult">
-    SELECT Username FROM uta_mac_fms.users where Role='Repairer';
+    SELECT Username FROM uta_mac_fms.schedule where Monday='Yes' and TotalMars<10;
 </sql:query>
 	<div class="button-box col-lg-12 offset-md-1">
 	<h1><a	class="btn btn-secondary " href='${backListPage}'>Back</a></h1>
