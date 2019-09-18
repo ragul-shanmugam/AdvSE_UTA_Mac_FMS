@@ -30,6 +30,7 @@ public class UserController extends HttpServlet {
 	{
 		HttpSession session = request.getSession();
 		session.removeAttribute("userNotExist");
+		session.removeAttribute("errorMessage");
 		ArrayList<User> usersInDB = new ArrayList<User>();
 		User searchUser = new User();
 		User userError = new User();

@@ -27,6 +27,8 @@ public class UserRoleController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SearchUserDAO searchDB = new SearchUserDAO();
 		HttpSession session = request.getSession();
+		session.removeAttribute("errorMessage");
+		session.removeAttribute("usernameNotExist");
 		User userNameErr = new User();
 		UserErrorMsgs errorMsg = new UserErrorMsgs();
 
@@ -38,7 +40,6 @@ public class UserRoleController extends HttpServlet {
 		userNameErr.validateUserExists(username, errorMsg);
 		
 		if (errorMsg.getUserNotExistError() != "" || !errorMsg.getUserNotExistError().isEmpty()) {
-			System.out.println("inside login error user..."+errorMsg.getUserNotExistError());
 			session.setAttribute("usernameNotExist", errorMsg.getUserNotExistError());
 			getServletContext().getRequestDispatcher("/searchUserRole.jsp").forward(request, response);
 		} 
@@ -55,13 +56,4 @@ public class UserRoleController extends HttpServlet {
 		getServletContext().getRequestDispatcher("/changeRole.jsp").forward(request, response);	
 		}
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

@@ -26,7 +26,7 @@ public class ViewSpecificUserController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SearchUserDAO searchDb = new SearchUserDAO();
 		HttpSession session = request.getSession();
-		String action = request.getParameter("action");
+		session.removeAttribute("errorMessage");
 		User searchUser = new User();
 		User dbuser = new User();		
 
@@ -40,14 +40,4 @@ public class ViewSpecificUserController extends HttpServlet {
 		session.setAttribute("backListPage", "listUsers.jsp");
 		getServletContext().getRequestDispatcher("/viewUser.jsp").forward(request, response);	
 		}
-		
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getParameter("action");
-		HttpSession session = request.getSession();
-	}
-
 }

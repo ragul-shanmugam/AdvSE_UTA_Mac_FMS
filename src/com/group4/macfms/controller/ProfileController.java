@@ -34,6 +34,7 @@ public class ProfileController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		session.removeAttribute("errorMessage");
 		User user = new User();
 		//String action = request.getParameter("action");
 		ProfileDAO retriveUser = new ProfileDAO();
@@ -47,6 +48,7 @@ public class ProfileController extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		session.removeAttribute("errorMessage");
 		String action = request.getParameter("action");
 		ProfileDAO updateUser = new ProfileDAO();
 		getUserParam(request, user);

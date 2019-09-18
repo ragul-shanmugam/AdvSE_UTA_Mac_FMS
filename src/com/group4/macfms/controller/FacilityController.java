@@ -41,6 +41,7 @@ public class FacilityController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
+		session.removeAttribute("errorMessage");
 		
 		/*if(action.equalsIgnoreCase("listFacilities"))
 		{
