@@ -7,9 +7,9 @@
 <meta charset="ISO-8859-1" name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<title>Update User Role</title>
+<title>Update User Role - UTA Mac FMS</title>
 </head>
-<body>
+<body><br>
 <div class="button-box col-lg-12 offset-md-1">
 			<h1><a	class="btn btn-secondary " href='${backSearchUserPage}'>Back</a></h1>
 		<h1> Update User Role for ${profile.username} <a	class="btn btn-primary offset-md-1 " href='${homePage}'>Home Page</a>

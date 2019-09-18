@@ -14,47 +14,49 @@ public class MarDAO {
 	static SQLConnection DBMgr = SQLConnection.getInstance();
 
 	public static ArrayList<Mar> ReturnMatchingMarsList(String queryString) {
-		
+
 		Statement stmt = null;
 		Connection conn = SQLConnection.getDBConnection();
 		ArrayList<Mar> marsListInDB = new ArrayList<Mar>();
-		//String queryString = "SELECT * from mac_fms.mar order by mar_number;";
+		
 		System.out.println("Printing mar query..."+queryString);
 		try {
 			stmt = conn.createStatement();
 			ResultSet marList = stmt.executeQuery(queryString);
 			while (marList.next()) {
 				Mar mar = new Mar();
-				mar.setMarNumber(marList.getString("mar_number"));
-				mar.setFacilityType(marList.getString("facility_type"));
-				mar.setReservationId(marList.getString("reservation_id"));
-				mar.setReportedBy(marList.getString("reported_by"));
-				mar.setUrgency(marList.getString("urgency"));
-				mar.setDescription(marList.getString("description"));
-				mar.setDateCreated(marList.getString("date_created"));
-				mar.setAssignedTo(marList.getString("assigned_to"));
-				mar.setAssignedDate(marList.getString("assigned_date"));
-				mar.setEstimatedTime(marList.getString("estimated_time"));
-				mar.setMarStatus(marList.getString("mar_status"));
-				
+				mar.setMarNumber(marList.getString("MarNumber"));
+				mar.setFacilityType(marList.getString("FacilityName"));
+				mar.setReservationId(marList.getString("ReservationId"));
+				mar.setReportedBy(marList.getString("ReportedBy"));
+				mar.setUrgency(marList.getString("Urgency"));
+				mar.setDescription(marList.getString("Description"));
+				mar.setDateCreated(marList.getString("DateCreated"));
+				mar.setAssignedTo(marList.getString("AssignedTo"));
+				mar.setAssignedDate(marList.getString("AssignedDate"));
+				mar.setEstimatedTime(marList.getString("EstimateRepair"));
+				mar.setMarStatus(marList.getString("MarStatus"));
+
 				marsListInDB.add(mar);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}				
+		}
 		return marsListInDB;
 	}
-	
+
 	public int updateMarDetails(Mar mar) {
-		
-	Statement stmt = null;
-	Connection conn = SQLConnection.getDBConnection();
+
+		Statement stmt = null;
+		Connection conn = SQLConnection.getDBConnection();
 		int status = 0;
-			String queryString = "UPDATE `mac_fms`.`mar` SET `mar_number` = '"+mar.getMarNumber()+"', `facility_type` = '"+mar.getFacilityType()
-					+"', `reservation_id` = '"+mar.getReservationId()+"', `reported_by` = '"+mar.getReportedBy()+"', `urgency` = '"+mar.getUrgency()
-					+"', `description` = '"+mar.getDescription()+"', `date_created` = '"+mar.getDateCreated()+"', `assigned_to` = '"+mar.getAssignedTo()
-					+"', `assigned_date` = '"+mar.getAssignedDate()+"', `estimated_time` = '"+mar.getEstimatedTime()+"', `mar_status` = '"+mar.getMarStatus()
-					+"' WHERE `mar_number` = '"+mar.getMarNumber()+"';";
+		String queryString = "UPDATE `uta_mac_fms`.`mardetails` SET `MarNumber` = '" + mar.getMarNumber()
+				+ "', `FacilityName` = '" + mar.getFacilityType() + "', `ReservationId` = '" + mar.getReservationId()
+				+ "', `ReportedBy` = '" + mar.getReportedBy() + "', `Urgency` = '" + mar.getUrgency()
+				+ "', `Description` = '" + mar.getDescription() + "', `DateCreated` = '" + mar.getDateCreated()
+				+ "', `AssignedTo` = '" + mar.getAssignedTo() + "', `AssignedDate` = '" + mar.getAssignedDate()
+				+ "', `EstimateRepair` = '" + mar.getEstimatedTime() + "', `MarStatus` = '" + mar.getMarStatus()
+				+ "' WHERE `MarNumber` = '" + mar.getMarNumber() + "';";
 		System.out.println("Printing mar query..."+queryString);
 		try {
 			stmt = conn.createStatement();
@@ -62,22 +64,23 @@ public class MarDAO {
 			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}		
-		System.err.println("Printing status..."+status);
+		}
 		return status;
 	}
 
-	public static ArrayList<Mar>  listMars() {  
-	return ReturnMatchingMarsList(" SELECT * from mac_fms.mar ORDER BY mar_number;");
+	public static ArrayList<Mar> listMars() {
+		return ReturnMatchingMarsList(" SELECT * from uta_mac_fms.mardetails ORDER BY MarNumber;");
 	}
-	
-	public static ArrayList<Mar>  listUnassignedMars() {  
-		return ReturnMatchingMarsList(" SELECT * from mac_fms.mar where TRIM(assigned_to) IS NULL or assigned_to = '' or assigned_to ='"+null+"';");
-		}
-	
-	public static ArrayList<Mar>  listAssignedMars(String username) {  
-		return ReturnMatchingMarsList(" SELECT * from mac_fms.mar where assigned_to ='"+username+"';");
-		}
+
+	public static ArrayList<Mar> listUnassignedMars() {
+		return ReturnMatchingMarsList(
+				" SELECT * from uta_mac_fms.mardetails where TRIM(AssignedTo) IS NULL or AssignedTo = '' or AssignedTo ='"
+						+ null + "';");
+	}
+
+	public static ArrayList<Mar> listAssignedMars(String username) {
+		return ReturnMatchingMarsList(" SELECT * from uta_mac_fms.mardetails where AssignedTo ='" + username + "';");
+	}
 
 	public int insertMar(Mar mar, String userName) {
 		int status = 0;
@@ -85,19 +88,21 @@ public class MarDAO {
 		Connection conn = SQLConnection.getDBConnection();
 		Random random = new Random();
 		int x = random.nextInt(900) + 100;
-		String marNumber = "MAR "+x;
-		String reservationId = "R "+x;
-			
-		String querystring = "INSERT INTO mac_fms.mar (`mar_number`, `facility_type`, `reservation_id`, `reported_by`, `urgency`,`description`,`date_created`, `mar_status`) VALUES "
-							+ "('"+marNumber+"','"+mar.getFacilityType()+"','"+reservationId+"', '"+userName+"', '"+mar.getUrgency()+"','"+mar.getDescription()+"','"+mar.getDateCreated()+"', '"+mar.getMarStatus()+"');";							
-					System.out.println("Printing query...."+querystring);
-					try {
-						stmt = conn.createStatement();
-						status = stmt.executeUpdate(querystring);
-						conn.commit(); 
-					}catch (SQLException e) {
-						e.printStackTrace();
-					}			
+		String marNumber = "MAR " + x;
+		String reservationId = "R" + x;
+
+		String querystring = "INSERT INTO uta_mac_fms.mardetails (`MarNumber`, `FacilityName`, `ReservationId`, `ReportedBy`, `Urgency`,`Description`,`DateCreated`, `MarStatus`) VALUES "
+				+ "('" + marNumber + "','" + mar.getFacilityType() + "','" + reservationId + "', '" + userName + "', '"
+				+ mar.getUrgency() + "','" + mar.getDescription() + "','" + mar.getDateCreated() + "', '"
+				+ mar.getMarStatus() + "');";
+		// System.out.println("Printing query...."+querystring);
+		try {
+			stmt = conn.createStatement();
+			status = stmt.executeUpdate(querystring);
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return status;
 	}
 }

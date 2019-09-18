@@ -15,39 +15,42 @@ public class ProfileDAO {
 
 	public User retrieveUserDetails(String username) {
 		User user = new User();
-		String queryString = "SELECT * from mac_fms.users where username = '"+username+"';";
-		
-		System.out.println("Printing user query..."+queryString);
+		String queryString = "SELECT * from uta_mac_fms.users where Username = '" + username + "';";
+
+		System.out.println("Printing user query..." + queryString);
 		try {
 			stmt = conn.createStatement();
 			ResultSet userList = stmt.executeQuery(queryString);
 			while (userList.next()) {
-				user.setUsername(userList.getString("username"));
-				user.setPassword(userList.getString("password"));
-				user.setFirstname(userList.getString("firstname"));
-				user.setLastname(userList.getString("lastname"));
-				user.setId(userList.getString("utaid"));
-				user.setRole(userList.getString("role"));
-				user.setPhone(userList.getString("phone"));
-				user.setEmail(userList.getString("email"));
-				user.setAddress(userList.getString("address"));
-				user.setCity(userList.getString("city"));
-				user.setState(userList.getString("state"));
-				user.setZipcode(userList.getString("zipcode"));
+				user.setUsername(userList.getString("Username"));
+				user.setPassword(userList.getString("Password"));
+				user.setFirstname(userList.getString("FirstName"));
+				user.setLastname(userList.getString("LastName"));
+				user.setId(userList.getString("UtaId"));
+				user.setRole(userList.getString("Role"));
+				user.setPhone(userList.getString("Phone"));
+				user.setEmail(userList.getString("Email"));
+				user.setAddress(userList.getString("Address"));
+				user.setCity(userList.getString("City"));
+				user.setState(userList.getString("State"));
+				user.setZipcode(userList.getString("ZipCode"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}		
+		}
 		return user;
 	}
 
 	public int updateUserDetails(User updateDetails) {
 		int status = 0;
-		String queryString = "UPDATE `mac_fms`.`users` SET `password` = '"+updateDetails.getPassword()+"', "
-				+ "`firstname` = '"+updateDetails.getFirstname()+"', `lastname` = '"+updateDetails.getLastname()+"', `utaid` = '"+updateDetails.getId()+"', `phone` = '"+updateDetails.getPhone()+"', "
-						+ "`email` = '"+updateDetails.getEmail()+"', `address` = '"+updateDetails.getAddress()+"', `city` = '"+updateDetails.getCity()+"', `state` = '"+updateDetails.getState()+"', "
-								+ "`zipcode` = '"+updateDetails.getZipcode()+"' WHERE `username` = '"+updateDetails.getUsername()+"';";
-		System.out.println("Printing query...."+queryString);
+		String queryString = "UPDATE `uta_mac_fms`.`users` SET `Password` = '" + updateDetails.getPassword() + "', "
+				+ "`FirstName` = '" + updateDetails.getFirstname() + "', `LastName` = '" + updateDetails.getLastname()
+				+ "', `UtaId` = '" + updateDetails.getId() + "', `Phone` = '" + updateDetails.getPhone() + "', "
+				+ "`Email` = '" + updateDetails.getEmail() + "', `Address` = '" + updateDetails.getAddress()
+				+ "', `City` = '" + updateDetails.getCity() + "', `State` = '" + updateDetails.getState() + "', "
+				+ "`ZipCode` = '" + updateDetails.getZipcode() + "' WHERE `Username` = '" + updateDetails.getUsername()
+				+ "';";
+		System.out.println("Printing query...." + queryString);
 		try {
 			stmt = conn.createStatement();
 			status = stmt.executeUpdate(queryString);
@@ -55,7 +58,6 @@ public class ProfileDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return status;		
+		return status;
 	}
-
 }

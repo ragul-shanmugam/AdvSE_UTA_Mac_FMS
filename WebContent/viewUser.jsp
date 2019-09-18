@@ -33,7 +33,7 @@
 		document.getElementById('edit').disabled = true;
 	}
 </script>
-<title>Profile - UTA Mac FMS</title>
+<title>User Details - UTA Mac FMS</title>
 </head>
 <body onload='onPageLoad();'><br>
 	<div class="button-box col-lg-12 offset-md-1">

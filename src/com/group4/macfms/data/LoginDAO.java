@@ -9,65 +9,64 @@ import com.group4.macfms.model.User;
 import com.group4.macfms.util.SQLConnection;
 
 public class LoginDAO {
-	
+
 	static SQLConnection DBMgr = SQLConnection.getInstance();
 	Statement stmt = null;
 	Connection conn = SQLConnection.getDBConnection();
-	
-	public User userCheck (String username) {
-		String queryString = "SELECT * from mac_fms.users where username = '"+username+"';";
-		System.out.println("Printing login query..."+queryString);
+
+	public User userCheck(String username) {
+		String queryString = "SELECT * from uta_mac_fms.users where Username = '" + username + "';";
+		// System.out.println("Printing login query..."+queryString);
 		User user = new User();
-		  
+
 		try {
 			stmt = conn.createStatement();
 			ResultSet userList = stmt.executeQuery(queryString);
 			while (userList.next()) {
-				user.setFirstname(userList.getString("firstname"));
-				user.setLastname(userList.getString("lastname"));
-				user.setPassword(userList.getString("password"));
-				user.setRole(userList.getString("role"));
+				user.setFirstname(userList.getString("FirstName"));
+				user.setLastname(userList.getString("LastName"));
+				user.setPassword(userList.getString("Password"));
+				user.setRole(userList.getString("Role"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}		
+		}
 		return user;
 	}
-	public int insertUser(User register)
-	{
-		System.out.println("Inside insertuser....");
+
+	public int insertUser(User register) {
 		int status = 0;
 		Statement stmt = null;
 		Connection conn = SQLConnection.getDBConnection();
-		if(register.getUsername() != null)
-		{
-			//System.out.println("Printing user name inside insert user..."+register.getUsername());			  
+		if (register.getUsername() != null) {
+			// System.out.println("Printing user name inside insert
+			// user..."+register.getUsername());
 			try {
-					String queryString = "INSERT INTO mac_fms.users (`username`,`password`,`firstname`,`lastname`,`utaid`,`phone`,`email`,`address`,`city`,`state`,`zipcode`,`role`) VALUES "
-							+ "('"+register.getUsername()+"','"+register.getPassword()+"','"+register.getFirstname()+"','"+register.getLastname()+"','"+register.getId()+"','"+register.getPhone()+"','"+register.getEmail()+"','"
-							+register.getAddress()+"','"+register.getCity()+"','"+register.getState()+"','"+register.getZipcode()+"','"+register.getRole()+"');";
-					System.out.println("Printing query...."+queryString);
-					
-						stmt = conn.createStatement();
-						status = stmt.executeUpdate(queryString);
-						conn.commit(); 
-						
-						System.out.println("Printing status...."+status);
-						System.err.println("User Inserted Succesfully.....");
-						
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}		
+				String queryString = "INSERT INTO uta_mac_fms.users (`Username`,`Password`,`FirstName`,`LastName`,`UtaId`,`Phone`,`Email`,`Address`,`City`,`State`,`Zipcode`,`Role`) VALUES "
+						+ "('" + register.getUsername() + "','" + register.getPassword() + "','"
+						+ register.getFirstname() + "','" + register.getLastname() + "','" + register.getId() + "','"
+						+ register.getPhone() + "','" + register.getEmail() + "','" + register.getAddress() + "','"
+						+ register.getCity() + "','" + register.getState() + "','" + register.getZipcode() + "','"
+						+ register.getRole() + "');";
+				// System.out.println("Printing query...."+queryString);
+
+				stmt = conn.createStatement();
+				status = stmt.executeUpdate(queryString);
+				conn.commit();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		return status;
 		}
-	
+		return status;
+	}
+
 	public static boolean checkUniqueUsername(String username) {
 		Statement stmt = null;
 		Connection conn = SQLConnection.getDBConnection();
 		boolean userNameExists = false;
-		
-		String sql = "SELECT * from mac_fms.users where username = '"+username+"';";
+
+		String sql = "SELECT * from uta_mac_fms.users where Username = '" + username + "';";
 		try {
 			stmt = conn.createStatement();
 			ResultSet userList = stmt.executeQuery(sql);
@@ -77,7 +76,6 @@ public class LoginDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return userNameExists;
 	}
-	}
+}

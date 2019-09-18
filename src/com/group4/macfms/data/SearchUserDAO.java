@@ -25,10 +25,10 @@ public class SearchUserDAO {
 
 			while (result.next()) {
 				User user = new User();
-				user.setUsername(result.getString("username"));
-				user.setFirstname(result.getString("firstname"));
-				user.setLastname(result.getString("lastname"));
-				user.setRole(result.getString("role"));
+				user.setUsername(result.getString("Username"));
+				user.setFirstname(result.getString("FirstName"));
+				user.setLastname(result.getString("LastName"));
+				user.setRole(result.getString("Role"));
 
 				usersInDB.add(user);
 			}
@@ -46,7 +46,7 @@ public class SearchUserDAO {
 
 		int status = 0;
 
-		String query = "UPDATE mac_fms.users set role = '" + roleUpdate + "' WHERE username = '" + username + "';";
+		String query = "UPDATE uta_mac_fms.users set Role = '" + roleUpdate + "' WHERE Username = '" + username + "';";
 		System.out.println("User Search Query ..." + query);
 		try {
 			stmt = conn.createStatement();
@@ -63,24 +63,24 @@ public class SearchUserDAO {
 
 	public ArrayList<User> searchAllUserDetails(User user) throws SQLException {
 		return RetrunMatchingUsersList(
-				"select username, firstname, lastname, role from mac_fms.users order by username;");
+				"select Username, FirstName, LastName, Role from uta_mac_fms.users order by Username;");
 	}
-	
+
 	public ArrayList<User> searchUserDetails(User user) throws SQLException {
 		return RetrunMatchingUsersList(
-				"select username, firstname, lastname, role from mac_fms.users where lastname = '" + user.getLastname()
-						+ "';");
+				"select Username, FirstName, LastName, Role from uta_mac_fms.users where LastName = '"
+						+ user.getLastname() + "';");
 	}
 
 	public ArrayList<User> searchUserRoleDetails(User user) throws SQLException {
 		return RetrunMatchingUsersList(
-				"select username, firstname, lastname, role from mac_fms.users where lastname = '" + user.getLastname()
-						+ "' and role = '" + user.getRole() + "';");
+				"select Username, FirstName, LastName, Role from uta_mac_fms.users where LastName = '"
+						+ user.getLastname() + "' and role = '" + user.getRole() + "';");
 	}
 
 	public User searchSpecificUserDetails(String username) throws SQLException {
 
-		String queryString = "select * from mac_fms.users where username = '" + username + "';";
+		String queryString = "select * from uta_mac_fms.users where Username = '" + username + "';";
 		System.out.println("User Search Query ..." + queryString);
 		User user = new User();
 
@@ -89,27 +89,25 @@ public class SearchUserDAO {
 			ResultSet userList = stmt.executeQuery(queryString);
 			while (userList.next()) {
 
-				user.setUsername(userList.getString("username"));
-				user.setPassword(userList.getString("password"));
-				user.setConfirmPassword(userList.getString("password"));
-				user.setFirstname(userList.getString("firstname"));
-				user.setLastname(userList.getString("lastname"));
-				user.setId(userList.getString("utaid"));
-				user.setRole(userList.getString("role"));
-				user.setPhone(userList.getString("phone"));
-				user.setEmail(userList.getString("email"));
-				user.setAddress(userList.getString("address"));
-				user.setCity(userList.getString("city"));
-				user.setState(userList.getString("state"));
-				user.setZipcode(userList.getString("zipcode"));
+				user.setUsername(userList.getString("Username"));
+				user.setPassword(userList.getString("Password"));
+				user.setConfirmPassword(userList.getString("Password"));
+				user.setFirstname(userList.getString("FirstName"));
+				user.setLastname(userList.getString("LastName"));
+				user.setId(userList.getString("UtaId"));
+				user.setRole(userList.getString("Role"));
+				user.setPhone(userList.getString("Phone"));
+				user.setEmail(userList.getString("Email"));
+				user.setAddress(userList.getString("Address"));
+				user.setCity(userList.getString("City"));
+				user.setState(userList.getString("State"));
+				user.setZipcode(userList.getString("ZipCode"));
 
 				// usersInDB.add(user);
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return user;
 	}
-
 }

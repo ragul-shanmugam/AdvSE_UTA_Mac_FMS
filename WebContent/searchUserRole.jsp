@@ -9,9 +9,9 @@
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<title>Update User Role</title>
+<title>Update User Role - UTA Mac FMS</title>
 </head>
-<body>
+<body><br>
 <div class="button-box col-lg-12 offset-md-1">
 		<h1>
 			Search User Role <a class="btn btn-primary offset-md-1 "
