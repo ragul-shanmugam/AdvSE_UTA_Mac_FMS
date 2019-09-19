@@ -23,8 +23,8 @@
 			Profile Details</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/ProfileController?action=view" role="button">Search
 			for Facility</a> <br> <br> <a class="btn btn-primary col-md-4"
-			href="/UTA_Mac_FMS/reportMar.jsp" role="button">Report a problem</a> <br>
-		<br>
+			href="/UTA_Mac_FMS/reportMar.jsp" role="button">Report a problem</a> <br> <br>
+			<a class="btn btn-primary col-md-4"	href="/UTA_Mac_FMS/reportMar.jsp" role="button">View Problem Report</a> <br> <br>
 	</div>
 </body>
 </html>
