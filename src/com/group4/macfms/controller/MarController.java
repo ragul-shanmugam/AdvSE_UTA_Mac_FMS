@@ -68,7 +68,16 @@ public class MarController extends HttpServlet {
 			marInDB = MarDAO.listAssignedMars(username);
 			session.setAttribute("MARS", marInDB);
 			getServletContext().getRequestDispatcher("/listAssignedRepairs.jsp").forward(request, response);
-		} else // redirect all other gets to post
+		}
+		
+		if (action.equalsIgnoreCase("viewReportedMars")) {
+			ArrayList<Mar> marInDB = new ArrayList<Mar>();
+			marInDB = MarDAO.listReportedMars(username);
+			session.setAttribute("MARS", marInDB);
+			getServletContext().getRequestDispatcher("/listReportedMars.jsp").forward(request, response);
+		}
+		
+		else // redirect all other gets to post
 			doPost(request, response);
 	}
 
@@ -170,6 +179,28 @@ public class MarController extends HttpServlet {
 				response.sendRedirect("viewRepair.jsp");
 			}
 		}
+		if (action.equalsIgnoreCase("listSpecificProblem")) {
+			ArrayList<Mar> marInDB = new ArrayList<Mar>();
+			Mar selectedMar = new Mar();
+			int selectedMarIndex;
+
+			if (request.getParameter("radioMar") != null) {
+				selectedMarIndex = Integer.parseInt(request.getParameter("radioMar")) - 1;
+				marInDB = MarDAO.listReportedMars(username);
+				selectedMar.setMar(marInDB.get(selectedMarIndex).getMarNumber(),
+						marInDB.get(selectedMarIndex).getFacilityType(),
+						marInDB.get(selectedMarIndex).getReservationId(), marInDB.get(selectedMarIndex).getReportedBy(),
+						marInDB.get(selectedMarIndex).getUrgency(), marInDB.get(selectedMarIndex).getDescription(),
+						marInDB.get(selectedMarIndex).getDateCreated(), marInDB.get(selectedMarIndex).getAssignedTo(),
+						marInDB.get(selectedMarIndex).getAssignedDate(),
+						marInDB.get(selectedMarIndex).getEstimatedTime(), marInDB.get(selectedMarIndex).getMarStatus());
+				session.setAttribute("mar", selectedMar);
+				session.setAttribute("backListPage", "listReportedMars.jsp");
+				// getServletContext().getRequestDispatcher("/viewMar.jsp").forward(request,
+				// response);
+				response.sendRedirect("viewReportedProblem.jsp");
+			}
+		}
 		if (action.equalsIgnoreCase("reportProblem")) {
 			MarDAO marInsert = new MarDAO();
 			Mar mar = new Mar();
@@ -178,7 +209,6 @@ public class MarController extends HttpServlet {
 			Date date = new Date();
 			String todayDate = dateFormat.format(date);
 			mar.setFacilityType(request.getParameter("fname"));
-			mar.setUrgency(request.getParameter("urgency"));
 			mar.setDescription(request.getParameter("description"));
 			mar.setDateCreated(todayDate);
 			mar.setMarStatus("Unassigned");

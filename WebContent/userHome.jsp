@@ -11,7 +11,8 @@
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <title>Student/Faculty - UTA Mac FMS</title>
 </head>
-<body><br>
+<body>
+	<br>
 	<div class="button-box col-lg-12 offset-md-1">
 		<h1>
 			Hello, ${user.lastname},${user.firstname}!<a
@@ -21,10 +22,11 @@
 		<br> <a class="btn btn-primary col-md-4"
 			href="/UTA_Mac_FMS/ProfileController?action=view" role="button">View/Modify
 			Profile Details</a> <br> <br> <a
-			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/ProfileController?action=view" role="button">Search
-			for Facility</a> <br> <br> <a class="btn btn-primary col-md-4"
-			href="/UTA_Mac_FMS/reportMar.jsp" role="button">Report a problem</a> <br>
-		<br>
+			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/reportMar.jsp"
+			role="button">Report a problem</a> <br> <br> <a
+			class="btn btn-primary col-md-4"
+			href="/UTA_Mac_FMS/MarController?action=viewReportedMars" role="button">Search
+			for Reported Problems</a> <br> <br> <br>
 	</div>
 </body>
 </html>

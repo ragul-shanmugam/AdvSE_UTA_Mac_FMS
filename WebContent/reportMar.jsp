@@ -25,9 +25,9 @@ $(function () {
 <body><br>
 	<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false"
-		user="root" password="admin" />
+		user="root" password="*****" />
 	<sql:query dataSource="${dsfacility}" var="facilityresult">
-    SELECT distinct Facility FROM uta_mac_fms.facility;
+    SELECT distinct FacilityType FROM uta_mac_fms.facility;
 </sql:query>
 	<sql:query dataSource="${dsfacility}" var="facilitynameresult">
     SELECT FacilityName FROM uta_mac_fms.facility order by FacilityName;
@@ -46,8 +46,8 @@ $(function () {
 					<label for="role">Select Facility Type</label> <select name="ftype"
 						id="ftype" class="form-control">
 						<c:forEach var="row" items="${facilityresult.rows}">
-							<option value='<c:out value="${row.Facility}"/>'><c:out
-									value="${row.Facility}" /></option>
+							<option value='<c:out value="${row.FacilityType}"/>'><c:out
+									value="${row.FacilityType}" /></option>
 						</c:forEach>
 					</select>
 				</div>
@@ -67,7 +67,7 @@ $(function () {
 				<div class="col"></div>
 			</div>
 			<br>
-			<div class="row">
+			<!-- <div class="row">
 				<div class="col">
 					<label for="urgency">Urgency</label> <select name="urgency"
 						class="form-control">
@@ -79,7 +79,7 @@ $(function () {
 				</div>
 				<div class="col"></div>
 			</div>
-			<br>
+			<br> -->
 			<div class="row">
 				<div class="col">
 					<label for="description">Description</label> <input name="description"

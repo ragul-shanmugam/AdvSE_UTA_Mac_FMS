@@ -179,6 +179,10 @@ public class MarDAO {
 		return ReturnMatchingMarsList(" SELECT * from uta_mac_fms.mardetails where AssignedTo ='" + username + "';");
 	}
 
+	public static ArrayList<Mar> listReportedMars(String username) {
+		return ReturnMatchingMarsList(" SELECT * from uta_mac_fms.mardetails where ReportedBy ='" + username + "';");
+	}
+	
 	public int insertMar(Mar mar, String userName) {
 		int status = 0;
 		Statement stmt = null;
@@ -188,11 +192,11 @@ public class MarDAO {
 		String marNumber = "MAR " + x;
 		String reservationId = "R" + x;
 
-		String querystring = "INSERT INTO uta_mac_fms.mardetails (`MarNumber`, `FacilityName`, `ReservationId`, `ReportedBy`, `Urgency`,`Description`,`DateCreated`, `MarStatus`) VALUES "
+		String querystring = "INSERT INTO uta_mac_fms.mardetails (`MarNumber`, `FacilityName`, `ReservationId`, `ReportedBy`,`Description`,`DateCreated`, `MarStatus`) VALUES "
 				+ "('" + marNumber + "','" + mar.getFacilityType() + "','" + reservationId + "', '" + userName + "', '"
-				+ mar.getUrgency() + "','" + mar.getDescription() + "','" + mar.getDateCreated() + "', '"
+				+ mar.getDescription() + "','" + mar.getDateCreated() + "', '"
 				+ mar.getMarStatus() + "');";
-		// System.out.println("Printing query...."+querystring);
+		System.out.println("Printing query...."+querystring);
 		try {
 			stmt = conn.createStatement();
 			status = stmt.executeUpdate(querystring);

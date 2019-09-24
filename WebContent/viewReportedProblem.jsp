@@ -39,22 +39,18 @@ $(function () {
     $("#datepicker").datepicker();
 });
 </script>
-<title>MAR Details - UTA Mac FMS</title>
+<title>Problem Details - UTA Mac FMS</title>
 </head>
 <body onload='onPageLoad();'><br>
 <sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false"
-		user="root" password="*****" />
+		user="root" password="Subha@12789" />
 	<sql:query dataSource="${dsfacility}" var="repairerresult">
     SELECT Username FROM uta_mac_fms.schedule where Monday='Yes' and TotalMars<10;
 </sql:query>
 	<div class="button-box col-lg-12 offset-md-1">
 	<h1><a	class="btn btn-secondary " href='${backListPage}'>Back</a></h1>
-		<h1> MAR Details for ${mar.marNumber} <a	class="btn btn-primary offset-md-1 " href='${homePage}'>Home Page</a>
-		<input id="edit" type="button"
-				class="btn btn-primary offset-md-1"
-				value="Edit Details" onclick="editDetails();"
-				style="color: white; cursor: pointer;" />
+		<h1> Report Details for ${mar.marNumber} <a	class="btn btn-primary offset-md-1 " href='${homePage}'>Home Page</a>
 		 <a	class="btn btn-danger offset-md-1" href="/UTA_Mac_FMS/LogoutController">Logout</a>
 		</h1>
 		<div>
@@ -67,34 +63,28 @@ $(function () {
 				</div> <br>
 				<div class="row">
 					<div class="col">
-						<label for="type">Facility Type</label> <input type="text" name="type" id="type" class="form-control" value='${mar.facilityType}' READONLY>
+						<label for="type">Facility Type</label> <input type="text" name="type" id="type" class="form-control" value='${mar.facilityType}' disabled>
 					</div>
 					<div class="col"></div>
 				</div><br>
-				<div class="row">
+				<%-- <div class="row">
 					<div class="col">
-						<label for="rid">Reservation ID</label> <input type="text" name="rid" id="rid" class="form-control"	value='${mar.reservationId}' READONLY>
+						<label for="rid">Reservation ID</label> <input type="text" name="rid" id="rid" class="form-control"	value='${mar.reservationId}' disabled>
 					</div>
 					<div class="col"></div>
-				</div><br>
-				<div class="row">
+				</div><br> --%>
+				<%-- <div class="row">
 					<div class="col">
-						<label for="reportedby">Reported By</label> <input type="text" name="reportedby" id="reportedby" class="form-control" value='${mar.reportedBy}' READONLY>
+						<label for="reportedby">Reported By</label> <input type="text" name="reportedby" id="reportedby" class="form-control" value='${mar.reportedBy}' disabled>
 					</div>
 					<div class="col"></div>
-				</div><br>
-				<div class="row">
-				<div class="col">
-					<label for="urgency">Urgency</label> <select name="urgency" id="urgency" class="form-control" disabled>
-						<option>${mar.urgency}</option>
-						<option value="Unusable">Unusable</option>
-						<option value="Major">Major</option>
-						<option value="Medium">Medium</option>
-						<option value="Minor">Minor</option>
-					</select>
-				</div>
-				<div class="col"></div>
-			</div><br>
+				</div><br> --%>
+				<%-- <div class="row">
+					<div class="col">
+						<label for="urgency">Urgency</label> <input type="text" name="urgency" id="urgency" class="form-control" value='${mar.urgency}' disabled>
+					</div>
+					<div class="col"></div>
+				</div><br> --%>
 				<div class="row">
 					<div class="col">
 						<label for="description">Description</label> <input type="text" name="description" id="description" class="form-control" value='${mar.description}' disabled>
@@ -103,17 +93,17 @@ $(function () {
 				</div><br>
 				<div class="row">
 					<div class="col">
-						<label for="datecreated">Date Created (MM/DD/YYYY)</label> <input type="text" name="datecreated" id="datecreated" class="form-control" value='${mar.dateCreated}' READONLY>
+						<label for="datecreated">Date Created (MM/DD/YYYY)</label> <input type="text" name="datecreated" id="datecreated" class="form-control" value='${mar.dateCreated}' disabled>
 					</div>
 					<div class="col"></div>
 				</div><br>
-				<div class="row">
+				<%-- <div class="row">
 					<div class="col">
 						<label for="assignedto">Assigned To</label> <input type="text" name="assignedto" id="assignedto" class="form-control" value='${mar.assignedTo}' disabled>
 					</div>
 					<div class="col"></div>
-				</div><br>
-			<div class="row">
+				</div><br> --%>
+			<%-- <div class="row">
 					<div class="col">
 						<label for="time">Estimated Time</label> <select name="time" id="time" class="form-control" disabled>
 						<option>${mar.estimatedTime}</option>
@@ -125,7 +115,7 @@ $(function () {
 					</select>
 				</div>
 					<div class="col"></div>
-				</div><br>
+				</div><br> --%>
 				<div class="row">
 					<div class="col">
 						<label for="status">MAR Status</label> <input type="text" name="status" id="status" class="form-control" value='${mar.marStatus}' disabled>
@@ -133,7 +123,7 @@ $(function () {
 					<div class="col"></div>
 				</div>
 				<br> 
-				<input type="submit" class="btn btn-primary col-md-3" id="updatemar" role="button" value="Update MAR Details" disabled>
+				<!-- <input type="submit" class="btn btn-primary col-md-3" id="updatemar" role="button" value="Update MAR Details" disabled> -->
 			</form>
 		</div>
 	</div>
