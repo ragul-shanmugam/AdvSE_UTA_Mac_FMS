@@ -17,22 +17,17 @@
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/ProfileController"
 			role="button">View/Modify Profile Details</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/MarController?action=viewUnassignedMars"
-			role="button">Search Unassigned MARs/Assign MAR</a> <br> <br> <a
+			role="button">Search for Unassigned MARs/Assign MAR</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/FacilityController?action=listFacilities"
 			role="button">Search/View Facility Details</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/FacilityController?action=listFacilities"
 			role="button">Update Availability of Facility</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
+			role="button">Add a Facility</a> <br> <br>  <a
+			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
 			role="button">Search for Assigned Repairs</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/MarController?action=viewMars"
-<<<<<<< HEAD
-			role="button">View all MARs</a> <br> <br> <a
-			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
-			role="button">Add a Facility</a> <br> <br>  
-=======
-			role="button">View all MARs</a> <br> <br> <a class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/reportMar.jsp"
-			role="button">Report a Problem</a> <br> <br>
->>>>>>> branch 'slave-temp' of https://github.com/ragul-shanmugam/AdvSE_UTA_Mac_FMS
+			role="button">View all MARs</a> <br> <br>
 	</div>
 </body>
 </html>
