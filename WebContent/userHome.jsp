@@ -22,11 +22,18 @@
 		<br> <a class="btn btn-primary col-md-4"
 			href="/UTA_Mac_FMS/ProfileController?action=view" role="button">View/Modify
 			Profile Details</a> <br> <br> <a
+<<<<<<< HEAD
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/reportMar.jsp"
 			role="button">Report a problem</a> <br> <br> <a
 			class="btn btn-primary col-md-4"
 			href="/UTA_Mac_FMS/MarController?action=viewReportedMars" role="button">Search
 			for Reported Problems</a> <br> <br> <br>
+=======
+			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/ProfileController?action=view" role="button">Search
+			for Facility</a> <br> <br> <a class="btn btn-primary col-md-4"
+			href="/UTA_Mac_FMS/reportMar.jsp" role="button">Report a problem</a> <br> <br>
+			<a class="btn btn-primary col-md-4"	href="/UTA_Mac_FMS/reportMar.jsp" role="button">View Problem Report</a> <br> <br>
+>>>>>>> branch 'slave-temp' of https://github.com/ragul-shanmugam/AdvSE_UTA_Mac_FMS
 	</div>
 </body>
 </html>
