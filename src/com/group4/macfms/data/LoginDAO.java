@@ -39,8 +39,19 @@ public class LoginDAO {
 		Statement stmt = null;
 		Connection conn = SQLConnection.getDBConnection();
 		if (register.getUsername() != null) {
-			// System.out.println("Printing user name inside insert
-			// user..."+register.getUsername());
+			// System.out.println("Printing user role inside insert user..."+register.getUsername());
+			if(register.getRole().equalsIgnoreCase("Repairer"))
+			{
+				try {
+					String sqlRepairer = "INSERT INTO `uta_mac_fms`.`schedule` (`Username`) VALUES ('"+ register.getUsername() +"');";
+					stmt = conn.createStatement();
+					int repairerStatus = stmt.executeUpdate(sqlRepairer);
+					conn.commit();
+
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}			
+			}
 			try {
 				String queryString = "INSERT INTO uta_mac_fms.users (`Username`,`Password`,`FirstName`,`LastName`,`UtaId`,`Phone`,`Email`,`Address`,`City`,`State`,`Zipcode`,`Role`) VALUES "
 						+ "('" + register.getUsername() + "','" + register.getPassword() + "','"

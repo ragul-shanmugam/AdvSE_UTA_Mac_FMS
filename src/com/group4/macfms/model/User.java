@@ -156,7 +156,7 @@ public class User {
 	public void validateUserPassword(User loginUser, UserErrorMsgs errorMsg) {
 		LoginDAO regDb = new LoginDAO();
 		User userInDB = regDb.userCheck(loginUser.getUsername());
-		System.out.println("Printing password from user.... "+loginUser.getPassword());
+		System.out.println("Printing password from user.... "+userInDB.getPassword());
 		if(userInDB.getPassword() == null || !(userInDB.getPassword().equals(loginUser.getPassword())))
 		{
 			errorMsg.setLoginErrMsg("Incorrect Username or Password");

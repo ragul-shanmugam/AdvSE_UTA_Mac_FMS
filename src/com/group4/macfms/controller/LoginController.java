@@ -59,11 +59,12 @@ public class LoginController extends HttpServlet {
 			
 			if (errorMsg.getLoginErrMsg() != "" || !errorMsg.getLoginErrMsg().isEmpty()) {
 				url = "/index.jsp";
-				System.out.println("inside login error user..."+errorMsg.getCommonerrorMsg());
+				//System.out.println("inside login error user..."+errorMsg.getCommonerrorMsg());
 				session.setAttribute("errorMessage", errorMsg.getLoginErrMsg());
-				session.setAttribute("commonErrorMsg", "Please correct the following errors");
+				//session.setAttribute("commonErrorMsg", "Please correct the following errors");
 				getServletContext().getRequestDispatcher(url).forward(request, response);
-			} else {
+			} 
+			else {
 				System.out.println("inside after user validation else ");
 				session.setAttribute("userInfo", loginUser);
 				loginUser.validateUserPassword(loginUser, errorMsg);

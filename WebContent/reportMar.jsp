@@ -25,10 +25,10 @@ $(function () {
 <body><br>
 	<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false"
-		user="root" password="*****" />
-	<sql:query dataSource="${dsfacility}" var="facilityresult">
+		user="root" password="MyNewPass" />
+	<%-- <sql:query dataSource="${dsfacility}" var="facilityresult">
     SELECT distinct FacilityType FROM uta_mac_fms.facility;
-</sql:query>
+</sql:query> --%>
 	<sql:query dataSource="${dsfacility}" var="facilitynameresult">
     SELECT FacilityName FROM uta_mac_fms.facility order by FacilityName;
 </sql:query>
@@ -41,7 +41,7 @@ $(function () {
 		</h1>
 		<form action="/UTA_Mac_FMS/MarController?action=reportProblem"
 			method="POST" name="reportProblem_form">
-			<div class="row">
+			<%-- <div class="row">
 				<div class="col">
 					<label for="role">Select Facility Type</label> <select name="ftype"
 						id="ftype" class="form-control">
@@ -53,10 +53,10 @@ $(function () {
 				</div>
 				<div class="col"></div>
 			</div>
-			<br>
+			<br> --%>
 			<div class="row">
 				<div class="col">
-					<label for="role">Select Facility Name</label> <select name="fname"
+					<label for="role">Select Facility Name received during the time of reservation</label> <select name="fname"
 						id="fname" class="form-control">
 						<c:forEach var="row" items="${facilitynameresult.rows}">
 							<option value='<c:out value="${row.FacilityName}"/>'><c:out
@@ -64,7 +64,9 @@ $(function () {
 						</c:forEach>
 					</select>
 				</div>
-				<div class="col"></div>
+				<div class="col">
+				<br> <input value="<c:out value='${errorMessage.descriptionError}'/>" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
+				</div>
 			</div>
 			<br>
 			<!-- <div class="row">

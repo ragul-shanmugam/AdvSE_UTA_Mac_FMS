@@ -28,7 +28,7 @@ public class FacilityController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
-				
+		
 		if(action.equalsIgnoreCase("listFacilities"))
 		{
 			ArrayList<Facility> facilityInDB = new ArrayList<Facility>();
@@ -36,6 +36,7 @@ public class FacilityController extends HttpServlet {
 			session.setAttribute("FACILITIES", facilityInDB);
 			response.sendRedirect("listFacilities.jsp");
 		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -94,6 +95,14 @@ public class FacilityController extends HttpServlet {
 				}
 			}
 		}*/
+		
+		if(action.equalsIgnoreCase("listFacilitiesbyType"))
+		{
+			ArrayList<Facility> facilityTypeInDB = new ArrayList<Facility>();
+			facilityTypeInDB = FacilityDAO.listFacilitiesWithType(request.getParameter("ftype"));
+			session.setAttribute("FACILITIES", facilityTypeInDB);
+			response.sendRedirect("listFacilities.jsp");
+		}
 
 		if (action.equalsIgnoreCase("listSpecificFacility")) {
 			ArrayList<Facility> facilityInDB = new ArrayList<Facility>();
@@ -122,5 +131,16 @@ public class FacilityController extends HttpServlet {
 		response.sendRedirect("viewFacility.jsp");
 		}
 		}
+		if (action.equalsIgnoreCase("addFacility")) {
+			FacilityDAO facilityadd = new FacilityDAO();
+			Facility facility = new Facility();
+			getUserParam(request, facility);
+			int status = facilityadd.addFacilityDetails(facility);
+			if(status == 1)
+			{
+			session.setAttribute("facility", facility);
+			response.sendRedirect("managerHome.jsp");
+			}
+			}
 	}
 }

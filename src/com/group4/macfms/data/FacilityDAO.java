@@ -21,11 +21,11 @@ public class FacilityDAO {
 			ResultSet facilityList = stmt.executeQuery(queryString);
 			while (facilityList.next()) {
 				Facility facility = new Facility();
-				facility.setFacility(facilityList.getString("Facility"));
+				facility.setFacility(facilityList.getString("FacilityType"));
 				facility.setFacilityName(facilityList.getString("FacilityName"));
 				facility.setMaxInterval(facilityList.getString("MaxInterval"));
 				facility.setDuration(facilityList.getString("Duration"));
-				facility.setType(facilityList.getString("Type"));
+				facility.setType(facilityList.getString("Venue"));
 				facility.setAvailability(facilityList.getString("Availability"));
 
 				facilitiesListInDB.add(facility);
@@ -40,12 +40,30 @@ public class FacilityDAO {
 		Statement stmt = null;
 		Connection conn = SQLConnection.getDBConnection();
 		int status = 0;
-		String queryString = "UPDATE `uta_mac_fms`.`facility` SET `Facility` = '" + facility.getFacility()
+		String queryString = "SET `uta_mac_fms`.`facility` SET `FacilityType` = '" + facility.getFacility()
 				+ "', `FacilityName` = '" + facility.getFacilityName() + "', `MaxInterval` = '"
-				+ facility.getMaxInterval() + "', `Duration` = '" + facility.getDuration() + "', `Type` = '"
+				+ facility.getMaxInterval() + "', `Duration` = '" + facility.getDuration() + "', `Venue` = '"
 				+ facility.getType() + "', `Availability` = '" + facility.getAvailability()
 				+ "' WHERE `FacilityName` = '" + facility.getFacilityName() + "';";
 		// System.out.println("Printing facility query..."+queryString);
+		try {
+			stmt = conn.createStatement();
+			status = stmt.executeUpdate(queryString);
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		// System.err.println("Printing status..."+status);
+		return status;
+	}
+	
+	public int addFacilityDetails(Facility facility) {
+		Statement stmt = null;
+		Connection conn = SQLConnection.getDBConnection();
+		int status = 0;
+		String queryString = "INSERT INTO `uta_mac_fms`.`facility` (`FacilityType`, `FacilityName`, `MaxInterval`, `Duration`, `Venue`, `Availability`) VALUES ('" + facility.getFacility()
+				+ "','" + facility.getFacilityName() + "', '" + facility.getMaxInterval() + "', '" + facility.getDuration() + "', '" + facility.getType() + "', '" + facility.getAvailability() + "');";
+		System.out.println("Printing facility query..."+queryString);
 		try {
 			stmt = conn.createStatement();
 			status = stmt.executeUpdate(queryString);
@@ -62,7 +80,7 @@ public class FacilityDAO {
 	}
 
 	public static ArrayList<Facility> listFacilitiesWithType(String facility) {
-		return ReturnMatchingFacilitiesList("SELECT * from uta_mac_fms.facility where Facility ='" + facility + "';");
+		return ReturnMatchingFacilitiesList("SELECT * from uta_mac_fms.facility where FacilityType ='" + facility + "';");
 	}
 
 	public static ArrayList<Facility> listFacilitiesWithName(String facilityName) {
@@ -71,7 +89,7 @@ public class FacilityDAO {
 	}
 
 	public static ArrayList<Facility> listSpecificFacility(String facility, String facilityName) {
-		return ReturnMatchingFacilitiesList("SELECT * from uta_mac_fms.facility where Facility = '" + facility
+		return ReturnMatchingFacilitiesList("SELECT * from uta_mac_fms.facility where FacilityType = '" + facility
 				+ "'and FacilityName ='" + facilityName + "';");
 	}
 
