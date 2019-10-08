@@ -21,32 +21,32 @@
 			<form action="/UTA_Mac_FMS/FacilityController?action=updateFacility" method="POST" name="facility_form">
 				<div class="row">
 					<div class="col">
-						<label for="facility">Facility</label> <input type="text" name="facility" id="facility" class="form-control" value='${facility.facility}'>
+						<label for="facility">Facility Type</label> <input type="text" name="facility" id="facility" class="form-control" value='${facility.facility}' READONLY>
 					</div>
 					<div class="col"></div>
 				</div> <br>
 				<div class="row">
 					<div class="col">
-						<label for="fname">Facility name</label> <input type="text" name="fname" id="fname" class="form-control" value='${facility.facilityName}'>
+						<label for="fname">Facility name</label> <input type="text" name="fname" id="fname" class="form-control" value='${facility.facilityName}' READONLY>
 					</div>
 					<div class="col"></div>
 				</div><br>
 
 				<div class="row">
 					<div class="col">
-						<label for="interval">Max Interval</label> <input type="text" name="interval" id="interval" class="form-control" value='${facility.maxInterval}'>
+						<label for="interval">Max Interval</label> <input type="text" name="interval" id="interval" class="form-control" value='${facility.maxInterval}' READONLY>
 					</div>
 					<div class="col"></div>
 				</div><br>
 				<div class="row">
 					<div class="col">
-						<label for="duration">Duration</label> <input type="text" name="duration" id="duration" class="form-control" value='${facility.duration}'>
+						<label for="duration">Duration</label> <input type="text" name="duration" id="duration" class="form-control" value='${facility.duration}' READONLY>
 					</div>
 					<div class="col"></div>
 				</div><br>
 				<div class="row">
 					<div class="col">
-						<label for="type">Type</label> <input type="text" name="type" id="type" class="form-control" value='${facility.type}'>
+						<label for="type">Venue</label> <input type="text" name="type" id="type" class="form-control" value='${facility.type}' READONLY>
 					</div>
 					<div class="col"></div>
 				</div><br>

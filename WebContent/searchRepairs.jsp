@@ -9,7 +9,6 @@
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -29,7 +28,7 @@ $(function () {
 				href="/UTA_Mac_FMS/LogoutController">Logout</a>
 		</h1>
 		<div>
-			<form action="/UTA_Mac_FMS/UserRoleController" method="GET" name="get_user_role">
+			<form action="/UTA_Mac_FMS/MarController?action=viewReportedMars1" method="POST" name="get_mar_date">
 				<div class="row">
 				<div class="col">
 					<label for="date">Choose a date</label> 
@@ -41,7 +40,9 @@ $(function () {
 			</div>	
 			<br> <input type="submit" class="btn btn-primary col-md-3" role="button" value="Search for Repairs"> 
 			</form>
+			
 		</div>
+		
 	</div>
 </body>
 

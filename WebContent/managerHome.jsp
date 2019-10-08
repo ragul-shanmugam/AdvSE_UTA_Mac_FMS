@@ -18,7 +18,7 @@
 			role="button">View/Modify Profile Details</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/MarController?action=viewUnassignedMars"
 			role="button">Search for Unassigned MARs/Assign MAR</a> <br> <br> <a
-			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/register.jsp"
+			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/searchRepairs.jsp"
 			role="button">Search for Assigned Repairs</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/searchFacility.jsp"
 			role="button">Search/View Facility Details</a> <br> <br>  <!-- <a

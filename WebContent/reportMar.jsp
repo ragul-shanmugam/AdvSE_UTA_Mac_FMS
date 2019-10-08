@@ -65,7 +65,6 @@ $(function () {
 					</select>
 				</div>
 				<div class="col">
-				<br> <input value="<c:out value='${errorMessage.descriptionError}'/>" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
 				</div>
 			</div>
 			<br>

@@ -94,7 +94,17 @@ public class MarController extends HttpServlet {
 		User user = (User) session.getAttribute("userInfo");
 		String username = user.getUsername();
 
-		if (action.equalsIgnoreCase("listSpecificMar")) {
+		
+		if (action.equalsIgnoreCase("viewReportedMars1")) {
+			String date = request.getParameter("datepicker");
+			System.out.println(date);			
+			ArrayList<Mar> marInDB = new ArrayList<Mar>();
+			marInDB = MarDAO.listReportedMars1(date);
+			session.setAttribute("MARS", marInDB);
+			getServletContext().getRequestDispatcher("/listMars.jsp").forward(request, response);
+		}
+		
+		/*if (action.equalsIgnoreCase("listSpecificMar")) {
 			ArrayList<Mar> marInDB = new ArrayList<Mar>();
 			Mar selectedMar = new Mar();
 			int selectedMarIndex;
@@ -115,7 +125,8 @@ public class MarController extends HttpServlet {
 				// response);
 				response.sendRedirect("viewMar.jsp");
 			}
-		}
+		}*/
+		
 		if (action.equalsIgnoreCase("updateMarDetails")) {
 			MarDAO marUpdate = new MarDAO();
 			Mar mar = new Mar();
@@ -134,7 +145,7 @@ public class MarController extends HttpServlet {
 			}
 		}
 
-		if (action.equalsIgnoreCase("listSpecificUnassignedMar")) {
+		/*if (action.equalsIgnoreCase("listSpecificUnassignedMar")) {
 			ArrayList<Mar> marInDB = new ArrayList<Mar>();
 			Mar selectedMar = new Mar();
 			int selectedMarIndex;
@@ -155,9 +166,9 @@ public class MarController extends HttpServlet {
 				// response);
 				response.sendRedirect("viewMar.jsp");
 			}
-		}
+		}*/
 
-		if (action.equalsIgnoreCase("listSpecificRepair")) {
+/*		if (action.equalsIgnoreCase("listSpecificRepair")) {
 			ArrayList<Mar> marInDB = new ArrayList<Mar>();
 			Mar selectedMar = new Mar();
 			int selectedMarIndex;
@@ -178,7 +189,8 @@ public class MarController extends HttpServlet {
 				session.setAttribute("backListPage", "listAssignedRepairs.jsp");
 				response.sendRedirect("viewRepair.jsp");
 			}
-		}
+		}*/
+		
 		if (action.equalsIgnoreCase("listSpecificProblem")) {
 			ArrayList<Mar> marInDB = new ArrayList<Mar>();
 			Mar selectedMar = new Mar();

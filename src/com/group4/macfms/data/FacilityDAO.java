@@ -40,12 +40,12 @@ public class FacilityDAO {
 		Statement stmt = null;
 		Connection conn = SQLConnection.getDBConnection();
 		int status = 0;
-		String queryString = "SET `uta_mac_fms`.`facility` SET `FacilityType` = '" + facility.getFacility()
+		String queryString = "UPDATE `uta_mac_fms`.`facility` SET `FacilityType` = '" + facility.getFacility()
 				+ "', `FacilityName` = '" + facility.getFacilityName() + "', `MaxInterval` = '"
 				+ facility.getMaxInterval() + "', `Duration` = '" + facility.getDuration() + "', `Venue` = '"
 				+ facility.getType() + "', `Availability` = '" + facility.getAvailability()
 				+ "' WHERE `FacilityName` = '" + facility.getFacilityName() + "';";
-		// System.out.println("Printing facility query..."+queryString);
+		 System.out.println("Printing facility query..."+queryString);
 		try {
 			stmt = conn.createStatement();
 			status = stmt.executeUpdate(queryString);

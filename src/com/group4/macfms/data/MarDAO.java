@@ -164,7 +164,6 @@ public class MarDAO {
 	    return calendar.getTime();
 	}
 	
-	
 	public static ArrayList<Mar> listMars() {
 		return ReturnMatchingMarsList(" SELECT * from uta_mac_fms.mardetails ORDER BY MarNumber;");
 	}
@@ -181,6 +180,10 @@ public class MarDAO {
 
 	public static ArrayList<Mar> listReportedMars(String username) {
 		return ReturnMatchingMarsList(" SELECT * from uta_mac_fms.mardetails where ReportedBy ='" + username + "';");
+	}
+	
+	public static ArrayList<Mar> listReportedMars1(String username) {
+		return ReturnMatchingMarsList(" SELECT * from uta_mac_fms.mardetails where assignedDate ='"+username+"';");
 	}
 	
 	public int insertMar(Mar mar, String userName) {
