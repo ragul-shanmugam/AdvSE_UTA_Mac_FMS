@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.group4.macfms.data.FacilityDAO;
 import com.group4.macfms.model.Facility;
+import com.group4.macfms.model.UserErrorMsgs;
 
 /**
  * Servlet implementation class FacilityController
@@ -44,6 +45,7 @@ public class FacilityController extends HttpServlet {
 		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
 		session.removeAttribute("errorMessage");
+		session.removeAttribute("facilityNameError");
 		
 		/*if(action.equalsIgnoreCase("listFacilities"))
 		{
@@ -139,6 +141,21 @@ public class FacilityController extends HttpServlet {
 			FacilityDAO facilityadd = new FacilityDAO();
 			Facility facility = new Facility();
 			getUserParam(request, facility);
+			UserErrorMsgs errorMsg = new UserErrorMsgs();
+			System.out.println("Pringitng name..."+facility.getFacilityName());
+			
+			String res = facility.validatefacilityName(facility, errorMsg);
+			
+			System.out.println("Printing error message...." +errorMsg.getFacilityName());
+			
+			if(res != null)
+			{
+			System.err.println("Inisde error");
+			session.setAttribute("facilityNameError", errorMsg.getFacilityName() );
+			getServletContext().getRequestDispatcher("/addFacility.jsp").forward(request, response);
+			}
+		
+	else {		
 			int status = facilityadd.addFacilityDetails(facility);
 			if(status == 1)
 			{
@@ -172,6 +189,8 @@ public class FacilityController extends HttpServlet {
 					out.println(htmlRespone);
 				}
 			}
-			}
+			
+		}
+	}			
 	}
 }

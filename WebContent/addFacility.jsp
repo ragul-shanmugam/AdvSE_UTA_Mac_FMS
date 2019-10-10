@@ -18,7 +18,7 @@
 	<br>
 	<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false"
-		user="root" password="Maverick@123" />
+		user="root" password="arbaz123" />
 	<sql:query dataSource="${dsfacility}" var="facilityresult">
    SELECT distinct FacilityType FROM uta_mac_fms.facility order by FacilityName;
 </sql:query>
@@ -52,8 +52,8 @@
 				</div>
 				<div class="col">
 					<br> <input
-						value="<c:out value='${errorMessage.facilityNameError}'/>"
-						class="form-control" id="fname_errorMessage" type="text"
+						value="<c:out value='${facilityNameError}'/>"
+						class="form-control" id="facilityname_errorMessage" type="text"
 						style="background-color: white; color: red; border: none; width: 800px"
 						disabled="disabled" maxlength="60">
 				</div>

@@ -1,5 +1,7 @@
 package com.group4.macfms.model;
 
+
+
 public class Facility {
 	private String facility;
 	private String facilityName;
@@ -65,6 +67,32 @@ public class Facility {
 
 	public void setAvailability(String availability) {
 		this.availability = availability;
+	}
+	
+	
+	public String validatefacilityName(Facility facility, UserErrorMsgs errorMessage) {
+		
+		if(facility.getFacilityName().equals("") || facility.getFacilityName().length() == 0 || facility.getFacilityName().isEmpty())
+		{
+			System.out.println("inside validate user else ");
+			errorMessage.setFacilityName("Facility Name  cannot be empty");
+			return "Facility Name  cannot be empty";
+		}
+		
+		else
+		{
+			
+			   String stringToTest = facility.getFacilityName();
+			   boolean hasNonAlphaNumeric = stringToTest.matches("^[a-zA-Z0-9_]*$");
+			   if(hasNonAlphaNumeric) {
+					errorMessage.setFacilityName("Facility name should be alphanumeric");
+				return "Facility name should be alphanumeric"; }
+
+		
+	
+		}
+		return null;
+
 	}
 
 }
