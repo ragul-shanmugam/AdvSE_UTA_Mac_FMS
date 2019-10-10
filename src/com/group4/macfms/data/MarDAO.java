@@ -182,10 +182,19 @@ public class MarDAO {
 			System.out.println("End Date of week..."+endOfWeek);
 
 			// validation for the rule check on TotalMars < 10 (per week) and < 5 (per day)
+//			String query = "SELECT AssignedTo,\r\n" + 
+//					"(SELECT COUNT(MarNumber)  from mardetails where AssignedDate between '"+startOfWeek+"' and '"+endOfWeek+"') as TotalMarsCountPerWeek,\r\n" + 
+//					"(SELECT COUNT(MarNumber)  from mardetails where AssignedDate = '"+todaysDate+"') as TotalMarsCountPerDay\r\n" + 
+//					"FROM mardetails where AssignedTo = '"+mar.getAssignedTo()+"' GROUP BY AssignedTo;";
+			
 			String query = "SELECT AssignedTo,\r\n" + 
-					"(SELECT COUNT(MarNumber)  from mardetails where AssignedDate between '"+startOfWeek+"' and '"+endOfWeek+"') as TotalMarsCountPerWeek,\r\n" + 
-					"(SELECT COUNT(MarNumber)  from mardetails where AssignedDate = '"+todaysDate+"') as TotalMarsCountPerDay\r\n" + 
-					"FROM mardetails where AssignedTo = '"+mar.getAssignedTo()+"' GROUP BY AssignedTo;";
+					"(SELECT COUNT(MarNumber)  from uta_mac_fms.mardetails where AssignedDate between '"+startOfWeek+"' and '"+endOfWeek+"' \r\n" + 
+					"	and AssignedTo = '"+mar.getAssignedTo()+"' GROUP BY AssignedTo) as TotalMarsCountPerWeek,\r\n" + 
+					"(SELECT COUNT(MarNumber)  from uta_mac_fms.mardetails where AssignedDate = '"+todaysDate+"'\r\n" + 
+					" and AssignedTo = '"+mar.getAssignedTo()+"' GROUP BY AssignedTo) as TotalMarsCountPerDay\r\n" + 
+					" \r\n" + 
+					" from uta_mac_fms.mardetails where AssignedTo = '"+mar.getAssignedTo()+"' Group By AssignedTo;";
+			
 			System.out.println("Printing mar query..."+query);
 		try {
 				stmt = conn.createStatement();
@@ -294,6 +303,13 @@ public class MarDAO {
 	public static ArrayList<Mar> listReportedMars(String username) {
 		return ReturnMatchingMarsList(" SELECT * from uta_mac_fms.mardetails where ReportedBy ='" + username + "';");
 	}
+	
+	public static ArrayList<Mar> viewAssignedMarsByDate(String username) {
+
+		 return ReturnMatchingMarsList(" SELECT * from uta_mac_fms.mardetails where assignedDate ='"+username+"';");
+
+		}
+	
 	
 	public int insertMar(Mar mar, String userName) {
 		int status = 0;
