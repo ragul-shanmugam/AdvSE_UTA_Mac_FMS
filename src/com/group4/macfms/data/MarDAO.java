@@ -263,11 +263,11 @@ public class MarDAO {
 				int TotalMarsCountPerWeek = 0;
 				int TotalMarsCountPerDay = 0;
 				while(result.next()) {
-					if(result.getString("TotalMarsCountPerWeek")==null) {
+					if(result.getString("TotalMarsCountPerWeek")=="null") {
 						TotalMarsCountPerDay = Integer.parseInt(result.getString("TotalMarsCountPerDay"));
 						TotalMarsCountPerWeek = 0;
 					}
-					if(result.getString("TotalMarsCountPerDay")==null) {
+					if(result.getString("TotalMarsCountPerDay")=="null") {
 						TotalMarsCountPerDay = 0;
 						TotalMarsCountPerWeek = Integer.parseInt(result.getString("TotalMarsCountPerWeek"));
 					}
