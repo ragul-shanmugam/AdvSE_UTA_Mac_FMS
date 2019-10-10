@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,6 +12,7 @@ import java.util.Date;
 import java.util.Random;
 
 import com.group4.macfms.model.Mar;
+import com.group4.macfms.model.User;
 import com.group4.macfms.util.SQLConnection;
 
 public class MarDAO {
@@ -47,6 +49,107 @@ public class MarDAO {
 		}
 		return marsListInDB;
 	}
+	
+	public int updateMarByRepairer(Mar mar) {
+		Statement stmt = null;
+		Connection conn = SQLConnection.getDBConnection();
+		int status = 0;
+		
+		String marNo = mar.getMarNumber();
+		System.out.println("Mar Number" +marNo);
+		
+		String updateQuery = "UPDATE `uta_mac_fms`.`mardetails` SET EstimateRepair = '"+mar.getEstimatedTime()+"' where MarNumber = '"+mar.getMarNumber()+"';";
+		System.out.println("Update Mar by Repairer..."+updateQuery);
+		try {
+			stmt = conn.createStatement();
+			status = stmt.executeUpdate(updateQuery);
+			conn.commit();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return status;
+	}
+	
+	
+	public int requestMar(Mar mar, String username) {
+		
+		Statement stmt = null;
+		Connection conn = SQLConnection.getDBConnection();
+		int status = 0;
+		SimpleDateFormat simpleDateformat1 = new SimpleDateFormat("MM/dd/YYYY"); // the day of the week spelled out completely
+        Date td = new Date();
+        String todaysDate = simpleDateformat1.format(td);
+        System.out.println("Todays date..."+todaysDate);
+        
+		
+		Date now = new Date();
+		SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
+        String day = simpleDateformat.format(now);
+        System.out.println("Todays day..."+day);
+        
+//        User user = new User();
+//        String username = user.getUsername();
+        System.out.println("Im user..."+username);
+        
+     // validating if user exists and is available for that current day.
+        boolean userAvailable = checkUniqueUsername(username, day);
+		if (userAvailable) {
+			String requestQuery = "UPDATE `uta_mac_fms`.`mardetails` SET MarStatus = 'Requested', AssignedTo = '"+username+"', AssignedDate = '"+todaysDate+"' where MarNumber = '"+mar.getMarNumber()+"';";
+			System.out.println("Request repair by Repairer..."+requestQuery);
+			try {
+				stmt = conn.createStatement();
+				status = stmt.executeUpdate(requestQuery);
+				conn.commit();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+		
+		
+		return status;
+	}
+	
+	
+	public int acceptDeclineRepairRequest(Mar mar, String reqStatus) {
+		Statement stmt = null;
+		Connection conn = SQLConnection.getDBConnection();
+		int status = 0;
+		
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		Date date = new Date();
+		String todayDate = dateFormat.format(date);
+		
+
+		
+		String requestQuery = "UPDATE `uta_mac_fms`.`mardetails` SET MarStatus = '"+reqStatus+"', AssignedTo = '"+mar.getAssignedTo()+"', AssignedDate = '"+todayDate+"' where MarNumber = '"+mar.getMarNumber()+"';";
+		System.out.println("accept decline request..."+requestQuery);
+		try {
+			stmt = conn.createStatement();
+			status = stmt.executeUpdate(requestQuery);
+			conn.commit();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return status;
+	}
+	
+//	public int declineRepairRequest(Mar mar) {
+//		
+//		
+//		
+//		return status
+//	}
+	
 
 	public int updateMarDetails(Mar mar) {
 
@@ -82,7 +185,7 @@ public class MarDAO {
 			String query = "SELECT AssignedTo,\r\n" + 
 					"(SELECT COUNT(MarNumber)  from mardetails where AssignedDate between '"+startOfWeek+"' and '"+endOfWeek+"') as TotalMarsCountPerWeek,\r\n" + 
 					"(SELECT COUNT(MarNumber)  from mardetails where AssignedDate = '"+todaysDate+"') as TotalMarsCountPerDay\r\n" + 
-					"FROM mardetails where AssignedTo = 'fmsrepairer' GROUP BY AssignedTo;";
+					"FROM mardetails where AssignedTo = '"+mar.getAssignedTo()+"' GROUP BY AssignedTo;";
 			System.out.println("Printing mar query..."+query);
 		try {
 				stmt = conn.createStatement();
@@ -115,7 +218,7 @@ public class MarDAO {
 					}
 				}else {
 					System.out.println("user not allowed to assign MAR");
-	
+					status = 2;  // status is 2 if user exceeds rule check
 				}
 				
 			} catch (SQLException e) {
@@ -164,8 +267,18 @@ public class MarDAO {
 	    return calendar.getTime();
 	}
 	
+	
 	public static ArrayList<Mar> listMars() {
 		return ReturnMatchingMarsList(" SELECT * from uta_mac_fms.mardetails ORDER BY MarNumber;");
+	}
+	
+	public static ArrayList<Mar> listSpecificMar(String marNum) {
+		return ReturnMatchingMarsList(" SELECT * from uta_mac_fms.mardetails where MarNumber = '"+marNum+"';");
+	}
+	
+	
+	public static ArrayList<Mar> listRequestedMars() {
+		return ReturnMatchingMarsList(" SELECT * from uta_mac_fms.mardetails where MarStatus = 'Requested' ORDER BY MarNumber;");
 	}
 
 	public static ArrayList<Mar> listUnassignedMars() {
@@ -175,15 +288,11 @@ public class MarDAO {
 	}
 
 	public static ArrayList<Mar> listAssignedMars(String username) {
-		return ReturnMatchingMarsList(" SELECT * from uta_mac_fms.mardetails where AssignedTo ='" + username + "';");
+		return ReturnMatchingMarsList(" SELECT * from uta_mac_fms.mardetails where AssignedTo ='" + username + "' ORDER BY DateCreated;");
 	}
 
 	public static ArrayList<Mar> listReportedMars(String username) {
 		return ReturnMatchingMarsList(" SELECT * from uta_mac_fms.mardetails where ReportedBy ='" + username + "';");
-	}
-	
-	public static ArrayList<Mar> listReportedMars1(String username) {
-		return ReturnMatchingMarsList(" SELECT * from uta_mac_fms.mardetails where assignedDate ='"+username+"';");
 	}
 	
 	public int insertMar(Mar mar, String userName) {
@@ -195,9 +304,9 @@ public class MarDAO {
 		String marNumber = "MAR " + x;
 		String reservationId = "R" + x;
 
-		String querystring = "INSERT INTO uta_mac_fms.mardetails (`MarNumber`, `FacilityName`, `ReservationId`, `ReportedBy`,`Description`,`DateCreated`, `MarStatus`) VALUES "
+		String querystring = "INSERT INTO uta_mac_fms.mardetails (`MarNumber`, `FacilityName`, `ReservationId`, `ReportedBy`,`Description`,`DateCreated`, `Urgency`, `MarStatus`) VALUES "
 				+ "('" + marNumber + "','" + mar.getFacilityType() + "','" + reservationId + "', '" + userName + "', '"
-				+ mar.getDescription() + "','" + mar.getDateCreated() + "', '"
+				+ mar.getDescription() + "','" + mar.getDateCreated() + "', '" + mar.getUrgency() + "', '"
 				+ mar.getMarStatus() + "');";
 		System.out.println("Printing query...."+querystring);
 		try {

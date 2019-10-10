@@ -19,37 +19,40 @@
 </head>
 <body onload='onPageLoad();'><br>
 		<h1>
-			List of Repairs Assigned <a class="btn btn-secondary offset-md-1 "
+			My Repairs <a class="btn btn-secondary offset-md-1 "
 				href='${homePage}'>Home Page</a>  <a
 				class="btn btn-danger offset-md-1"
 				href="/UTA_Mac_FMS/LogoutController">Logout</a>
 		</h1>
 		<div>
-			<form action="/UTA_Mac_FMS/MarController" method="POST">
+			<form action="/UTA_Mac_FMS/MarController?action=listSpecificRepair" method="POST">
 				<div class="table-responsive">
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<!-- <th scope="col" style="text-align: center">Select Repair</th> -->
+								<th scope="col" style="text-align: center">Select Repair</th>
 								<th scope="col">MAR number</th>
 								<th scope="col">Facility Type</th>
 								<th scope="col">Urgency</th>
 								<th scope="col">Description</th>
 								<th scope="col">Date created</th>
+								<th scope="col">Assigned Date</th>
 								<th scope="col">Estimated Time</th>
+								<th scope="col">Status</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${MARS}" var="mar" varStatus="status">
 								<tr>
-									<%-- <td style="text-align: center"><input onclick="document.getElementById('submit').disabled = false;" type="radio" id="radioMar${status.count}" name="radioMar" value="${status.count}"></td> --%>
-									<td><a href="/UTA_Mac_FMS/ViewSpecificMarController?action=viewMyAssignedMar&viewAssignedMar=${mar.marNumber}"> <c:out value="${mar.marNumber}"/> </a></td>
-									<%-- <td><c:out value="${mar.marNumber}" /></td> --%>
+									<td style="text-align: center"><input onclick="document.getElementById('submit').disabled = false;" type="radio" id="radioMar${status.count}" name="radioMar" value="${status.count}"></td>
+									<td><c:out value="${mar.marNumber}" /></td>
 									<td><c:out value="${mar.facilityType}" /></td>
 									<td><c:out value="${mar.urgency}" /></td>
 									<td><c:out value="${mar.description}" /></td>
 									<td><c:out value="${mar.dateCreated}" /></td>
+									<td><c:out value="${mar.assignedDate}" /></td>
 									<td><c:out value="${mar.estimatedTime}" /></td>
+									<td><c:out value="${mar.marStatus}" /></td>
 								</tr>
 							</c:forEach>
 						</tbody>

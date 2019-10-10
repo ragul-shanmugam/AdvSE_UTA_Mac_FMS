@@ -11,14 +11,14 @@
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<title>Add Facility - UTA Mac FMS</title>
+<title>Add a Facility - UTA Mac FMS</title>
 </head>
 </head>
 <body>
 	<br>
 	<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false"
-		user="root" password="MyNewPass" />
+		user="root" password="Maverick@123" />
 	<sql:query dataSource="${dsfacility}" var="facilityresult">
    SELECT distinct FacilityType FROM uta_mac_fms.facility order by FacilityName;
 </sql:query>

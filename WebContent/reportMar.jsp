@@ -25,7 +25,7 @@ $(function () {
 <body><br>
 	<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false"
-		user="root" password="MyNewPass" />
+		user="root" password="Maverick@123" />
 	<%-- <sql:query dataSource="${dsfacility}" var="facilityresult">
     SELECT distinct FacilityType FROM uta_mac_fms.facility;
 </sql:query> --%>
@@ -65,6 +65,7 @@ $(function () {
 					</select>
 				</div>
 				<div class="col">
+				<br> <input value="<c:out value='${errorMessage.descriptionError}'/>" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
 				</div>
 			</div>
 			<br>

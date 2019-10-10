@@ -44,7 +44,7 @@ $(function () {
 <body onload='onPageLoad();'><br>
 <sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false"
-		user="root" password="MyNewPass" />
+		user="root" password="Maverick@123" />
 	<sql:query dataSource="${dsfacility}" var="repairerresult">
     SELECT Username FROM uta_mac_fms.schedule where Monday='Yes' and TotalMars<10;
 </sql:query>

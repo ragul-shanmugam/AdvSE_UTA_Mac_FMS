@@ -27,7 +27,9 @@
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/addFacility.jsp"
 			role="button">Add a new Facility</a> <br> <br> <a
 			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/MarController?action=viewMars"
-			role="button">View all MARs</a> <br> <br>
+			role="button">View all MARs</a> <br> <br><a
+			class="btn btn-primary col-md-4" href="/UTA_Mac_FMS/MarController?action=viewRequestedMars"
+			role="button">View Requested MARs</a> <br> <br>
 	</div>
 </body>
 </html>
