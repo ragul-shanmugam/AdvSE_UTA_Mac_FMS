@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -96,7 +97,11 @@ public class MarDAO {
         
      // validating if user exists and is available for that current day.
         boolean userAvailable = checkUniqueUsername(username, day);
-		if (userAvailable) {
+        String Duration = checkVenueDuration(mar.getFacilityType());
+        
+        boolean canReserve = ruleCheckForDuration(Duration, mar.getDateCreated());
+        
+		if (userAvailable && canReserve) {
 			String requestQuery = "UPDATE `uta_mac_fms`.`mardetails` SET MarStatus = 'Requested', AssignedTo = '"+username+"', AssignedDate = '"+todaysDate+"' where MarNumber = '"+mar.getMarNumber()+"';";
 			System.out.println("Request repair by Repairer..."+requestQuery);
 			try {
@@ -108,6 +113,7 @@ public class MarDAO {
 				e.printStackTrace();
 			}
 			
+		
 			
 		}
 		
@@ -117,6 +123,68 @@ public class MarDAO {
 	}
 	
 	
+	private boolean ruleCheckForDuration(String Duration, String CreatedDate) {
+		// TODO Auto-generated method stub
+		SimpleDateFormat sDateformat = new SimpleDateFormat("MM/dd/YYYY");
+		Date today = new Date();
+        String todaysDate = sDateformat.format(today);
+		
+//        Date d1 = null;
+//        Date d2 = null;
+        
+        try {
+        	Date d1  = sDateformat.parse(CreatedDate);
+        	Date d2 = sDateformat.parse(todaysDate);
+			
+			long diff = d2.getTime() - d1.getTime();
+			long diffDays = diff / (24 * 60 * 60 * 1000);
+			
+			System.out.println("difference in days..."+diffDays);
+			
+			// 7-day, Same day
+			if (Duration.equalsIgnoreCase("Same day") && diffDays==0) {
+				
+				return true;
+			} else if(Duration.equals("7-day") && diffDays < 8) {
+				return true;
+			}
+			else {
+				return false;
+			}
+			
+			
+        } catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+		
+		
+		return false;
+	}
+
+	private String checkVenueDuration(String FacilityName) {
+		// TODO Auto-generated method stub
+		
+		Statement stmt = null;
+		Connection conn = SQLConnection.getDBConnection();
+		String duration = "";
+
+		String sql = "select Duration From uta_mac_fms.facility where FacilityName = '"+FacilityName+"';";
+		try {
+			stmt = conn.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			if (result.next()) {
+				duration = result.getString("Duration");
+			}
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return duration;
+		
+	}
+
 	public int acceptDeclineRepairRequest(Mar mar, String reqStatus) {
 		Statement stmt = null;
 		Connection conn = SQLConnection.getDBConnection();
@@ -142,13 +210,6 @@ public class MarDAO {
 		
 		return status;
 	}
-	
-//	public int declineRepairRequest(Mar mar) {
-//		
-//		
-//		
-//		return status
-//	}
 	
 
 	public int updateMarDetails(Mar mar) {
@@ -202,8 +263,17 @@ public class MarDAO {
 				int TotalMarsCountPerWeek = 0;
 				int TotalMarsCountPerDay = 0;
 				while(result.next()) {
-					 TotalMarsCountPerWeek = Integer.parseInt(result.getString("TotalMarsCountPerWeek"));
-					 TotalMarsCountPerDay = Integer.parseInt(result.getString("TotalMarsCountPerDay"));
+					if(result.getString("TotalMarsCountPerWeek")==null) {
+						TotalMarsCountPerDay = Integer.parseInt(result.getString("TotalMarsCountPerDay"));
+						TotalMarsCountPerWeek = 0;
+					}
+					if(result.getString("TotalMarsCountPerDay")==null) {
+						TotalMarsCountPerDay = 0;
+						TotalMarsCountPerWeek = Integer.parseInt(result.getString("TotalMarsCountPerWeek"));
+					}
+					
+//					 TotalMarsCountPerWeek = Integer.parseInt(result.getString("TotalMarsCountPerWeek"));
+//					 TotalMarsCountPerDay = Integer.parseInt(result.getString("TotalMarsCountPerDay"));
 				}
 				System.out.println("TotalMarsCountPerWeek..."+TotalMarsCountPerWeek);
 				System.out.println("TotalMarsCountPerDay..."+TotalMarsCountPerDay);
