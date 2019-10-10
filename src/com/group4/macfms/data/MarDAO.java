@@ -58,8 +58,10 @@ public class MarDAO {
 		
 		String marNo = mar.getMarNumber();
 		System.out.println("Mar Number" +marNo);
+		System.out.println("Assigned To..." +mar.getAssignedTo());
 		
-		String updateQuery = "UPDATE `uta_mac_fms`.`mardetails` SET EstimateRepair = '"+mar.getEstimatedTime()+"' where MarNumber = '"+mar.getMarNumber()+"';";
+		String updateQuery = "UPDATE `uta_mac_fms`.`mardetails` SET MarStatus = '"+mar.getMarStatus()+"', AssignedTo = '"+mar.getAssignedTo()+"' "
+				+ ", EstimateRepair = '"+mar.getEstimatedTime()+"' where MarNumber = '"+mar.getMarNumber()+"';";
 		System.out.println("Update Mar by Repairer..."+updateQuery);
 		try {
 			stmt = conn.createStatement();
@@ -263,17 +265,17 @@ public class MarDAO {
 				int TotalMarsCountPerWeek = 0;
 				int TotalMarsCountPerDay = 0;
 				while(result.next()) {
-					if(result.getString("TotalMarsCountPerWeek")=="null") {
-						TotalMarsCountPerDay = Integer.parseInt(result.getString("TotalMarsCountPerDay"));
-						TotalMarsCountPerWeek = 0;
-					}
-					if(result.getString("TotalMarsCountPerDay")=="null") {
-						TotalMarsCountPerDay = 0;
-						TotalMarsCountPerWeek = Integer.parseInt(result.getString("TotalMarsCountPerWeek"));
-					}
+//					if(result.getString("TotalMarsCountPerWeek")=="null") {
+//						TotalMarsCountPerDay = Integer.parseInt(result.getString("TotalMarsCountPerDay"));
+//						TotalMarsCountPerWeek = 0;
+//					}
+//					if(result.getString("TotalMarsCountPerDay")=="null") {
+//						TotalMarsCountPerDay = 0;
+//						TotalMarsCountPerWeek = Integer.parseInt(result.getString("TotalMarsCountPerWeek"));
+//					}
 					
-//					 TotalMarsCountPerWeek = Integer.parseInt(result.getString("TotalMarsCountPerWeek"));
-//					 TotalMarsCountPerDay = Integer.parseInt(result.getString("TotalMarsCountPerDay"));
+					 TotalMarsCountPerWeek = Integer.parseInt(result.getString("TotalMarsCountPerWeek"));
+					 TotalMarsCountPerDay = Integer.parseInt(result.getString("TotalMarsCountPerDay"));
 				}
 				System.out.println("TotalMarsCountPerWeek..."+TotalMarsCountPerWeek);
 				System.out.println("TotalMarsCountPerDay..."+TotalMarsCountPerDay);
@@ -367,7 +369,7 @@ public class MarDAO {
 	}
 
 	public static ArrayList<Mar> listAssignedMars(String username) {
-		return ReturnMatchingMarsList(" SELECT * from uta_mac_fms.mardetails where AssignedTo ='" + username + "' ORDER BY DateCreated;");
+		return ReturnMatchingMarsList(" SELECT * from uta_mac_fms.mardetails where MarStatus = 'Assigned' or MarStatus = 'Requested' and AssignedTo ='" + username + "' ORDER BY DateCreated;");
 	}
 
 	public static ArrayList<Mar> listReportedMars(String username) {

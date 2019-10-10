@@ -289,6 +289,14 @@ public class MarController extends HttpServlet {
 			MarDAO marUpdate = new MarDAO();
 			Mar mar = new Mar();
 			getUserParam(request, mar);
+			
+			if (request.getParameter("request").equalsIgnoreCase("Deny")) {
+				mar.setMarStatus("UnAssigned");
+				mar.setAssignedTo("null");
+			} else {
+				mar.setAssignedTo(username);
+			}
+			
 			//DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 			//Date date = new Date();
 			//String todayDate = dateFormat.format(date);
@@ -299,7 +307,8 @@ public class MarController extends HttpServlet {
 			int status = marUpdate.updateMarByRepairer(mar);
 			if (status == 1) {
 				session.setAttribute("mar", mar);
-				response.sendRedirect("viewMarToRepairer.jsp");
+//				response.sendRedirect("viewMarToRepairer.jsp");
+				response.sendRedirect("viewRepair.jsp");
 			}
 		}
 		

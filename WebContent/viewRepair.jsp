@@ -80,6 +80,13 @@
 				</div>
 					<div class="col"></div>
 				</div><br>
+				
+				<div class="col">
+						<label for="request">Accept / Deny</label> <select name="request" id="request" class="form-control" readonly="readonly">
+						<option value="Accept">Accept</option>
+						<option value="Deny">Deny</option>
+					</select>
+				</div>
 				<input type="submit" class="btn btn-primary col-md-3" id="updatemar" role="button" value="Update MAR Details" disabled>
 			
 				
