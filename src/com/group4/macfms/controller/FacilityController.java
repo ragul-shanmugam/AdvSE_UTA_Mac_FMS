@@ -189,6 +189,15 @@ public class FacilityController extends HttpServlet {
 					out.println(htmlRespone);
 				}
 			}
+			else {
+				UserErrorMsgs errorMessage = new UserErrorMsgs();
+				errorMessage.setFacilityName("Facility name already exists");
+				session.setAttribute("facilityNameError", errorMessage.getFacilityName());
+				getServletContext().getRequestDispatcher("/addFacility.jsp").forward(request, response);
+				
+
+			}
+				
 			
 		}
 	}			

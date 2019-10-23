@@ -65,14 +65,42 @@ public class FacilityDAO {
 				+ "','" + facility.getFacilityName() + "', '" + facility.getMaxInterval() + "', '" + facility.getDuration() + "', '" + facility.getType() + "', '" + facility.getAvailability() + "');";
 		System.out.println("Printing facility query..."+queryString);
 		try {
-			stmt = conn.createStatement();
-			status = stmt.executeUpdate(queryString);
-			conn.commit();
+			
+			if(checkUniqueFacilityName(facility.getFacilityName()))
+				return 0;
+			
+			else
+			{
+				stmt = conn.createStatement();
+				status = stmt.executeUpdate(queryString);
+				conn.commit();
+			}
+			
+				
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		// System.err.println("Printing status..."+status);
 		return status;
+	}
+	
+	
+	public static boolean checkUniqueFacilityName(String facilityName) {
+		Statement stmt = null;
+		Connection conn = SQLConnection.getDBConnection();
+		boolean userNameExists = false;
+
+		String sql = "SELECT * from uta_mac_fms.facility where FacilityName = '" + facilityName + "';";
+		try {
+			stmt = conn.createStatement();
+			ResultSet userList = stmt.executeQuery(sql);
+			if (userList.next()) {
+				userNameExists = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return userNameExists;
 	}
 
 	public static ArrayList<Facility> listFacilities() {
