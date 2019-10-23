@@ -148,7 +148,7 @@ public class FacilityController extends HttpServlet {
 			
 			System.out.println("Printing error message...." +errorMsg.getFacilityName());
 			
-			if(res != null)
+			if(res!= null)
 			{
 			System.err.println("Inisde error");
 			session.setAttribute("facilityNameError", errorMsg.getFacilityName() );

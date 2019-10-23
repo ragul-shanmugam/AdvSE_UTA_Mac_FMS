@@ -83,9 +83,9 @@ public class Facility {
 		{
 			
 			   String stringToTest = facility.getFacilityName();
-			   boolean hasNonAlphaNumeric = stringToTest.matches("^[a-zA-Z0-9_]*$");
-			   if(hasNonAlphaNumeric) {
-					errorMessage.setFacilityName("Facility name should be alphanumeric");
+			   boolean hasNonAlphaNumeric = stringToTest.matches("^[a-zA-Z]{2,4}[ ][0-9]{1,2}$");
+			   if(!hasNonAlphaNumeric) {
+					errorMessage.setFacilityName("Facility name should be alphanumeric (EX IVC 52)");
 				return "Facility name should be alphanumeric"; }
 
 		
