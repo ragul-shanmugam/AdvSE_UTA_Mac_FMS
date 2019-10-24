@@ -69,30 +69,30 @@ public class Facility {
 		this.availability = availability;
 	}
 	
-	
-	public String validatefacilityName(Facility facility, UserErrorMsgs errorMessage) {
+	public void validatefacilityName(Facility facility, FacilityErrorMsgs errorMessage) {
 		
-		if(facility.getFacilityName().equals("") || facility.getFacilityName().length() == 0 || facility.getFacilityName().isEmpty())
-		{
-			System.out.println("inside validate user else ");
-			errorMessage.setFacilityName("Facility Name  cannot be empty");
-			return "Facility Name  cannot be empty";
-		}
-		
-		else
-		{
-			
-			   String stringToTest = facility.getFacilityName();
-			   boolean hasNonAlphaNumeric = stringToTest.matches("^[A-Z]{2,4}[ ][0-9]{1,2}$");
-			   if(!hasNonAlphaNumeric) {
-					errorMessage.setFacilityName("Facility name should be alphanumeric (EX IVC 52)");
-				return "Facility name should be alphanumeric"; }
+		errorMessage.setFacilityNameError(validateFacilityName(facility.getFacilityName(), errorMessage));
+     	//errorMessage.setCommonerrorMsg();
 
-		
-	
-		}
-		return null;
 
-	}
+    }
+	
+	public String validateFacilityName(String facilityName, FacilityErrorMsgs errorMessage) {
+		
+		String result="";
+		  if (facilityName.isEmpty())
+	            return "Facility Name  cannot be empty";
+		  
+		  
+		  else
+		  {
+				boolean hasNonAlphaNumeric = facilityName.matches("^[A-Z]{2,4}[ ][0-9]{1,2}$");
+				
+				 if(!hasNonAlphaNumeric)
+			        	return "Facility name should be alphanumeric (EX IVC 52)";
+		  }		 
+        return result;
+        	
+    }
 
 }

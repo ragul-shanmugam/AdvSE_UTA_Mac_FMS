@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.group4.macfms.data.FacilityDAO;
 import com.group4.macfms.model.Facility;
+import com.group4.macfms.model.FacilityErrorMsgs;
 import com.group4.macfms.model.UserErrorMsgs;
 
 /**
@@ -141,17 +142,17 @@ public class FacilityController extends HttpServlet {
 			FacilityDAO facilityadd = new FacilityDAO();
 			Facility facility = new Facility();
 			getUserParam(request, facility);
-			UserErrorMsgs errorMsg = new UserErrorMsgs();
+			FacilityErrorMsgs errorMsg = new FacilityErrorMsgs();
 			System.out.println("Pringitng name..."+facility.getFacilityName());
 			
-			String res = facility.validatefacilityName(facility, errorMsg);
+			facility.validatefacilityName(facility, errorMsg);
 			
-			System.out.println("Printing error message...." +errorMsg.getFacilityName());
+			System.out.println("Printing error message...." +errorMsg.getFacilityNameError());
 			
-			if(res!= null)
+			if(errorMsg.getFacilityNameError()!="" || !errorMsg.getFacilityNameError().isEmpty())
 			{
 			System.err.println("Inisde error");
-			session.setAttribute("facilityNameError", errorMsg.getFacilityName() );
+			session.setAttribute("facilityNameError", errorMsg.getFacilityNameError() );
 			getServletContext().getRequestDispatcher("/addFacility.jsp").forward(request, response);
 			}
 		
@@ -190,9 +191,9 @@ public class FacilityController extends HttpServlet {
 				}
 			}
 			else {
-				UserErrorMsgs errorMessage = new UserErrorMsgs();
-				errorMessage.setFacilityName("Facility name already exists");
-				session.setAttribute("facilityNameError", errorMessage.getFacilityName());
+				FacilityErrorMsgs errorMessage = new FacilityErrorMsgs();
+				errorMessage.setFacilityNameError("Facility name already exists");
+				session.setAttribute("facilityNameError", errorMessage.getFacilityNameError());
 				getServletContext().getRequestDispatcher("/addFacility.jsp").forward(request, response);
 				
 
