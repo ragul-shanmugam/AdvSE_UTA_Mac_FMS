@@ -45,7 +45,7 @@ public class UserController extends HttpServlet {
 				session.setAttribute("USERS", usersInDB);
 				if(usersInDB.isEmpty())
 				{
-					userError.validateUserExists(usersInDB, errorMsg);
+					userError.validateUserExistsAdmin(usersInDB, errorMsg);
 					session.setAttribute("userNotExist", errorMsg.getUserNotExistError());
 					getServletContext().getRequestDispatcher("/searchUser.jsp").forward(request, response);
 				}
@@ -63,7 +63,7 @@ public class UserController extends HttpServlet {
 				session.setAttribute("USERS", usersInDB);
 				if(usersInDB.isEmpty())
 				{
-					userError.validateUserExists(usersInDB, errorMsg);
+					userError.validateUserExistsAdmin(usersInDB, errorMsg);
 					session.setAttribute("userNotExist", errorMsg.getUserNotExistError());
 					getServletContext().getRequestDispatcher("/searchUser.jsp").forward(request, response);
 				}
@@ -81,7 +81,7 @@ public class UserController extends HttpServlet {
 				session.setAttribute("USERS", usersInDB);
 				if(usersInDB.isEmpty())
 				{
-					userError.validateUserExists(usersInDB, errorMsg);
+					userError.validateUserExistsAdmin(usersInDB, errorMsg);
 					session.setAttribute("userNotExist", errorMsg.getUserNotExistError());
 					getServletContext().getRequestDispatcher("/searchUser.jsp").forward(request, response);
 				}
@@ -98,7 +98,7 @@ public class UserController extends HttpServlet {
 				session.setAttribute("USERS", usersInDB);
 				if(usersInDB.isEmpty())
 				{
-					userError.validateUserExists(usersInDB, errorMsg);
+					userError.validateUserExistsAdmin(usersInDB, errorMsg);
 					session.setAttribute("userNotExist", errorMsg.getUserNotExistError());
 					getServletContext().getRequestDispatcher("/searchUser.jsp").forward(request, response);
 				}

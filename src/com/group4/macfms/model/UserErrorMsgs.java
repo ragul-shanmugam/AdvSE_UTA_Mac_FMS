@@ -25,7 +25,7 @@ public class UserErrorMsgs {
 	public void setCommonerrorMsg() {
 		if(!usernameError.equals("") || !passwordError.equals("") || !confirmPasswordError.equals("") || !fnameError.equals("") || !lnameError.equals("") 
 				|| !idError.equals("") || !emailError.equals("") || !addressError.equals("") || !cityError.equals("") 
-				|| !zipCodeError.equals("") || facilityName.equals(""))
+				|| !zipCodeError.equals("") || !facilityName.equals(""))
 			this.commonerrorMsg = "Please correct the following:";
 		else
 			this.commonerrorMsg = "";

@@ -1,24 +1,19 @@
 package com.group4.macfms.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
 
-import com.group4.macfms.model.Facility;
-import com.group4.macfms.model.UserErrorMsgs;
-
 @RunWith(JUnitParamsRunner.class)
 public class FacilityTest {
 
-	
 
 	@Test
-	@FileParameters("./testdata/addFacilityTestData.csv")
+	@FileParameters("./junitTestData/addFacilityTestData.csv")
 	public void validateAddFacilityTest(int testno,String facilityName,String facilityNameErr) {
 		Facility facility = new Facility();
 		FacilityErrorMsgs errorMessage=new FacilityErrorMsgs();
@@ -40,5 +35,6 @@ public class FacilityTest {
 //		facilityTest.setFacility(facility, facilityName, maxInterval, duration, type, availability);		
 //		//assertEquals(facilityNameErr,facilityTest.validateFacilityName(facility.getFacilityName(), errorMessage));
 //	}
+
 
 }

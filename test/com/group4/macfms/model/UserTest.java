@@ -1,0 +1,122 @@
+package com.group4.macfms.model;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import com.group4.macfms.model.User;
+import com.group4.macfms.model.UserErrorMsgs;
+
+import junitparams.FileParameters;
+import junitparams.JUnitParamsRunner;
+
+@RunWith(JUnitParamsRunner.class)
+public class UserTest {
+
+	@Test
+	@FileParameters("./junitTestData/UserTestData1.csv")
+	public void validateLoginUserTest(int testno, String username, String password, String errMsg) {
+			UserErrorMsgs regerrMsg  = new UserErrorMsgs();
+			User userTest = new User();
+			userTest.setUsername(username);
+			userTest.setPassword(password);
+			userTest.validateUser(userTest, regerrMsg);
+			assertEquals(errMsg,regerrMsg.getLoginErrMsg());
+	}
+	@Test
+	@FileParameters("./junitTestData/UserPasswordTestData.csv")
+	public void validateUserPasswordTest(int testno, String username, String password, String errMsg) {
+		UserErrorMsgs regerrMsg  = new UserErrorMsgs();
+		User userTest = new User();
+		userTest.setUsername(username);
+		userTest.setPassword(password);
+		userTest.validateUserPassword(userTest, regerrMsg);
+		assertEquals(errMsg,regerrMsg.getLoginErrMsg());
+	}
+	@Test
+	@FileParameters("./junitTestData/validateUserTestData.csv")
+	public void validateUserTest(int testno, String username, String password, String confirmPass, String firstname,
+			String lastname, String email, String phone, String utaid, 
+			String address, String city, String state, String user_role, String zip, String errMsg,
+			String usernameErr, String firstnameErr, String lastnameErr, String passwordErr, String cpasswordErr,
+			String utaidErr, String emailErr, String phoneErr, String zipErr,
+			String addErr, String cityErr) {
+			UserErrorMsgs regerrMsg  = new UserErrorMsgs();
+			User userTest = new User(firstname,lastname,username,password,confirmPass,utaid,user_role,phone,email,address,city,state,zip);
+			userTest.validateUserDetails(userTest, regerrMsg);
+			assertEquals(firstnameErr,regerrMsg.getFnameError());
+			assertEquals(lastnameErr,regerrMsg.getLnameError());
+			assertEquals(passwordErr,regerrMsg.getPasswordError());
+			assertEquals(cpasswordErr,regerrMsg.getConfirmPasswordError());
+			assertEquals(usernameErr,regerrMsg.getUsernameError());
+			assertEquals(phoneErr,regerrMsg.getPhoneError());
+			assertEquals(emailErr,regerrMsg.getEmailError());
+			assertEquals(cityErr,regerrMsg.getCityError());
+			assertEquals(zipErr,regerrMsg.getZipCodeError());
+			assertEquals(utaidErr,regerrMsg.getIdError());
+			assertEquals(addErr,regerrMsg.getAddressError());
+			assertEquals(errMsg,regerrMsg.getCommonerrorMsg());
+	}
+	
+	@Test
+	@FileParameters("./junitTestData/validateUserTestData.csv")
+	public void validateSetUserTest(int testno, String username, String password, String confirmPass, String firstname,
+			String lastname, String email, String phone, String utaid, 
+			String address, String city, String state, String user_role, String zip, String errMsg,
+			String usernameErr, String firstnameErr, String lastnameErr, String passwordErr, String cpasswordErr,
+			String utaidErr, String emailErr, String phoneErr, String zipErr,
+			String addErr, String cityErr) {
+			UserErrorMsgs regerrMsg  = new UserErrorMsgs();
+			User userTest = new User(firstname,lastname,username,password,confirmPass,utaid,user_role,phone,email,address,city,state,zip);
+			userTest.validateUserDetails(userTest, regerrMsg);
+			userTest.setUser(username, password, confirmPass,  firstname, lastname, utaid, phone, 
+					 email, address, city,  state, zip, user_role);
+			assertEquals(firstnameErr,regerrMsg.getFnameError());
+			assertEquals(lastnameErr,regerrMsg.getLnameError());
+			assertEquals(passwordErr,regerrMsg.getPasswordError());
+			assertEquals(cpasswordErr,regerrMsg.getConfirmPasswordError());
+			assertEquals(usernameErr,regerrMsg.getUsernameError());
+			assertEquals(phoneErr,regerrMsg.getPhoneError());
+			assertEquals(emailErr,regerrMsg.getEmailError());
+			assertEquals(cityErr,regerrMsg.getCityError());
+			assertEquals(zipErr,regerrMsg.getZipCodeError());
+			assertEquals(utaidErr,regerrMsg.getIdError());
+			assertEquals(addErr,regerrMsg.getAddressError());
+			assertEquals(errMsg,regerrMsg.getCommonerrorMsg());
+	}
+	@Test
+	@FileParameters("./junitTestData/validateUserTestData.csv")
+	public void validateUserTestAdmin(int testno, String username, String password, String confirmPass, String firstname,
+			String lastname, String email, String phone, String utaid, 
+			String address, String city, String state, String user_role, String zip, String errMsg,
+			String usernameErr, String firstnameErr, String lastnameErr, String passwordErr, String cpasswordErr,
+			String utaidErr, String emailErr, String phoneErr, String zipErr,
+			String addErr, String cityErr) {
+			UserErrorMsgs regerrMsg  = new UserErrorMsgs();
+			User userTest = new User(firstname,lastname,username,password,confirmPass,utaid,user_role,phone,email,address,city,state,zip);
+			userTest.validateUserDetailsAdmin(userTest, regerrMsg);
+			assertEquals(firstnameErr,regerrMsg.getFnameError());
+			assertEquals(lastnameErr,regerrMsg.getLnameError());
+			assertEquals(passwordErr,regerrMsg.getPasswordError());
+			assertEquals(cpasswordErr,regerrMsg.getConfirmPasswordError());
+			//assertEquals(usernameErr,regerrMsg.getUsernameError());
+			assertEquals(phoneErr,regerrMsg.getPhoneError());
+			assertEquals(emailErr,regerrMsg.getEmailError());
+			assertEquals(cityErr,regerrMsg.getCityError());
+			assertEquals(zipErr,regerrMsg.getZipCodeError());
+			assertEquals(utaidErr,regerrMsg.getIdError());
+			assertEquals(addErr,regerrMsg.getAddressError());
+			assertEquals(errMsg,regerrMsg.getCommonerrorMsg());
+	}
+	
+	@Test
+	@FileParameters("./junitTestData/ValidateUserExistsData.csv")
+	public void validateUserExistsTest(int testno, String username, String errMsg) {
+			UserErrorMsgs regerrMsg  = new UserErrorMsgs();
+			User userTest = new User();
+			userTest.setUsername(username);
+			userTest.validateUserExists(username, regerrMsg);
+			assertEquals(errMsg,regerrMsg.getUserNotExistError());
+	}
+}

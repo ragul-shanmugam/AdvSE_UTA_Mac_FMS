@@ -3,7 +3,7 @@ package com.group4.macfms.model;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.regex.Pattern;
-
+import java.lang.*;
 import com.group4.macfms.data.LoginDAO;
 
 public class User {
@@ -21,6 +21,26 @@ public class User {
 	private String state;
 	private String zipCode;
 	private String role;
+	
+	public User() {}
+	
+	public User(String firstname, String lastname, String username, String password, String confirmPassword, String uta_id, String role,
+			String phone, String email, String street_add, String city, String state, String zip) {
+		this.firstName = firstname;
+		this.lastName = lastname;
+		this.userName = username;
+		this.password = password;
+		this.confirmPassword = confirmPassword;
+		this.id = uta_id;
+		this.role = role;
+		this.phone = phone;
+		this.email = email;
+		this.address = street_add;
+		this.city = city;
+		this.state = state;
+		this.zipCode = zip;
+		
+	}
 
 	public void setUser(String username, String password, String confirmPassword, String firstname, String lastname, String id, String phone, 
 			String email, String address, String city, String state, String zipcode, String role) {
@@ -148,7 +168,6 @@ public class User {
 	public void validateUser(User loginUser, UserErrorMsgs errorMsg) {
 		if((loginUser.getUsername().equals("")) || (loginUser.getPassword().equals("")))
 		{
-			System.out.println("inside validate user else ");
 			errorMsg.setLoginErrMsg("Username or Password cannot be empty");
 		}
 	}
@@ -156,8 +175,7 @@ public class User {
 	public void validateUserPassword(User loginUser, UserErrorMsgs errorMsg) {
 		LoginDAO regDb = new LoginDAO();
 		User userInDB = regDb.userCheck(loginUser.getUsername());
-		System.out.println("Printing password from user.... "+userInDB.getPassword());
-		if(userInDB.getPassword() == null || !(userInDB.getPassword().equals(loginUser.getPassword())))
+		if(!(userInDB.getPassword().equals(loginUser.getPassword())))
 		{
 			errorMsg.setLoginErrMsg("Incorrect Username or Password");
 		}		
@@ -195,7 +213,7 @@ public class User {
 		errorMsg.setCommonerrorMsg();
 	}
 	
-	public void validateUserExists(ArrayList<User> usersInDB, UserErrorMsgs errorMsg) {
+	public void validateUserExistsAdmin(ArrayList<User> usersInDB, UserErrorMsgs errorMsg) {
 		if(usersInDB.isEmpty() || usersInDB == null)
 		{
 			errorMsg.setUserNotExistError("User not exists with search criteria");
@@ -215,7 +233,7 @@ public class User {
 		if (userName2.equals(""))
 			result= "Please enter a Username to search";
 		else{
-			if (!LoginDAO.checkUniqueUsername(userName2))
+			if (LoginDAO.checkUniqueUsername(userName2))
 				result="Username not exists in system! Please try a different Username";
 			else if(!stringSize(userName2,3,16))
 				result = "Username should be 3 and 16 characters long";
@@ -227,7 +245,7 @@ public class User {
 				if (a == b){
 					hasChar = true;
 				}
-				if(Character.isDigit(b)) {
+				else if(Character.isDigit(b)) {
 					hasNumber = true;
 				}
 			}
@@ -241,9 +259,13 @@ public class User {
 
 	private String validateZipCode(String zipcode) {
 		String result = "";
-		if(isTextAnInteger(zipcode) == false || zipcode.length()!=5) {
-			result = "Zip code should be a 5-digit number";
+		if(isTextAnInteger(zipcode) == false) {
+		result = "Zip code should be a 5-digit number";
 		}
+		else if(zipcode.length()!=5)
+		{
+		result = "Zip code should be a 5-digit number";
+		} 
 		return result;
 	}
 
@@ -261,10 +283,12 @@ public class User {
 
 	private String validateAddress(String address) {
 		String result= "";
-		if(address.length() == 0)
+		if(address.equals(""))
 			result = "Address cannot be empty";
 		else if(!stringSize(address,5,30))
 			result = "Street address should be between 5 and 30 characters long";
+		else
+			result = "";
 		return result;
 	}
 
@@ -273,6 +297,8 @@ public class User {
 		if(!Objects.equals(confirmPassword, password)) {
 			result = "The passwords don't match";
 		}
+		else
+			result = "";
 		return result;
 	}
 
@@ -291,6 +317,8 @@ public class User {
 		 if(! p.matcher(email).matches()) {
 			 result = "Please enter a valid email address";
 		 }
+		 else
+			 result="";
 		 }
 		 return result;
 	}
@@ -301,6 +329,8 @@ public class User {
 		if(isTextAnInteger(phone) == false || phone.length() != 10) {
 			result = "Please enter a valid 10-digit phone number";
 		}
+		else
+			result = "";
 		
 		return result;
 	}
@@ -311,9 +341,11 @@ public class User {
 		if(isTextAnInteger(id) == false) {
 			result = "UTA ID should be a 10-digit number";
 		}
-		if(id.length() != 10) {
+		else if(id.length() != 10) {
 			result="UTA ID should be a 10-digit number";
 		}
+		else
+			result="";
 		return result;
 	}
 	
@@ -333,20 +365,23 @@ public class User {
 				if (a == b){
 					hasChar = true;
 				}
-				if(Character.isDigit(b)) {
+				else if(Character.isDigit(b)) {
 					hasNumber = true;
-				}
+				}	
 			}
-		}
-		
-		if(!hasChar) {
-			result = "Password should contain atleast 1 special character";
-		}
-		if(!hasNumber) {
-			result = "Password should include atleast 1 number";
 		}
 		if(!hasChar && !hasNumber) {
 			result = "Your password must contain atleast 1 special character & 1 number";
+		}
+		else if(!hasChar) {
+			result = "Password should contain atleast 1 special character";
+		}
+		else if(!hasNumber) {
+			result = "Password should include atleast 1 number";
+		}
+		
+		else {
+			return result;
 		}
 		}
 		return result;
@@ -356,7 +391,7 @@ public class User {
 	private String validateLastName(String lastname) {
 		String result="";
 		String expression = "^[a-zA-Z]*";
-		if (lastname.length() == 0)
+		if (lastname.equals(""))
 			result= "Last Name cannot be empty";
 		else if(!stringSize(lastname,3,30))
 			result = "Last Name should be between 3 and 30 characters long";
@@ -369,7 +404,7 @@ public class User {
 	private String validateFirstName(String firstname) {
 		String result="";
 		String expression = "^[a-zA-Z]*";
-		if (firstname.length() == 0)
+		if (firstname.equals(""))
 			result= "First Name cannot be empty";
 		else if(!stringSize(firstname,3,30))
 			result = "First Name should be between 3 and 30 characters long";
