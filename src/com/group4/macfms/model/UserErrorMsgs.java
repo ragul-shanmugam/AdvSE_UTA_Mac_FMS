@@ -14,7 +14,6 @@ public class UserErrorMsgs {
 	private String addressError = "";
 	private String cityError = "";
 	private String zipCodeError = "";
-	private String facilityName = "";
 	
 	private String loginErrMsg = "";
 	private String userNotExistError = "";
@@ -25,7 +24,7 @@ public class UserErrorMsgs {
 	public void setCommonerrorMsg() {
 		if(!usernameError.equals("") || !passwordError.equals("") || !confirmPasswordError.equals("") || !fnameError.equals("") || !lnameError.equals("") 
 				|| !idError.equals("") || !emailError.equals("") || !addressError.equals("") || !cityError.equals("") 
-				|| !zipCodeError.equals("") || !facilityName.equals(""))
+				|| !zipCodeError.equals(""))
 			this.commonerrorMsg = "Please correct the following:";
 		else
 			this.commonerrorMsg = "";
@@ -108,11 +107,4 @@ public class UserErrorMsgs {
 	public void setUserNotExistError(String userNotExistError) {
 		this.userNotExistError = userNotExistError;
 	}
-	public String getFacilityName() {
-		return facilityName;
-	}
-	public void setFacilityName(String facilityName) {
-		this.facilityName = facilityName;
-	}
-	
 }

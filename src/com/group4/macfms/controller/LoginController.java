@@ -46,38 +46,27 @@ public class LoginController extends HttpServlet {
 		LoginDAO login = new LoginDAO();
 
 		if (action.equalsIgnoreCase("login")) {
-			System.out.println("inside login action if ");
 			
 			loginUser.setUsername(request.getParameter("username"));
 			loginUser.setPassword(request.getParameter("password"));
 			
-			System.out.println("Printing username and password..."+loginUser.getUsername()+"...."+loginUser.getPassword());
-			
 			loginUser.validateUser(loginUser, errorMsg);
-			
-			System.err.println("Printing errmsg..."+!errorMsg.getLoginErrMsg().isEmpty());
 			
 			if (errorMsg.getLoginErrMsg() != "" || !errorMsg.getLoginErrMsg().isEmpty()) {
 				url = "/index.jsp";
-				//System.out.println("inside login error user..."+errorMsg.getCommonerrorMsg());
 				session.setAttribute("errorMessage", errorMsg.getLoginErrMsg());
 				//session.setAttribute("commonErrorMsg", "Please correct the following errors");
 				getServletContext().getRequestDispatcher(url).forward(request, response);
 			} 
 			else {
-				System.out.println("inside after user validation else ");
 				session.setAttribute("userInfo", loginUser);
 				loginUser.validateUserPassword(loginUser, errorMsg);
 				if (errorMsg.getLoginErrMsg() != "" || !errorMsg.getLoginErrMsg().isEmpty()) {
-					System.out.println("inside incorrect pass else ");
 					url = "/index.jsp";
 					session.setAttribute("incorrectPassword", errorMsg.getLoginErrMsg());
 					getServletContext().getRequestDispatcher(url).forward(request, response);
 				} else {
-					System.out.println("inside validate password success ");
 					dbUser = login.userCheck(request.getParameter("username"));
-
-					System.err.println("Printing user role..." + dbUser.getRole());
 
 					if (dbUser.getRole().equalsIgnoreCase("student/faculty")) {
 						session.setAttribute("user", dbUser);
@@ -112,7 +101,6 @@ public class LoginController extends HttpServlet {
 			
 			if (errorMsgs.getCommonerrorMsg() != "" || !errorMsgs.getCommonerrorMsg().isEmpty()) {
 				url = "/register.jsp";
-				System.out.println("inside register error user  ");
 				session.setAttribute("errorMessage", errorMsgs);
 				session.setAttribute("commonErrorMsg", "Please correct the following errors");
 				getServletContext().getRequestDispatcher(url).forward(request, response);

@@ -39,7 +39,6 @@ public class ProfileController extends HttpServlet {
 		//String action = request.getParameter("action");
 		ProfileDAO retriveUser = new ProfileDAO();
 		User temp = (User) session.getAttribute("userInfo");
-		//System.out.println("Printing useInfo details..."+temp.getUsername());
 		user = retriveUser.retrieveUserDetails(temp.getUsername());
 		
 		session.setAttribute("profile", user);
@@ -93,8 +92,6 @@ public class ProfileController extends HttpServlet {
 		
 		if(action.equalsIgnoreCase("updateUserDetailsAdmin"))
 		{
-			System.err.println("Printing user phone..."+user.getPhone());
-		
 			//validate user here
 			user.validateUserDetailsAdmin(user, errorMsgs);
 			if (errorMsgs.getCommonerrorMsg() != "" || !errorMsgs.getCommonerrorMsg().isEmpty()) {

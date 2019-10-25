@@ -32,8 +32,6 @@ public class MarController extends HttpServlet {
 				request.getParameter("description"), request.getParameter("datecreated"),
 				request.getParameter("assignedto"), request.getParameter("assigneddate"), request.getParameter("time"),
 				request.getParameter("status"));
-		
-				System.out.println("Mar Number User PARAM " +mar.getMarNumber());
 	}
 
 	/**
@@ -165,7 +163,6 @@ public class MarController extends HttpServlet {
 			getUserParam(request, mar);
 			
 			String reqStatus = request.getParameter("request");
-			System.out.println("req status...."+reqStatus);
 			
 			if (reqStatus.equalsIgnoreCase("Accept")) {
 				String Stat = "Assigned";
@@ -192,11 +189,7 @@ public class MarController extends HttpServlet {
 		
 		if (action.equalsIgnoreCase("viewAssignedMarsByDate")) {
 
-			 String date = request.getParameter("datepicker");
-
-			 System.out.println(date); 
-
-			 
+			 String date = request.getParameter("datepicker"); 
 
 			if (date == null)
 

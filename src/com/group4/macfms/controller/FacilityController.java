@@ -143,15 +143,11 @@ public class FacilityController extends HttpServlet {
 			Facility facility = new Facility();
 			getUserParam(request, facility);
 			FacilityErrorMsgs errorMsg = new FacilityErrorMsgs();
-			System.out.println("Pringitng name..."+facility.getFacilityName());
 			
 			facility.validatefacilityName(facility, errorMsg);
 			
-			System.out.println("Printing error message...." +errorMsg.getFacilityNameError());
-			
 			if(errorMsg.getFacilityNameError()!="" || !errorMsg.getFacilityNameError().isEmpty())
 			{
-			System.err.println("Inisde error");
 			session.setAttribute("facilityNameError", errorMsg.getFacilityNameError() );
 			getServletContext().getRequestDispatcher("/addFacility.jsp").forward(request, response);
 			}
