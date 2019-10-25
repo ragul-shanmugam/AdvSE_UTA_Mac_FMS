@@ -1,18 +1,8 @@
 package com.group4.macfms.model;
 
 public class MarErrorMsgs {
-	private String commonerrorMsg = "";
-	private String descriptionError = "";
+	private String descriptionError;
 	
-	public String getCommonerrorMsg() {
-		return commonerrorMsg;
-	}
-	public void setCommonerrorMsg() {
-		if(!descriptionError.equals(""))
-			commonerrorMsg = "Please correct the following:";
-		else
-			commonerrorMsg = "";
-	}
 	public String getDescriptionError() {
 		return descriptionError;
 	}

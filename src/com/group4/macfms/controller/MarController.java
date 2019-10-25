@@ -421,14 +421,16 @@ public class MarController extends HttpServlet {
 			mar.setMarStatus("Unassigned");
 			User userInfo = (User) session.getAttribute("userInfo");
 			String userName = userInfo.getUsername();
-
+			
 			mar.validateDescription(mar, errorMsgs);
-
-			if (errorMsgs.getCommonerrorMsg() != "" || !errorMsgs.getCommonerrorMsg().isEmpty()) {
-				session.setAttribute("errorMessage", errorMsgs);
-				session.setAttribute("commonErrorMsg", "Please correct the following errors");
+		
+			if (errorMsgs.getDescriptionError() != "" || !errorMsgs.getDescriptionError().isEmpty()) {
+				session.setAttribute("descriptionError", errorMsgs.getDescriptionError());
+				//session.setAttribute("commonErrorMsg", "Please correct the following errors");
 				getServletContext().getRequestDispatcher("/reportMar.jsp").forward(request, response);
 			} 
+			
+			
 			else {
 				int status = marInsert.insertMar(mar, userName);
 				if (status == 1) {

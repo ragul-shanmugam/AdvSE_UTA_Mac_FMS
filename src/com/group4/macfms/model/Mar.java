@@ -98,15 +98,14 @@ public class Mar {
 
 	public void validateDescription(Mar mar, MarErrorMsgs errorMsg) {
 		errorMsg.setDescriptionError(validateDescription(mar.getDescription()));
-		errorMsg.setCommonerrorMsg();
 		
 	}
-
-	private String validateDescription(String description) {
+	
+	public  String validateDescription(String description) {
 		String result = "";
-		if(description == null || description.isEmpty()) {
-			result = "Please provide us the description of the problem";
-		}
+		if(description.equals("")) 
+			return "Please provide us the description of the problem";
+		
 		return result;
 	}
 }

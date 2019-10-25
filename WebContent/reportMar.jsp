@@ -25,7 +25,7 @@ $(function () {
 <body><br>
 	<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false"
-		user="root" password="Maverick@123" />
+		user="root" password="arbaz123" />
 	<%-- <sql:query dataSource="${dsfacility}" var="facilityresult">
     SELECT distinct FacilityType FROM uta_mac_fms.facility;
 </sql:query> --%>
@@ -65,7 +65,7 @@ $(function () {
 					</select>
 				</div>
 				<div class="col">
-				<br> <input value="<c:out value='${errorMessage.descriptionError}'/>" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
+				<br> <input value="<c:out value='${facilityNameDropDownError}'/>" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
 				</div>
 			</div>
 			<br>
@@ -88,7 +88,7 @@ $(function () {
 						maxlength="200" type="text" class="form-control" placeholder="Description">
 				</div>
 				<div class="col">
-				<br> <input value="<c:out value='${errorMessage.descriptionError}'/>" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
+				<br> <input value="<c:out value='${descriptionError}'/>" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
 				</div>
 			</div>
 			<br>
