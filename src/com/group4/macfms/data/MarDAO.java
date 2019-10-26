@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.Random;
 
 import com.group4.macfms.model.Mar;
+import com.group4.macfms.model.MarErrorMsgs;
 import com.group4.macfms.model.User;
 import com.group4.macfms.util.SQLConnection;
 
@@ -81,6 +82,7 @@ public class MarDAO {
 		
 		Statement stmt = null;
 		Connection conn = SQLConnection.getDBConnection();
+		MarErrorMsgs errorMsgs = new MarErrorMsgs();
 		int status = 0;
 		SimpleDateFormat simpleDateformat1 = new SimpleDateFormat("MM/dd/YYYY"); // the day of the week spelled out completely
         Date td = new Date();
@@ -117,6 +119,8 @@ public class MarDAO {
 			
 		
 			
+		} else {
+			errorMsgs.setAssignMarError("No such repairer exists..!!");
 		}
 		
 		
@@ -130,6 +134,7 @@ public class MarDAO {
 		SimpleDateFormat sDateformat = new SimpleDateFormat("MM/dd/YYYY");
 		Date today = new Date();
         String todaysDate = sDateformat.format(today);
+        
 		
 //        Date d1 = null;
 //        Date d2 = null;
@@ -151,6 +156,7 @@ public class MarDAO {
 				return true;
 			}
 			else {
+				
 				return false;
 			}
 			
@@ -245,10 +251,6 @@ public class MarDAO {
 			System.out.println("End Date of week..."+endOfWeek);
 
 			// validation for the rule check on TotalMars < 10 (per week) and < 5 (per day)
-//			String query = "SELECT AssignedTo,\r\n" + 
-//					"(SELECT COUNT(MarNumber)  from mardetails where AssignedDate between '"+startOfWeek+"' and '"+endOfWeek+"') as TotalMarsCountPerWeek,\r\n" + 
-//					"(SELECT COUNT(MarNumber)  from mardetails where AssignedDate = '"+todaysDate+"') as TotalMarsCountPerDay\r\n" + 
-//					"FROM mardetails where AssignedTo = '"+mar.getAssignedTo()+"' GROUP BY AssignedTo;";
 			
 			String query = "SELECT AssignedTo,\r\n" + 
 					"(SELECT COUNT(MarNumber)  from uta_mac_fms.mardetails where AssignedDate between '"+startOfWeek+"' and '"+endOfWeek+"' \r\n" + 
@@ -265,17 +267,25 @@ public class MarDAO {
 				int TotalMarsCountPerWeek = 0;
 				int TotalMarsCountPerDay = 0;
 				while(result.next()) {
-//					if(result.getString("TotalMarsCountPerWeek")=="null") {
-//						TotalMarsCountPerDay = Integer.parseInt(result.getString("TotalMarsCountPerDay"));
-//						TotalMarsCountPerWeek = 0;
-//					}
-//					if(result.getString("TotalMarsCountPerDay")=="null") {
-//						TotalMarsCountPerDay = 0;
-//						TotalMarsCountPerWeek = Integer.parseInt(result.getString("TotalMarsCountPerWeek"));
-//					}
+					if(result.getString("TotalMarsCountPerWeek")=="null" || result.getString("TotalMarsCountPerWeek")== null) {
+						TotalMarsCountPerWeek = 0;
+						if(result.getString("TotalMarsCountPerDay")=="null" || result.getString("TotalMarsCountPerDay")==null) {
+							TotalMarsCountPerDay = 0;
+						} else {
+							TotalMarsCountPerDay = Integer.parseInt(result.getString("TotalMarsCountPerDay"));
+						}
+						
+					} else {
+						if(result.getString("TotalMarsCountPerDay")=="null" || result.getString("TotalMarsCountPerDay")==null) {
+							TotalMarsCountPerDay = 0;
+						} else {
+							TotalMarsCountPerDay = Integer.parseInt(result.getString("TotalMarsCountPerDay"));
+						}
+						TotalMarsCountPerWeek = Integer.parseInt(result.getString("TotalMarsCountPerWeek"));
+					}
 					
-					 TotalMarsCountPerWeek = Integer.parseInt(result.getString("TotalMarsCountPerWeek"));
-					 TotalMarsCountPerDay = Integer.parseInt(result.getString("TotalMarsCountPerDay"));
+//					 TotalMarsCountPerWeek = Integer.parseInt(result.getString("TotalMarsCountPerWeek"));
+//					 TotalMarsCountPerDay = Integer.parseInt(result.getString("TotalMarsCountPerDay"));
 				}
 				System.out.println("TotalMarsCountPerWeek..."+TotalMarsCountPerWeek);
 				System.out.println("TotalMarsCountPerDay..."+TotalMarsCountPerDay);
@@ -315,6 +325,7 @@ public class MarDAO {
 	public static boolean checkUniqueUsername(String username, String day) {
 		Statement stmt = null;
 		Connection conn = SQLConnection.getDBConnection();
+		MarErrorMsgs errorMsgs = new MarErrorMsgs();
 		boolean userNameExists = false;
 
 		String sql = "SELECT * from uta_mac_fms.schedule where Username = '" + username + "' and "+day+"='Yes';";
@@ -323,6 +334,8 @@ public class MarDAO {
 			ResultSet userList = stmt.executeQuery(sql);
 			if (userList.next()) {
 				userNameExists = true;
+			} else {
+				return false;
 			}
 			conn.close();
 		} catch (SQLException e) {

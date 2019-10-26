@@ -42,12 +42,7 @@ $(function () {
 <title>MAR Details - UTA Mac FMS</title>
 </head>
 <body onload='onPageLoad();'><br>
-<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver"
-		url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false"
-		user="root" password="Maverick@123" />
-	<sql:query dataSource="${dsfacility}" var="repairerresult">
-    SELECT Username FROM uta_mac_fms.schedule where Monday='Yes' and TotalMars<10;
-</sql:query>
+
 	<div class="button-box col-lg-12 offset-md-1">
 	<h1><a	class="btn btn-secondary " href='${backListPage}'>Back</a></h1>
 		<h1> MAR Details for ${mar.marNumber} <a	class="btn btn-primary offset-md-1 " href='${homePage}'>Home Page</a>
@@ -111,7 +106,10 @@ $(function () {
 					<div class="col">
 						<label for="assignedto">Assigned To</label> <input type="text" name="assignedto" id="assignedto" class="form-control" value='${mar.assignedTo}' disabled>
 					</div>
-					<div class="col"></div>
+					<div class="col">
+						<br> <input value="<c:out value='${assignedToError}'/>" class="form-control" id = "assignedToErrorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
+					</div>
+					
 				</div><br>
 			<div class="row">
 					<div class="col">
@@ -133,6 +131,11 @@ $(function () {
 					<div class="col"></div>
 				</div>
 				<br> 
+				
+				<div class="col">
+						<br> <input value="<c:out value='${assignMarError}'/>" class="form-control" id = "assignMarErrorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
+					</div>
+				
 				<input type="submit" class="btn btn-primary col-md-3" id="updatemar" role="button" value="Update MAR Details" disabled>
 			</form>
 		</div>
