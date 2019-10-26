@@ -2,9 +2,13 @@ package com.group4.macfms.model;
 
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.group4.macfms.data.SearchUserDAO;
 import com.group4.macfms.model.User;
 import com.group4.macfms.model.UserErrorMsgs;
 
@@ -85,6 +89,7 @@ public class UserTest {
 			assertEquals(addErr,regerrMsg.getAddressError());
 			assertEquals(errMsg,regerrMsg.getCommonerrorMsg());
 	}
+	
 	@Test
 	@FileParameters("./junitTestData/validateUserTestData.csv")
 	public void validateUserTestAdmin(int testno, String username, String password, String confirmPass, String firstname,
@@ -108,6 +113,77 @@ public class UserTest {
 			assertEquals(utaidErr,regerrMsg.getIdError());
 			assertEquals(addErr,regerrMsg.getAddressError());
 			assertEquals(errMsg,regerrMsg.getCommonerrorMsg());
+	}
+	
+	@Test
+	@FileParameters("./junitTestData/validateUserExistsAdminData.csv")
+	public void validateUserExistsTestAdmin(int testno,  String lastName, String role, String errMsg) throws SQLException {
+			UserErrorMsgs regerrMsg  = new UserErrorMsgs();
+			User userTest = new User();
+			SearchUserDAO user = new SearchUserDAO();
+			userTest.setLastname(lastName);
+			userTest.setRole(role);
+			ArrayList<User> list = new ArrayList<User>();
+			if(lastName.isEmpty() && role.equalsIgnoreCase("All Users"))
+			{
+				list = user.searchAllUserDetails(userTest);
+				
+				boolean emptyString = list.isEmpty();
+				if(emptyString)
+				{
+					userTest.validateUserExistsAdmin(emptyString, regerrMsg);
+					assertEquals(errMsg,regerrMsg.getUserNotExistError());
+				}
+				else
+				{
+					userTest.validateUserExistsAdmin(emptyString, regerrMsg);
+				}
+			}
+			else if(lastName.isEmpty() && !role.equalsIgnoreCase("All Users"))
+			{
+				list = user.searchUserWithRole(userTest);
+				boolean emptyString = list.isEmpty();
+				if(emptyString)
+				{
+					userTest.validateUserExistsAdmin(emptyString, regerrMsg);
+					assertEquals(errMsg,regerrMsg.getUserNotExistError());
+				}
+				else
+				{
+					userTest.validateUserExistsAdmin(emptyString, regerrMsg);
+				}
+			}
+			else if(!lastName.isEmpty() && role.equalsIgnoreCase("All Users"))
+			{
+				list = user.searchUserDetails(userTest);
+				boolean emptyString = list.isEmpty();
+				if(emptyString)
+				{
+					userTest.validateUserExistsAdmin(emptyString, regerrMsg);
+					assertEquals(errMsg,regerrMsg.getUserNotExistError());
+				}
+				else
+				{
+					userTest.validateUserExistsAdmin(emptyString, regerrMsg);
+				}
+			}
+			else
+			{
+				list = user.searchUserRoleDetails(userTest);
+				boolean emptyString = list.isEmpty();
+				if(emptyString)
+				{
+					userTest.validateUserExistsAdmin(emptyString, regerrMsg);
+					assertEquals(errMsg,regerrMsg.getUserNotExistError());
+				}
+				else
+				{
+					userTest.validateUserExistsAdmin(emptyString, regerrMsg);
+				}
+			}
+			//userTest.validateUserExistsAdmin(userInDB, regerrMsg);
+			//assertThat(actual, is(expected));
+			assertEquals(errMsg,regerrMsg.getUserNotExistError());
 	}
 	
 	@Test

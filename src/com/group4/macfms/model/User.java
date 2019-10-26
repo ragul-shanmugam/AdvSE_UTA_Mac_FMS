@@ -213,10 +213,14 @@ public class User {
 		errorMsg.setCommonerrorMsg();
 	}
 	
-	public void validateUserExistsAdmin(ArrayList<User> usersInDB, UserErrorMsgs errorMsg) {
-		if(usersInDB.isEmpty() || usersInDB == null)
+	public void validateUserExistsAdmin(boolean usersInDB, UserErrorMsgs errorMsg) {
+		if(usersInDB)
 		{
 			errorMsg.setUserNotExistError("User not exists with search criteria");
+		}
+		else
+		{
+			//do nothing
 		}
 	}
 	

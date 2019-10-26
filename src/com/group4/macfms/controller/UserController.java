@@ -43,14 +43,19 @@ public class UserController extends HttpServlet {
 			try {
 				usersInDB = searchDetails.searchAllUserDetails(searchUser);
 				session.setAttribute("USERS", usersInDB);
-				if(usersInDB.isEmpty())
+				boolean emptyString = usersInDB.isEmpty();
+				if(emptyString)
 				{
-					userError.validateUserExistsAdmin(usersInDB, errorMsg);
+					userError.validateUserExistsAdmin(emptyString, errorMsg);
 					session.setAttribute("userNotExist", errorMsg.getUserNotExistError());
+					//response.sendRedirect("/searchUser.jsp");
 					getServletContext().getRequestDispatcher("/searchUser.jsp").forward(request, response);
 				}
-				session.setAttribute("backSearchPage", "searchUser.jsp");
-				getServletContext().getRequestDispatcher("/listUsers.jsp").forward(request, response);
+				else
+				{
+					response.sendRedirect("listUsers.jsp");
+				}
+			session.setAttribute("backSearchPage", "searchUser.jsp");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -61,14 +66,19 @@ public class UserController extends HttpServlet {
 			try {
 				usersInDB = searchDetails.searchUserWithRole(searchUser);
 				session.setAttribute("USERS", usersInDB);
-				if(usersInDB.isEmpty())
+				boolean emptyString = usersInDB.isEmpty();
+				if(emptyString)
 				{
-					userError.validateUserExistsAdmin(usersInDB, errorMsg);
+					userError.validateUserExistsAdmin(emptyString, errorMsg);
 					session.setAttribute("userNotExist", errorMsg.getUserNotExistError());
+					//response.sendRedirect("/searchUser.jsp");
 					getServletContext().getRequestDispatcher("/searchUser.jsp").forward(request, response);
 				}
-				session.setAttribute("backSearchPage", "searchUser.jsp");
-				getServletContext().getRequestDispatcher("/listUsers.jsp").forward(request, response);
+				else
+				{
+					response.sendRedirect("listUsers.jsp");
+				}
+			session.setAttribute("backSearchPage", "searchUser.jsp");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -79,14 +89,21 @@ public class UserController extends HttpServlet {
 			try {
 				usersInDB = searchDetails.searchUserDetails(searchUser);
 				session.setAttribute("USERS", usersInDB);
-				if(usersInDB.isEmpty())
+				boolean emptyString = usersInDB.isEmpty();
+				if(emptyString)
 				{
-					userError.validateUserExistsAdmin(usersInDB, errorMsg);
+					userError.validateUserExistsAdmin(emptyString, errorMsg);
 					session.setAttribute("userNotExist", errorMsg.getUserNotExistError());
-					getServletContext().getRequestDispatcher("/searchUser.jsp").forward(request, response);
+					response.sendRedirect("searchUser.jsp");
+					//getServletContext().getRequestDispatcher("/searchUser.jsp").forward(request, response);
 				}
+				//getServletContext().getRequestDispatcher("/listUsers.jsp").forward(request, response);
+				else
+					{
+						response.sendRedirect("listUsers.jsp");
+					}
 				session.setAttribute("backSearchPage", "searchUser.jsp");
-				getServletContext().getRequestDispatcher("/listUsers.jsp").forward(request, response);
+			
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -96,13 +113,19 @@ public class UserController extends HttpServlet {
 			try {
 				usersInDB = searchDetails.searchUserRoleDetails(searchUser);
 				session.setAttribute("USERS", usersInDB);
-				if(usersInDB.isEmpty())
+				boolean emptyString = usersInDB.isEmpty();
+				if(emptyString)
 				{
-					userError.validateUserExistsAdmin(usersInDB, errorMsg);
+					userError.validateUserExistsAdmin(emptyString, errorMsg);
 					session.setAttribute("userNotExist", errorMsg.getUserNotExistError());
+					//response.sendRedirect("/searchUser.jsp");
 					getServletContext().getRequestDispatcher("/searchUser.jsp").forward(request, response);
 				}
-				getServletContext().getRequestDispatcher("/listUsers.jsp").forward(request, response);
+				else
+				{
+					response.sendRedirect("listUsers.jsp");
+				}
+			session.setAttribute("backSearchPage", "searchUser.jsp");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

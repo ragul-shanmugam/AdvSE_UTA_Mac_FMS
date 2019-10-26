@@ -18,7 +18,7 @@ public class SearchUserDAO {
 	public ArrayList<User> RetrunMatchingUsersList(String queryString) throws SQLException {
 
 		ArrayList<User> usersInDB = new ArrayList<User>();
-		System.out.println("User Search Query ..." + queryString);
+		//System.out.println("User Search Query ..." + queryString);
 		try {
 			stmt = conn.createStatement();
 			ResultSet result = stmt.executeQuery(queryString);
