@@ -277,7 +277,7 @@ public class User {
 		String result="";
 		if(city.length() == 0)
 			result = "City cannot be empty";
-		else if(!stringSize(city,2,20))
+		else if(!stringSize(city,1,21))
 			result = "City name should be between 2 and 20 characters long";
 		else if(hasChar(city) || isCharAnInteger(city))
 			result = "City name should only have alphabets";
@@ -286,10 +286,10 @@ public class User {
 
 
 	private String validateAddress(String address) {
-		String result= "";
+		String result;
 		if(address.equals(""))
 			result = "Address cannot be empty";
-		else if(!stringSize(address,5,30))
+		else if(!stringSize(address,4,31))
 			result = "Street address should be between 5 and 30 characters long";
 		else
 			result = "";
@@ -358,7 +358,7 @@ public class User {
 		boolean hasNumber = false;
 		char[] array=password.toCharArray();
 		String result="";
-		if (!stringSize(password,8,12)) {
+		if (!stringSize(password,7,13)) {
 			result= "Password should have atleast 8 characters but not exceed 12";
 		}
 		else{
@@ -428,7 +428,7 @@ public class User {
 		else{
 			if (LoginDAO.checkUniqueUsername(username))
 				result="Username already exists! Please try a different Username";
-			else if(!stringSize(username,3,16))
+			else if(!stringSize(username,2,17))
 				result = "Username should be 3 and 16 characters long";
 			
 		char[] characters = {'~', '!', '@', '#','$','%','^','&','*','(',')','_','-','+','=','{','}','[',']',':',';','"','<','>','?','/','\\'};
@@ -451,7 +451,7 @@ public class User {
 	}
 	
 	private boolean stringSize(String string, int min, int max) {
-		return string.length()>=min && string.length()<=max; 
+		return string.length()>min && string.length()<max; 
 	}
 	private boolean isTextAnInteger (String string) {
         boolean result = false;

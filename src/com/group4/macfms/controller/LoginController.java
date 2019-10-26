@@ -98,6 +98,7 @@ public class LoginController extends HttpServlet {
 			getUserParam(request, user);
 			
 			user.validateUserDetails(user, errorMsgs);
+			//System.out.println("Printing erroe...."+errorMsgs.getCommonerrorMsg());
 			
 			if (errorMsgs.getCommonerrorMsg() != "" || !errorMsgs.getCommonerrorMsg().isEmpty()) {
 				url = "/register.jsp";
