@@ -21,13 +21,13 @@ import com.group4.macfms.model.UserErrorMsgs;
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private void getUserParam(HttpServletRequest request, User user) {
+	/*private void getUserParam(HttpServletRequest request, User user) {
 		user.setUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("confirm"), request.getParameter("fname"),
 				request.getParameter("lname"), request.getParameter("id"), request.getParameter("phone"),
 				request.getParameter("email"), request.getParameter("address"), request.getParameter("city"),
 				request.getParameter("state"), request.getParameter("zip"), request.getParameter("role"));
 	}
-
+*/
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -95,10 +95,22 @@ public class LoginController extends HttpServlet {
 			//User registerUser = new User();
 			UserErrorMsgs errorMsgs = new UserErrorMsgs();
 			// validate user details here
-			getUserParam(request, user);
+			user.setUsername(request.getParameter("username"));
+			user.setPassword(request.getParameter("password"));
+			user.setConfirmPassword(request.getParameter("confirm"));
+			user.setFirstname(request.getParameter("fname"));
+			user.setLastname(request.getParameter("lname"));
+			user.setId(request.getParameter("id"));
+			user.setPhone(request.getParameter("phone"));
+			user.setEmail(request.getParameter("email"));
+			user.setAddress(request.getParameter("address"));
+			user.setCity(request.getParameter("city"));
+			user.setState(request.getParameter("state"));
+			user.setZipcode(request.getParameter("zip"));
+			user.setRole(request.getParameter("role"));	
+			//getUserParam(request, user);
 			
 			user.validateUserDetails(user, errorMsgs);
-			//System.out.println("Printing erroe...."+errorMsgs.getCommonerrorMsg());
 			
 			if (errorMsgs.getCommonerrorMsg() != "" || !errorMsgs.getCommonerrorMsg().isEmpty()) {
 				url = "/register.jsp";

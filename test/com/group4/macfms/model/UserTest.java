@@ -48,6 +48,18 @@ public class UserTest {
 			String addErr, String cityErr) {
 			UserErrorMsgs regerrMsg  = new UserErrorMsgs();
 			User userTest = new User(firstname,lastname,username,password,confirmPass,utaid,user_role,phone,email,address,city,state,zip);
+			userTest.setFirstname(firstname);
+			userTest.setLastname(lastname);
+			userTest.setPassword(password);
+			userTest.setConfirmPassword(confirmPass);
+			userTest.setPhone(phone);
+			userTest.setId(utaid);
+			userTest.setAddress(address);
+			userTest.setEmail(email);
+			userTest.setCity(city);
+			userTest.setZipcode(zip);
+			userTest.setState(state);
+			
 			userTest.validateUserDetails(userTest, regerrMsg);
 			assertEquals(firstnameErr,regerrMsg.getFnameError());
 			assertEquals(lastnameErr,regerrMsg.getLnameError());
@@ -63,7 +75,7 @@ public class UserTest {
 			assertEquals(errMsg,regerrMsg.getCommonerrorMsg());
 	}
 	
-	@Test
+	/*@Test
 	@FileParameters("./junitTestData/validateSetUserTestData.csv")
 	public void validateSetUserTest(int testno, String username, String password, String confirmPass, String firstname,
 			String lastname, String email, String phone, String utaid, 
@@ -73,22 +85,10 @@ public class UserTest {
 			String addErr, String cityErr) {
 			UserErrorMsgs regerrMsg  = new UserErrorMsgs();
 			User userTest = new User(firstname,lastname,username,password,confirmPass,utaid,user_role,phone,email,address,city,state,zip);
-			userTest.validateUserDetails(userTest, regerrMsg);
+			
 			userTest.setUser(username, password, confirmPass,  firstname, lastname, utaid, phone, 
 					 email, address, city,  state, zip, user_role);
-			/*assertEquals(firstnameErr,regerrMsg.getFnameError());
-			assertEquals(lastnameErr,regerrMsg.getLnameError());
-			assertEquals(passwordErr,regerrMsg.getPasswordError());
-			assertEquals(cpasswordErr,regerrMsg.getConfirmPasswordError());
-			assertEquals(usernameErr,regerrMsg.getUsernameError());
-			assertEquals(phoneErr,regerrMsg.getPhoneError());
-			assertEquals(emailErr,regerrMsg.getEmailError());
-			assertEquals(cityErr,regerrMsg.getCityError());
-			assertEquals(zipErr,regerrMsg.getZipCodeError());
-			assertEquals(utaidErr,regerrMsg.getIdError());
-			assertEquals(addErr,regerrMsg.getAddressError());
-			assertEquals(errMsg,regerrMsg.getCommonerrorMsg());*/
-	}
+	}*/
 	
 	@Test
 	@FileParameters("./junitTestData/validateUserTestDataAdmin.csv")
@@ -100,7 +100,22 @@ public class UserTest {
 			String addErr, String cityErr) {
 			UserErrorMsgs regerrMsg  = new UserErrorMsgs();
 			User userTest = new User(firstname,lastname,username,password,confirmPass,utaid,user_role,phone,email,address,city,state,zip);
+					
+			userTest.setFirstname(firstname);
+			userTest.setLastname(lastname);
+			userTest.setPassword(password);
+			userTest.setConfirmPassword(confirmPass);
+			userTest.setPhone(phone);
+			userTest.setId(utaid);
+			userTest.setAddress(address);
+			userTest.setEmail(email);
+			userTest.setCity(city);
+			userTest.setRole(user_role);
+			userTest.setState(state);
+			userTest.setZipcode(zip);
+			
 			userTest.validateUserDetailsAdmin(userTest, regerrMsg);
+			
 			assertEquals(firstnameErr,regerrMsg.getFnameError());
 			assertEquals(lastnameErr,regerrMsg.getLnameError());
 			assertEquals(passwordErr,regerrMsg.getPasswordError());

@@ -1,9 +1,8 @@
 package com.group4.macfms.model;
 
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.regex.Pattern;
-import java.lang.*;
+
 import com.group4.macfms.data.LoginDAO;
 
 public class User {
@@ -42,7 +41,7 @@ public class User {
 		
 	}
 
-	public void setUser(String username, String password, String confirmPassword, String firstname, String lastname, String id, String phone, 
+	/*public void setUser(String username, String password, String confirmPassword, String firstname, String lastname, String id, String phone, 
 			String email, String address, String city, String state, String zipcode, String role) {
 		setUsername(username);
 		setPassword(password);
@@ -57,7 +56,7 @@ public class User {
 		setState(state);
 		setZipcode(zipcode);
 		setRole(role);
-	}
+	}*/
 	
 
 	public String getUsername() {

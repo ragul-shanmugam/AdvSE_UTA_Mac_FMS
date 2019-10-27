@@ -1,0 +1,6 @@
+1,Batminton courts,,30 min,Sameday,Indoor,Available,Facility Name  cannot be empty
+2,Batminton courts,abcd,30 min,Sameday,Indoor,Available,Facility name should be alphanumeric (EX IVC 52)
+3,Batminton courts,null,30 min,Sameday,Indoor,Available,Facility name should be alphanumeric (EX IVC 52)
+4,Batminton courts,1234,30 min,Sameday,Indoor,Available,Facility name should be alphanumeric (EX IVC 52)
+5,Batminton courts,   ,30 min,Sameday,Indoor,Available,Facility Name  cannot be empty
+6,Batminton courts,BMC 10,30 min,Sameday,Indoor,Available,
