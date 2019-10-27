@@ -214,7 +214,7 @@ public class MarController extends HttpServlet {
 
 			}
 		
-		if (action.equalsIgnoreCase("updateMarDetails")) {
+		if (action.equalsIgnoreCase("updateMarDetails")) { 
 			MarDAO marUpdate = new MarDAO();
 			MarErrorMsgs errorMsgs = new MarErrorMsgs();
 			Mar mar = new Mar();
