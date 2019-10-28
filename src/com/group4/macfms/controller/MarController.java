@@ -32,6 +32,8 @@ public class MarController extends HttpServlet {
 				request.getParameter("description"), request.getParameter("datecreated"),
 				request.getParameter("assignedto"), request.getParameter("assigneddate"), request.getParameter("time"),
 				request.getParameter("status"));
+		
+				System.out.println("Mar Number User PARAM " +mar.getMarNumber());
 	}
 
 	/**
@@ -163,6 +165,7 @@ public class MarController extends HttpServlet {
 			getUserParam(request, mar);
 			
 			String reqStatus = request.getParameter("request");
+			System.out.println("req status...."+reqStatus);
 			
 			if (reqStatus.equalsIgnoreCase("Accept")) {
 				String Stat = "Assigned";
@@ -173,11 +176,11 @@ public class MarController extends HttpServlet {
 					response.sendRedirect("viewRequestedMarToManager.jsp");
 				}
 			} else {
-				String Stat = "UnAssigned";
+				String Stat = "Unassigned";
 				mar.setAssignedTo(null);
 				int status = marDao.acceptDeclineRepairRequest(mar, Stat);
 				if (status == 1) {
-					mar.setMarStatus("UnAssigned");
+					mar.setMarStatus("Unassigned");
 					session.setAttribute("mar", mar);
 					response.sendRedirect("viewRequestedMarToManager.jsp");
 				}
@@ -189,7 +192,11 @@ public class MarController extends HttpServlet {
 		
 		if (action.equalsIgnoreCase("viewAssignedMarsByDate")) {
 
-			 String date = request.getParameter("datepicker"); 
+			 String date = request.getParameter("datepicker");
+
+			 System.out.println(date); 
+
+			 
 
 			if (date == null)
 
@@ -207,49 +214,54 @@ public class MarController extends HttpServlet {
 
 			}
 		
-		if (action.equalsIgnoreCase("updateMarDetails")) {
+		if (action.equalsIgnoreCase("updateMarDetails")) { 
 			MarDAO marUpdate = new MarDAO();
+			MarErrorMsgs errorMsgs = new MarErrorMsgs();
 			Mar mar = new Mar();
 			getUserParam(request, mar);
 			DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 			Date date = new Date();
 			String todayDate = dateFormat.format(date);
 			mar.setAssignedDate(todayDate);
-			if (mar.getAssignedTo() != null || !mar.getAssignedTo().isEmpty() || !mar.getAssignedTo().contains("")) {
-				mar.setMarStatus("Assigned");
-			}
-			int status = marUpdate.updateMarDetails(mar);
-			if (status == 1) { // status 1 is OK
+			
+			mar.validateAssignedTo(mar, errorMsgs);
+			
+			if (errorMsgs.getAssignedToError() != "" || !errorMsgs.getAssignedToError().isEmpty()) {
+				session.setAttribute("assignedToError", errorMsgs.getAssignedToError());
+				//session.setAttribute("commonErrorMsg", "Please correct the following errors");
+				getServletContext().getRequestDispatcher("/viewMar.jsp").forward(request, response);
+			} 
+			else {
+//			if (mar.getAssignedTo() != null || !mar.getAssignedTo().isEmpty() || !mar.getAssignedTo().contains("")) {
+//				mar.setMarStatus("Assigned");
+//			}
+				int status = marUpdate.updateMarDetails(mar);
+				mar.setMarStatusCode(status);
+				mar.validateAssignedToStatus(mar, errorMsgs, mar.getMarStatusCode());
+				
 				session.setAttribute("mar", mar);
+				session.setAttribute("assignMarError", errorMsgs.getAssignMarError());
 				response.sendRedirect("viewMar.jsp");
-			} else if (status == 2) { // status 2 is rule check violated
-				PrintWriter out = response.getWriter();
-				String htmlRespone = "<html>";
-				htmlRespone += "<meta charset=\"ISO-8859-1\" name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no\">\r\n"
-						+ "<link href=\"bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n"
-						+ "<script type=\"text/javascript\" src=\"bootstrap/js/bootstrap.min.js\"></script>";
-				htmlRespone += "	<div class=\"alert alert-danger alert-dismissible fade show\">\r\n"
-						+ "    <strong>Report cannot be assigned to this user as it has exceeded its count Limit !!</strong>\r\n"
-						+ "    <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\r\n"
-						+ "	</div>";
-				htmlRespone += "<h2><a id='userhome' class=\"btn btn-primary offset-md-1 \" href='managerHome.jsp'>Back to Home Page</a></h2>";
-				htmlRespone += "</html>";
-
-				out.println(htmlRespone);
-			} else { // 0 is failed to assign
-				PrintWriter out = response.getWriter();
-				String htmlRespone = "<html>";
-				htmlRespone += "<meta charset=\"ISO-8859-1\" name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no\">\r\n"
-						+ "<link href=\"bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n"
-						+ "<script type=\"text/javascript\" src=\"bootstrap/js/bootstrap.min.js\"></script>";
-				htmlRespone += "	<div class=\"alert alert-danger alert-dismissible fade show\">\r\n"
-						+ "    <strong>Report cannot be assigned due to some technical issues !!</strong>\r\n"
-						+ "    <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\r\n"
-						+ "	</div>";
-				htmlRespone += "<h2><a id='userhome' class=\"btn btn-primary offset-md-1 \" href='managerHome.jsp'>Back to Home Page</a></h2>";
-				htmlRespone += "</html>";
-
-				out.println(htmlRespone);
+				
+//				if (status == 1) { // status 1 is OK
+////					mar.setMarStatus("Assigned");
+//					session.setAttribute("mar", mar);
+//					session.setAttribute("assignMarError", errorMsgs.getAssignMarError());
+////					getServletContext().getRequestDispatcher("/viewMar.jsp").forward(request, response);
+//					response.sendRedirect("viewMar.jsp");
+//				} else if (status == 2) { // status 2 is rule check violated
+//					mar.setMarStatus("Unassigned");
+//					session.setAttribute("mar", mar);
+//					session.setAttribute("assignMarError", errorMsgs.getAssignMarError());
+////					getServletContext().getRequestDispatcher("/viewMar.jsp").forward(request, response);
+//					response.sendRedirect("viewMar.jsp");
+//				} else { // 0 is failed to assign
+//					mar.setMarStatus("Unassigned");
+//					session.setAttribute("mar", mar);
+//					session.setAttribute("assignMarError", errorMsgs.getAssignMarError());
+//					response.sendRedirect("viewMar.jsp");
+////					getServletContext().getRequestDispatcher("/viewMar.jsp").forward(request, response);
+//				}
 			}
 			
 		}

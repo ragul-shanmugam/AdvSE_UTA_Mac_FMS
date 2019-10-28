@@ -26,7 +26,7 @@ public class MarDAO {
 		Connection conn = SQLConnection.getDBConnection();
 		ArrayList<Mar> marsListInDB = new ArrayList<Mar>();
 		
-		System.out.println("Printing mar query..."+queryString);
+		System.out.println("Printing mar query..."+queryString); 
 		try {
 			stmt = conn.createStatement();
 			ResultSet marList = stmt.executeQuery(queryString);
