@@ -463,7 +463,7 @@ public class User {
         {
             result=false;
         }
-		return result;
+		return result; 
 	}
 	private boolean isCharAnInteger (String string) {
         boolean result = false;
