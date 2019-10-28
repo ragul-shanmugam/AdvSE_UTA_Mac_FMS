@@ -19,7 +19,7 @@ import junitparams.JUnitParamsRunner;
 public class UserTest {
 
 	@Test
-	@FileParameters("./junitTestData/UserTestData1.csv")
+	@FileParameters("./junitTestData/UserTestLoginData.csv")
 	public void validateLoginUserTest(int testno, String username, String password, String errMsg) {
 			UserErrorMsgs regerrMsg  = new UserErrorMsgs();
 			User userTest = new User();
