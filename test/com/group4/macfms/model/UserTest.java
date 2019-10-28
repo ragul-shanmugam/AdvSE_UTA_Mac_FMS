@@ -72,8 +72,8 @@ public class UserTest {
 			assertEquals(zipErr,regerrMsg.getZipCodeError());
 			assertEquals(utaidErr,regerrMsg.getIdError());
 			assertEquals(addErr,regerrMsg.getAddressError());
-			assertEquals(errMsg,regerrMsg.getCommonerrorMsg());
 			assertTrue(state.equals(userTest.getState()));
+			assertEquals(errMsg,regerrMsg.getCommonerrorMsg());
 	}
 	
 	/*@Test

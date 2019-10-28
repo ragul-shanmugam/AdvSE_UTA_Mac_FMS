@@ -22,9 +22,27 @@ public class UserErrorMsgs {
 		return commonerrorMsg;
 	}
 	public void setCommonerrorMsg() {
-		if(!usernameError.equals("") || !passwordError.equals("") || !confirmPasswordError.equals("") || !fnameError.equals("") || !lnameError.equals("") 
-				|| !idError.equals("") || !emailError.equals("") || !addressError.equals("") || !cityError.equals("") 
-				|| !zipCodeError.equals(""))
+		if(!usernameError.equals(""))
+			this.commonerrorMsg = "Please correct the following:";
+		else if( !passwordError.equals("") )
+			this.commonerrorMsg = "Please correct the following:";
+		else if( !confirmPasswordError.equals(""))
+			this.commonerrorMsg = "Please correct the following:";
+		else if(!fnameError.equals(""))
+			this.commonerrorMsg = "Please correct the following:";
+		else if( !lnameError.equals(""))
+			this.commonerrorMsg = "Please correct the following:";
+		else if( !idError.equals(""))
+			this.commonerrorMsg = "Please correct the following:";
+		else if( !zipCodeError.equals(""))
+			this.commonerrorMsg = "Please correct the following:";
+		else if(!addressError.equals(""))
+			this.commonerrorMsg = "Please correct the following:";
+		else if( !cityError.equals(""))
+			this.commonerrorMsg = "Please correct the following:";
+		else if( !phoneError.equals(""))
+			this.commonerrorMsg = "Please correct the following:";
+		else if	(!emailError.equals(""))
 			this.commonerrorMsg = "Please correct the following:";
 		else
 			this.commonerrorMsg = "";

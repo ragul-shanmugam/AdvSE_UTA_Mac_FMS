@@ -18,7 +18,7 @@
 	<br>
 	<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false"
-		user="root" password="Maverick@123" />
+		user="root" password="MyNewPass" />
 	<sql:query dataSource="${dsfacility}" var="facilityresult">
    SELECT distinct FacilityType FROM uta_mac_fms.facility order by FacilityName;
 </sql:query>
