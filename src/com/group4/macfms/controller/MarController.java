@@ -228,40 +228,51 @@ public class MarController extends HttpServlet {
 			
 			if (errorMsgs.getAssignedToError() != "" || !errorMsgs.getAssignedToError().isEmpty()) {
 				session.setAttribute("assignedToError", errorMsgs.getAssignedToError());
-				//session.setAttribute("commonErrorMsg", "Please correct the following errors");
 				getServletContext().getRequestDispatcher("/viewMar.jsp").forward(request, response);
 			} 
 			else {
-//			if (mar.getAssignedTo() != null || !mar.getAssignedTo().isEmpty() || !mar.getAssignedTo().contains("")) {
-//				mar.setMarStatus("Assigned");
-//			}
-				int status = marUpdate.updateMarDetails(mar);
-				mar.setMarStatusCode(status);
-				mar.validateAssignedToStatus(mar, errorMsgs, mar.getMarStatusCode());
 				
-				session.setAttribute("mar", mar);
-				session.setAttribute("assignMarError", errorMsgs.getAssignMarError());
-				response.sendRedirect("viewMar.jsp");
+//				// checks if repairer exists in DB and is available today based on his his schedule
+//				Date now = new Date();
+//				SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
+//		        String day = simpleDateformat.format(now);
+//		        System.out.println("Todays day..."+day);
+//		        
+//				boolean userAvailable = marUpdate.checkUniqueUsername(mar.getAssignedTo(), day);
+						
+				// Gets the Assigned Mar Counts for the Repairer
+				int [] repMarCounts = marUpdate.getRepairerMarCount(mar);
 				
-//				if (status == 1) { // status 1 is OK
-////					mar.setMarStatus("Assigned");
-//					session.setAttribute("mar", mar);
-//					session.setAttribute("assignMarError", errorMsgs.getAssignMarError());
-////					getServletContext().getRequestDispatcher("/viewMar.jsp").forward(request, response);
-//					response.sendRedirect("viewMar.jsp");
-//				} else if (status == 2) { // status 2 is rule check violated
-//					mar.setMarStatus("Unassigned");
-//					session.setAttribute("mar", mar);
-//					session.setAttribute("assignMarError", errorMsgs.getAssignMarError());
-////					getServletContext().getRequestDispatcher("/viewMar.jsp").forward(request, response);
-//					response.sendRedirect("viewMar.jsp");
-//				} else { // 0 is failed to assign
-//					mar.setMarStatus("Unassigned");
-//					session.setAttribute("mar", mar);
-//					session.setAttribute("assignMarError", errorMsgs.getAssignMarError());
-//					response.sendRedirect("viewMar.jsp");
-////					getServletContext().getRequestDispatcher("/viewMar.jsp").forward(request, response);
-//				}
+				mar.setMarCountsPerDay(repMarCounts[0]);	// TotalMarPerDay
+				mar.setMarCountPerWeek(repMarCounts[1]);	// TotalMarPerWeek
+				
+				mar.validateAssignRuleCheck(mar, errorMsgs);
+				
+				System.out.println("Assign Mar Rule Check..."+errorMsgs.getAssignRuleCheckError());
+				
+				
+				
+				
+				// Finally Assign the Mar after the Rule checks have been performed
+				if (errorMsgs.getAssignRuleCheckError().equals("Mar has been assigned to the repairer "+mar.getAssignedTo()+"")) {
+				
+					int status = marUpdate.finallyAssignMarToRepairer(mar);
+					
+					mar.setMarStatusCode(status);
+					mar.validateAssignedToStatus(mar, errorMsgs, mar.getMarStatusCode());
+					
+					session.setAttribute("mar", mar);
+					session.setAttribute("assignMarError", errorMsgs.getAssignRuleCheckError());
+					response.sendRedirect("viewMar.jsp");
+					System.out.println("Mar Assigned..!!");
+				} else {
+					session.setAttribute("mar", mar);
+					session.setAttribute("assignMarError", errorMsgs.getAssignRuleCheckError());
+					response.sendRedirect("viewMar.jsp");
+
+					System.out.println("Mar Not Assigned..!!");
+				}
+				
 			}
 			
 		}

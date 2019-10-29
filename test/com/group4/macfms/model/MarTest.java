@@ -13,13 +13,13 @@ import junitparams.JUnitParamsRunner;
 public class MarTest {
 	
 	Mar mar;
-	MarErrorMsgs errorMsg;
+	MarErrorMsgs errorMessage;
 	
 	@Before
 	public void setUp() throws Exception {
 		
 		mar = new Mar();
-		errorMsg = new MarErrorMsgs();
+		errorMessage = new MarErrorMsgs();
 		
 			
 	}
@@ -29,9 +29,9 @@ public class MarTest {
 	public void validateaddMarDataTest(int testno, String description, String descriptionError ) {
 		
 		mar.setDescription(description);
-		mar.validateDescription(mar, errorMsg);
+		mar.validateDescription(mar, errorMessage);
 		
-		assertEquals(descriptionError,errorMsg.getDescriptionError());
+		assertEquals(descriptionError,errorMessage.getDescriptionError());
 		
 		
 		
@@ -42,16 +42,51 @@ public class MarTest {
 	@Test
 	@FileParameters("./junitTestData/assignMarTest.csv")
 	public void validateAssignMarTest(int testno, String assignedTo, String AssignedToErrorMsg, int StatusCode, String MarStatusErrorMsg, String MarStatus) {
-		Mar mar = new Mar();
-		MarErrorMsgs errorMessage=new MarErrorMsgs();
+//		Mar mar = new Mar();
+//		MarErrorMsgs errorMessage=new MarErrorMsgs();
 		mar.setAssignedTo(assignedTo);
 		mar.setMarStatusCode(StatusCode);
 		mar.validateAssignedTo(mar, errorMessage);
 		mar.validateAssignedToStatus(mar, errorMessage, mar.getMarStatusCode());
 		//assertTrue(type.equals(facilty.getType()));
+		
+		assertEquals(assignedTo,mar.getAssignedTo());
+		assertEquals(StatusCode,mar.getMarStatusCode());
+		
 		assertTrue(MarStatus.equals(mar.getMarStatus()));
 		assertEquals(AssignedToErrorMsg, errorMessage.getAssignedToError());
 		assertEquals(MarStatusErrorMsg, errorMessage.getAssignMarError());
+		
+		
+	}
+	
+	@Test
+	@FileParameters("./junitTestData/assignMarRuleCheck.csv")
+	public void validateAssignMarRuleCheckTest(int testno, String assignedTo, String assignedToErrorMessage, String Day,
+			int CountPerDay, int CountPerWeek, String AssignRuleCheckError, String MarStatus) {
+//		Mar mar = new Mar();
+//		MarErrorMsgs errorMessage=new MarErrorMsgs();
+		mar.setAssignedTo(assignedTo);
+		mar.setMarCountsPerDay(CountPerDay);
+		mar.setMarCountPerWeek(CountPerWeek);
+		
+		
+		
+//		mar.setMarStatusCode(StatusCode);
+		mar.validateAssignedTo(mar, errorMessage);
+		mar.validateAssignRuleCheck(mar, errorMessage);
+		
+//		mar.validateAssignedToStatus(mar, errorMessage, mar.getMarStatusCode());
+		//assertTrue(type.equals(facilty.getType()));
+		
+		assertEquals(assignedTo,mar.getAssignedTo());
+		assertEquals(CountPerDay,mar.getMarCountsPerDay());
+		assertEquals(CountPerWeek,mar.getMarCountPerWeek());
+		
+		assertEquals(assignedToErrorMessage, errorMessage.getAssignedToError());
+		assertEquals(AssignRuleCheckError, errorMessage.getAssignRuleCheckError());
+//		assertEquals(MarStatusErrorMsg, errorMessage.getAssignMarError());
+		assertTrue(MarStatus.equals(mar.getMarStatus()));
 		
 		
 	}

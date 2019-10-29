@@ -219,7 +219,8 @@ public class MarDAO {
 		return status;
 	}
 	
-
+	
+	
 	public int updateMarDetails(Mar mar) {
 
 		Statement stmt = null;
@@ -322,6 +323,115 @@ public class MarDAO {
 		return status;
 	}
 	
+	// This function returns the count of MarPerDay, MarPerWeek of a Repairer
+	@SuppressWarnings("null")
+	public int[] getRepairerMarCount(Mar mar) {
+		
+		int[] repMarCounts = new int[2];
+		
+		Statement stmt = null;
+		Connection conn = SQLConnection.getDBConnection();
+		
+		SimpleDateFormat simpleDateformat1 = new SimpleDateFormat("MM/dd/YYYY"); // the day of the week spelled out completely
+        Date startDate = getWeekStartDate();
+		String startOfWeek = simpleDateformat1.format(startDate);
+		
+		Date endDate = getWeekEndDate();
+//		SimpleDateFormat simpleDateformat2 = new SimpleDateFormat("MM/dd/YYYY"); // the day of the week spelled out completely
+        String endOfWeek = simpleDateformat1.format(endDate);
+		
+        Date today = new Date();
+        String todaysDate = simpleDateformat1.format(today);
+        
+		System.out.println("Start Date of week..."+startOfWeek);
+		System.out.println("End Date of week..."+endOfWeek);
+
+		// validation for the rule check on TotalMars < 10 (per week) and < 5 (per day)
+		
+		String query = "SELECT AssignedTo,\r\n" + 
+				"(SELECT COUNT(MarNumber)  from uta_mac_fms.mardetails where AssignedDate between '"+startOfWeek+"' and '"+endOfWeek+"' \r\n" + 
+				"	and AssignedTo = '"+mar.getAssignedTo()+"' GROUP BY AssignedTo) as TotalMarsCountPerWeek,\r\n" + 
+				"(SELECT COUNT(MarNumber)  from uta_mac_fms.mardetails where AssignedDate = '"+todaysDate+"'\r\n" + 
+				" and AssignedTo = '"+mar.getAssignedTo()+"' GROUP BY AssignedTo) as TotalMarsCountPerDay\r\n" + 
+				" \r\n" + 
+				" from uta_mac_fms.mardetails where AssignedTo = '"+mar.getAssignedTo()+"' Group By AssignedTo;";
+		
+		System.out.println("Printing mar query..."+query);
+		
+		try {
+			stmt = conn.createStatement();
+			ResultSet result = stmt.executeQuery(query);
+			int TotalMarsCountPerWeek = 0;
+			int TotalMarsCountPerDay = 0;
+			while(result.next()) {
+				if(result.getString("TotalMarsCountPerWeek")=="null" || result.getString("TotalMarsCountPerWeek")== null) {
+					TotalMarsCountPerWeek = 0;
+					if(result.getString("TotalMarsCountPerDay")=="null" || result.getString("TotalMarsCountPerDay")==null) {
+						TotalMarsCountPerDay = 0;
+					} else {
+						TotalMarsCountPerDay = Integer.parseInt(result.getString("TotalMarsCountPerDay"));
+					}
+					
+				} else {
+					if(result.getString("TotalMarsCountPerDay")=="null" || result.getString("TotalMarsCountPerDay")==null) {
+						TotalMarsCountPerDay = 0;
+					} else {
+						TotalMarsCountPerDay = Integer.parseInt(result.getString("TotalMarsCountPerDay"));
+					}
+					TotalMarsCountPerWeek = Integer.parseInt(result.getString("TotalMarsCountPerWeek"));
+				}
+				
+//				 TotalMarsCountPerWeek = Integer.parseInt(result.getString("TotalMarsCountPerWeek"));
+//				 TotalMarsCountPerDay = Integer.parseInt(result.getString("TotalMarsCountPerDay"));
+			}
+			System.out.println("TotalMarsCountPerWeek..."+TotalMarsCountPerWeek);
+			System.out.println("TotalMarsCountPerDay..."+TotalMarsCountPerDay);
+			
+			repMarCounts[0] = TotalMarsCountPerDay;
+			repMarCounts[1] = TotalMarsCountPerWeek;
+			
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return repMarCounts;
+	}
+	
+	
+	// This function finally assigns the Mar to a Repairer after Rule Checks
+	public int finallyAssignMarToRepairer(Mar mar) {
+		Statement stmt = null;
+		Connection conn = SQLConnection.getDBConnection();
+		int status = 0;
+		
+		String queryString = "UPDATE `uta_mac_fms`.`mardetails` SET `MarNumber` = '" + mar.getMarNumber()
+		+ "', `FacilityName` = '" + mar.getFacilityType() + "', `ReservationId` = '" + mar.getReservationId()
+		+ "', `ReportedBy` = '" + mar.getReportedBy() + "', `Urgency` = '" + mar.getUrgency()
+		+ "', `Description` = '" + mar.getDescription() + "', `DateCreated` = '" + mar.getDateCreated()
+		+ "', `AssignedTo` = '" + mar.getAssignedTo() + "', `AssignedDate` = '" + mar.getAssignedDate()
+		+ "', `EstimateRepair` = '" + mar.getEstimatedTime() + "', `MarStatus` = '" + mar.getMarStatus()
+		+ "' WHERE `MarNumber` = '" + mar.getMarNumber() + "';";
+		System.out.println("Printing mar query..."+queryString);
+		try {
+			stmt = conn.createStatement();
+			status = stmt.executeUpdate(queryString);
+			conn.commit();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return status;
+		
+		
+		
+	}
+	
 	public static boolean checkUniqueUsername(String username, String day) {
 		Statement stmt = null;
 		Connection conn = SQLConnection.getDBConnection();
@@ -357,7 +467,11 @@ public class MarDAO {
 	    while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
 	        calendar.add(Calendar.DATE, 1);
 	    }
-	    calendar.add(Calendar.DATE, -1);
+	    if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
+	    	calendar.add(Calendar.DATE, 6);
+	    } else {
+		    calendar.add(Calendar.DATE, -1);
+	    }
 	    return calendar.getTime();
 	}
 	

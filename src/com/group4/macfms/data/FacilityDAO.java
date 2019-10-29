@@ -10,6 +10,7 @@ import com.group4.macfms.model.Facility;
 import com.group4.macfms.util.SQLConnection;
 
 public class FacilityDAO {
+	static SQLConnection DBMgr = SQLConnection.getInstance();
 
 	private static ArrayList<Facility> ReturnMatchingFacilitiesList(String queryString) {
 		Statement stmt = null;
