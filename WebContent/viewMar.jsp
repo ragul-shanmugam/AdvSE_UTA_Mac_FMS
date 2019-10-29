@@ -128,14 +128,11 @@ $(function () {
 					<div class="col">
 						<label for="status">MAR Status</label> <input type="text" name="status" id="status" class="form-control" value='${mar.marStatus}' disabled>
 					</div>
-					<div class="col"></div>
-				</div>
-				<br> 
-				
-				<div class="col">
+					<div class="col">
 						<br> <input value="<c:out value='${assignMarError}'/>" class="form-control" id = "assignMarErrorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
 					</div>
-				
+				</div>
+				<br> 			
 				<input type="submit" class="btn btn-primary col-md-3" id="updatemar" role="button" value="Update MAR Details" disabled>
 			</form>
 		</div>
