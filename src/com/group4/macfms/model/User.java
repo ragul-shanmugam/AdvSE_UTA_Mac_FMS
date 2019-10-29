@@ -238,7 +238,7 @@ public class User {
 		else{
 			if (LoginDAO.checkUniqueUsername(userName2))
 				result="Username not exists in system! Please try a different Username";
-			else if(!stringSize(userName2,3,16))
+			else if(!stringSize(userName2,2,17))
 				result = "Username should be 3 and 16 characters long";
 			
 		char[] characters = {'~', '!', '@', '#','$','%','^','&','*','(',')','_','-','+','=','{','}','[',']',':',';','"','<','>','?','/','\\'};
@@ -396,7 +396,7 @@ public class User {
 		String expression = "^[a-zA-Z]*";
 		if (lastname.equals(""))
 			result= "Last Name cannot be empty";
-		else if(!stringSize(lastname,3,30))
+		else if(!stringSize(lastname,2,31))
 			result = "Last Name should be between 3 and 30 characters long";
 		else if(!(lastname.matches(expression)))
 			result = "Last Name should only have alphabets";
@@ -409,7 +409,7 @@ public class User {
 		String expression = "^[a-zA-Z]*";
 		if (firstname.equals(""))
 			result= "First Name cannot be empty";
-		else if(!stringSize(firstname,3,30))
+		else if(!stringSize(firstname,2,31))
 			result = "First Name should be between 3 and 30 characters long";
 		else if(!(firstname.matches(expression)))
 			result = "First Name should only have alphabets";
