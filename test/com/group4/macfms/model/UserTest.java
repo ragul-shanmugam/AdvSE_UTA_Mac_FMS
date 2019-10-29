@@ -19,7 +19,7 @@ import junitparams.JUnitParamsRunner;
 public class UserTest {
 
 	@Test
-	@FileParameters("./junitTestData/UserTestLoginData.csv")
+	@FileParameters("./junitTestData/userTestLoginData.csv")
 	public void validateLoginUserTest(int testno, String username, String password, String errMsg) {
 			UserErrorMsgs regerrMsg  = new UserErrorMsgs();
 			User userTest = new User();
@@ -29,7 +29,7 @@ public class UserTest {
 			assertEquals(errMsg,regerrMsg.getLoginErrMsg());
 	}
 	@Test
-	@FileParameters("./junitTestData/UserPasswordTestData.csv")
+	@FileParameters("./junitTestData/userPasswordTestData.csv")
 	public void validateUserPasswordTest(int testno, String username, String password, String errMsg) {
 		UserErrorMsgs regerrMsg  = new UserErrorMsgs();
 		User userTest = new User();
@@ -75,21 +75,6 @@ public class UserTest {
 			assertTrue(state.equals(userTest.getState()));
 			assertEquals(errMsg,regerrMsg.getCommonerrorMsg());
 	}
-	
-	/*@Test
-	@FileParameters("./junitTestData/validateSetUserTestData.csv")
-	public void validateSetUserTest(int testno, String username, String password, String confirmPass, String firstname,
-			String lastname, String email, String phone, String utaid, 
-			String address, String city, String state, String user_role, String zip, String errMsg,
-			String usernameErr, String firstnameErr, String lastnameErr, String passwordErr, String cpasswordErr,
-			String utaidErr, String emailErr, String phoneErr, String zipErr,
-			String addErr, String cityErr) {
-			UserErrorMsgs regerrMsg  = new UserErrorMsgs();
-			User userTest = new User(firstname,lastname,username,password,confirmPass,utaid,user_role,phone,email,address,city,state,zip);
-			
-			userTest.setUser(username, password, confirmPass,  firstname, lastname, utaid, phone, 
-					 email, address, city,  state, zip, user_role);
-	}*/
 	
 	@Test
 	@FileParameters("./junitTestData/validateUserTestDataAdmin.csv")
