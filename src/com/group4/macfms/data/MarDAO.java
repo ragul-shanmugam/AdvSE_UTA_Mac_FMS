@@ -14,7 +14,6 @@ import java.util.Random;
 
 import com.group4.macfms.model.Mar;
 import com.group4.macfms.model.MarErrorMsgs;
-import com.group4.macfms.model.User;
 import com.group4.macfms.util.SQLConnection;
 
 public class MarDAO {
@@ -26,7 +25,7 @@ public class MarDAO {
 		Connection conn = SQLConnection.getDBConnection();
 		ArrayList<Mar> marsListInDB = new ArrayList<Mar>();
 		
-		System.out.println("Printing mar query..."+queryString); 
+
 		try {
 			stmt = conn.createStatement();
 			ResultSet marList = stmt.executeQuery(queryString);
@@ -58,12 +57,9 @@ public class MarDAO {
 		int status = 0;
 		
 		String marNo = mar.getMarNumber();
-		System.out.println("Mar Number" +marNo);
-		System.out.println("Assigned To..." +mar.getAssignedTo());
 		
 		String updateQuery = "UPDATE `uta_mac_fms`.`mardetails` SET MarStatus = '"+mar.getMarStatus()+"', AssignedTo = '"+mar.getAssignedTo()+"' "
 				+ ", EstimateRepair = '"+mar.getEstimatedTime()+"' where MarNumber = '"+mar.getMarNumber()+"';";
-		System.out.println("Update Mar by Repairer..."+updateQuery);
 		try {
 			stmt = conn.createStatement();
 			status = stmt.executeUpdate(updateQuery);
@@ -87,17 +83,11 @@ public class MarDAO {
 		SimpleDateFormat simpleDateformat1 = new SimpleDateFormat("MM/dd/YYYY"); // the day of the week spelled out completely
         Date td = new Date();
         String todaysDate = simpleDateformat1.format(td);
-        System.out.println("Todays date..."+todaysDate);
         
 		
 		Date now = new Date();
 		SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
         String day = simpleDateformat.format(now);
-        System.out.println("Todays day..."+day);
-        
-//        User user = new User();
-//        String username = user.getUsername();
-        System.out.println("Im user..."+username);
         
      // validating if user exists and is available for that current day.
         boolean userAvailable = checkUniqueUsername(username, day);
@@ -107,7 +97,6 @@ public class MarDAO {
         
 		if (userAvailable && canReserve) {
 			String requestQuery = "UPDATE `uta_mac_fms`.`mardetails` SET MarStatus = 'Requested', AssignedTo = '"+username+"', AssignedDate = '"+todaysDate+"' where MarNumber = '"+mar.getMarNumber()+"';";
-			System.out.println("Request repair by Repairer..."+requestQuery);
 			try {
 				stmt = conn.createStatement();
 				status = stmt.executeUpdate(requestQuery);
@@ -145,8 +134,6 @@ public class MarDAO {
 			
 			long diff = d2.getTime() - d1.getTime();
 			long diffDays = diff / (24 * 60 * 60 * 1000);
-			
-			System.out.println("difference in days..."+diffDays);
 			
 			// 7-day, Same day
 			if (Duration.equalsIgnoreCase("Same day") && diffDays==0) {
@@ -205,7 +192,6 @@ public class MarDAO {
 
 		
 		String requestQuery = "UPDATE `uta_mac_fms`.`mardetails` SET MarStatus = '"+reqStatus+"', AssignedTo = '"+mar.getAssignedTo()+"', AssignedDate = '"+todayDate+"' where MarNumber = '"+mar.getMarNumber()+"';";
-		System.out.println("accept decline request..."+requestQuery);
 		try {
 			stmt = conn.createStatement();
 			status = stmt.executeUpdate(requestQuery);
@@ -233,7 +219,6 @@ public class MarDAO {
 		Date now = new Date();
 		SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
         String day = simpleDateformat.format(now);
-        System.out.println("Todays day..."+day);
 		
         // validating if user exists and is available for that current day.
         boolean userAvailable = checkUniqueUsername(mar.getAssignedTo(), day);
@@ -247,9 +232,6 @@ public class MarDAO {
 			
 	        Date today = new Date();
 	        String todaysDate = simpleDateformat1.format(today);
-	        
-			System.out.println("Start Date of week..."+startOfWeek);
-			System.out.println("End Date of week..."+endOfWeek);
 
 			// validation for the rule check on TotalMars < 10 (per week) and < 5 (per day)
 			
@@ -261,7 +243,6 @@ public class MarDAO {
 					" \r\n" + 
 					" from uta_mac_fms.mardetails where AssignedTo = '"+mar.getAssignedTo()+"' Group By AssignedTo;";
 			
-			System.out.println("Printing mar query..."+query);
 		try {
 				stmt = conn.createStatement();
 				ResultSet result = stmt.executeQuery(query);
@@ -288,8 +269,6 @@ public class MarDAO {
 //					 TotalMarsCountPerWeek = Integer.parseInt(result.getString("TotalMarsCountPerWeek"));
 //					 TotalMarsCountPerDay = Integer.parseInt(result.getString("TotalMarsCountPerDay"));
 				}
-				System.out.println("TotalMarsCountPerWeek..."+TotalMarsCountPerWeek);
-				System.out.println("TotalMarsCountPerDay..."+TotalMarsCountPerDay);
 				
 				if(TotalMarsCountPerDay < 5 && TotalMarsCountPerWeek < 10) {
 					String queryString = "UPDATE `uta_mac_fms`.`mardetails` SET `MarNumber` = '" + mar.getMarNumber()
@@ -299,7 +278,6 @@ public class MarDAO {
 					+ "', `AssignedTo` = '" + mar.getAssignedTo() + "', `AssignedDate` = '" + mar.getAssignedDate()
 					+ "', `EstimateRepair` = '" + mar.getEstimatedTime() + "', `MarStatus` = '" + mar.getMarStatus()
 					+ "' WHERE `MarNumber` = '" + mar.getMarNumber() + "';";
-					System.out.println("Printing mar query..."+queryString);
 					try {
 						stmt = conn.createStatement();
 						status = stmt.executeUpdate(queryString);
@@ -309,7 +287,6 @@ public class MarDAO {
 						e.printStackTrace();
 					}
 				}else {
-					System.out.println("user not allowed to assign MAR");
 					status = 2;  // status is 2 if user exceeds rule check
 				}
 				
@@ -342,11 +319,8 @@ public class MarDAO {
 		
         Date today = new Date();
         String todaysDate = simpleDateformat1.format(today);
-        
-		System.out.println("Start Date of week..."+startOfWeek);
-		System.out.println("End Date of week..."+endOfWeek);
 
-		// validation for the rule check on TotalMars < 10 (per week) and < 5 (per day)
+        // validation for the rule check on TotalMars < 10 (per week) and < 5 (per day)
 		
 		String query = "SELECT AssignedTo,\r\n" + 
 				"(SELECT COUNT(MarNumber)  from uta_mac_fms.mardetails where AssignedDate between '"+startOfWeek+"' and '"+endOfWeek+"' \r\n" + 
@@ -356,7 +330,6 @@ public class MarDAO {
 				" \r\n" + 
 				" from uta_mac_fms.mardetails where AssignedTo = '"+mar.getAssignedTo()+"' Group By AssignedTo;";
 		
-		System.out.println("Printing mar query..."+query);
 		
 		try {
 			stmt = conn.createStatement();
@@ -384,8 +357,6 @@ public class MarDAO {
 //				 TotalMarsCountPerWeek = Integer.parseInt(result.getString("TotalMarsCountPerWeek"));
 //				 TotalMarsCountPerDay = Integer.parseInt(result.getString("TotalMarsCountPerDay"));
 			}
-			System.out.println("TotalMarsCountPerWeek..."+TotalMarsCountPerWeek);
-			System.out.println("TotalMarsCountPerDay..."+TotalMarsCountPerDay);
 			
 			repMarCounts[0] = TotalMarsCountPerDay;
 			repMarCounts[1] = TotalMarsCountPerWeek;
@@ -416,7 +387,6 @@ public class MarDAO {
 		+ "', `AssignedTo` = '" + mar.getAssignedTo() + "', `AssignedDate` = '" + mar.getAssignedDate()
 		+ "', `EstimateRepair` = '" + mar.getEstimatedTime() + "', `MarStatus` = '" + mar.getMarStatus()
 		+ "' WHERE `MarNumber` = '" + mar.getMarNumber() + "';";
-		System.out.println("Printing mar query..."+queryString);
 		try {
 			stmt = conn.createStatement();
 			status = stmt.executeUpdate(queryString);
@@ -523,7 +493,6 @@ public class MarDAO {
 				+ "('" + marNumber + "','" + mar.getFacilityType() + "','" + reservationId + "', '" + userName + "', '"
 				+ mar.getDescription() + "','" + mar.getDateCreated() + "', '" + mar.getUrgency() + "', '"
 				+ mar.getMarStatus() + "');";
-		System.out.println("Printing query...."+querystring);
 		try {
 			stmt = conn.createStatement();
 			status = stmt.executeUpdate(querystring);

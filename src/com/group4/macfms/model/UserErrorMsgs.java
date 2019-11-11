@@ -18,6 +18,21 @@ public class UserErrorMsgs {
 	private String loginErrMsg = "";
 	private String userNotExistError = "";
 
+	/*public UserErrorMsgs(String fnameError, String lnameError, String usernameError, String passwordError, String confirmPasswordError, String idError,
+			String phoneError, String emailError, String addressError, String cityError, String zipCodeError) {
+		this.fnameError = fnameError;
+		this.lnameError = lnameError;
+		this.usernameError = usernameError;
+		this.passwordError = passwordError;
+		this.confirmPasswordError = confirmPasswordError;
+		this.idError = idError;
+		this.phoneError = phoneError;
+		this.emailError = emailError;
+		this.addressError = addressError;
+		this.cityError = cityError;
+		this.zipCodeError = zipCodeError;		
+	}*/
+	
 	public String getCommonerrorMsg() {
 		return commonerrorMsg;
 	}
@@ -47,6 +62,7 @@ public class UserErrorMsgs {
 		else
 			this.commonerrorMsg = "";
 	}
+	
 	public String getUsernameError() {
 		return usernameError;
 	}

@@ -198,21 +198,26 @@ public class Mar {
         
 		boolean userAvailable = MarDAO.checkUniqueUsername(mar.getAssignedTo(), day);
 		mar.setRepairerAvailable(userAvailable);
-		
-		if (mar.isRepairerAvailable() && mar.getMarCountsPerDay() < 5  && mar.getMarCountPerWeek() < 10) {
+		if (mar.isRepairerAvailable()) {
+			if(mar.getMarCountsPerDay() < 5  && mar.getMarCountPerWeek() < 10)
+			{
 			mar.setMarStatus("Assigned");
 			result = "Mar has been assigned to the repairer "+mar.getAssignedTo();
-		} else if (!mar.isRepairerAvailable()) {
+			return result;
+			}
+			else if (mar.getMarCountsPerDay() >= 5  && mar.getMarCountPerWeek() < 10) {
+				mar.setMarStatus("Unassigned");
+				result = "The repairer has exceeded 5 counts per day";
+			}
+			else{
+				mar.setMarStatus("Unassigned");
+				result = "The repairer has exceeded 10 counts per week";
+			} 
+		} else {
 			mar.setMarStatus("Unassigned");
 			result = "No such user found";
-		} else if (mar.isRepairerAvailable() && mar.getMarCountsPerDay() >= 5  && mar.getMarCountPerWeek() < 10) {
-			mar.setMarStatus("Unassigned");
-			result = "The repairer has exceeded 5 counts per day";
-		}
-		else{
-			mar.setMarStatus("Unassigned");
-			result = "The repairer has exceeded 10 counts per week";
-		} 		
+			return result;
+		}		
 		return result;
 	}	
 	

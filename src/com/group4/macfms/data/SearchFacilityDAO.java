@@ -17,7 +17,6 @@ public class SearchFacilityDAO {
 	public Facility searchSpecificFacilityDetails(String facilityName) throws SQLException {
 
 		String queryString = "select * from uta_mac_fms.facility where FacilityName = '" + facilityName + "';";
-		System.out.println("Mar Search Query ..." + queryString);
 		Facility facility = new Facility();
 
 		try {

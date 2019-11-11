@@ -16,7 +16,6 @@ public class LoginDAO {
 
 	public User userCheck(String username) {
 		String queryString = "SELECT * from uta_mac_fms.users where Username = '" + username + "';";
-		// System.out.println("Printing login query..."+queryString);
 		User user = new User();
 
 		try {
@@ -39,7 +38,6 @@ public class LoginDAO {
 		Statement stmt = null;
 		Connection conn = SQLConnection.getDBConnection();
 		if (register.getUsername() != null) {
-			// System.out.println("Printing user role inside insert user..."+register.getUsername());
 			if(register.getRole().equalsIgnoreCase("Repairer"))
 			{
 				try {
@@ -59,8 +57,7 @@ public class LoginDAO {
 						+ register.getPhone() + "','" + register.getEmail() + "','" + register.getAddress() + "','"
 						+ register.getCity() + "','" + register.getState() + "','" + register.getZipcode() + "','"
 						+ register.getRole() + "');";
-				// System.out.println("Printing query...."+queryString);
-
+				
 				stmt = conn.createStatement();
 				status = stmt.executeUpdate(queryString);
 				conn.commit();

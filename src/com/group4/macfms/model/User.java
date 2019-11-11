@@ -170,6 +170,13 @@ public class User {
 			errorMsg.setLoginErrMsg("Username or Password cannot be empty");
 		}
 	}
+	
+	public void validateUserName(User loginUser, UserErrorMsgs errorMsg) {
+		if(!LoginDAO.checkUniqueUsername(loginUser.getUsername()))
+		{
+			errorMsg.setLoginErrMsg("Incorrect Username or Password");
+		}		
+	}
 
 	public void validateUserPassword(User loginUser, UserErrorMsgs errorMsg) {
 		LoginDAO regDb = new LoginDAO();
@@ -218,15 +225,12 @@ public class User {
 			errorMsg.setUserNotExistError("User not exists with search criteria");
 		}
 		else
-		{
-			//do nothing
-		}
+		{}
 	}
 	
 	public void validateUserExists(String userName, UserErrorMsgs errorMsg) {
 		errorMsg.setUserNotExistError(validateUserExistsUsername(userName));
 	}
-
 	
 	private String validateUserExistsUsername(String userName2) {
 		boolean hasChar = false;

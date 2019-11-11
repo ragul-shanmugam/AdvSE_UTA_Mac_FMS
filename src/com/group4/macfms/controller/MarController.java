@@ -32,8 +32,6 @@ public class MarController extends HttpServlet {
 				request.getParameter("description"), request.getParameter("datecreated"),
 				request.getParameter("assignedto"), request.getParameter("assigneddate"), request.getParameter("time"),
 				request.getParameter("status"));
-		
-				System.out.println("Mar Number User PARAM " +mar.getMarNumber());
 	}
 
 	/**
@@ -165,7 +163,6 @@ public class MarController extends HttpServlet {
 			getUserParam(request, mar);
 			
 			String reqStatus = request.getParameter("request");
-			System.out.println("req status...."+reqStatus);
 			
 			if (reqStatus.equalsIgnoreCase("Accept")) {
 				String Stat = "Assigned";
@@ -193,10 +190,6 @@ public class MarController extends HttpServlet {
 		if (action.equalsIgnoreCase("viewAssignedMarsByDate")) {
 
 			 String date = request.getParameter("datepicker");
-
-			 System.out.println(date); 
-
-			 
 
 			if (date == null)
 
@@ -231,15 +224,7 @@ public class MarController extends HttpServlet {
 				getServletContext().getRequestDispatcher("/viewMar.jsp").forward(request, response);
 			} 
 			else {
-				
-//				// checks if repairer exists in DB and is available today based on his his schedule
-//				Date now = new Date();
-//				SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
-//		        String day = simpleDateformat.format(now);
-//		        System.out.println("Todays day..."+day);
-//		        
-//				boolean userAvailable = marUpdate.checkUniqueUsername(mar.getAssignedTo(), day);
-						
+										
 				// Gets the Assigned Mar Counts for the Repairer
 				int [] repMarCounts = marUpdate.getRepairerMarCount(mar);
 				
@@ -247,11 +232,7 @@ public class MarController extends HttpServlet {
 				mar.setMarCountPerWeek(repMarCounts[1]);	// TotalMarPerWeek
 				
 				mar.validateAssignRuleCheck(mar, errorMsgs);
-				
-				System.out.println("Assign Mar Rule Check..."+errorMsgs.getAssignRuleCheckError());
-				
-				
-				
+							
 				
 				// Finally Assign the Mar after the Rule checks have been performed
 				if (errorMsgs.getAssignRuleCheckError().equals("Mar has been assigned to the repairer "+mar.getAssignedTo()+"")) {
@@ -264,13 +245,10 @@ public class MarController extends HttpServlet {
 					session.setAttribute("mar", mar);
 					session.setAttribute("assignMarError", errorMsgs.getAssignRuleCheckError());
 					response.sendRedirect("viewMar.jsp");
-					System.out.println("Mar Assigned..!!");
 				} else {
 					session.setAttribute("mar", mar);
 					session.setAttribute("assignMarError", errorMsgs.getAssignRuleCheckError());
 					response.sendRedirect("viewMar.jsp");
-
-					System.out.println("Mar Not Assigned..!!");
 				}
 				
 			}

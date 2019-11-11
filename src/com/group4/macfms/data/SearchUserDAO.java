@@ -18,7 +18,6 @@ public class SearchUserDAO {
 	public ArrayList<User> RetrunMatchingUsersList(String queryString) throws SQLException {
 
 		ArrayList<User> usersInDB = new ArrayList<User>();
-		//System.out.println("User Search Query ..." + queryString);
 		try {
 			stmt = conn.createStatement();
 			ResultSet result = stmt.executeQuery(queryString);
@@ -47,7 +46,6 @@ public class SearchUserDAO {
 		int status = 0;
 
 		String query = "UPDATE uta_mac_fms.users set Role = '" + roleUpdate + "' WHERE Username = '" + username + "';";
-		System.out.println("User Search Query ..." + query);
 		try {
 			stmt = conn.createStatement();
 			status = stmt.executeUpdate(query);
@@ -86,7 +84,6 @@ public class SearchUserDAO {
 	public User searchSpecificUserDetails(String username) throws SQLException {
 
 		String queryString = "select * from uta_mac_fms.users where Username = '" + username + "';";
-		System.out.println("User Search Query ..." + queryString);
 		User user = new User();
 
 		try {

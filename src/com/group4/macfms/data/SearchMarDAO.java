@@ -17,7 +17,6 @@ public class SearchMarDAO {
 	public Mar searchSpecificMarDetails(String marNumber) throws SQLException {
 
 		String queryString = "select * from uta_mac_fms.mardetails where MarNumber = '" + marNumber + "';";
-		System.out.println("Mar Search Query ..." + queryString);
 		Mar mar = new Mar();
 
 		try {

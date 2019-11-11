@@ -16,7 +16,6 @@ public class FacilityDAO {
 		Statement stmt = null;
 		Connection conn = SQLConnection.getDBConnection();
 		ArrayList<Facility> facilitiesListInDB = new ArrayList<Facility>();
-		// System.out.println("Printing facility query..."+queryString);
 		try {
 			stmt = conn.createStatement();
 			ResultSet facilityList = stmt.executeQuery(queryString);
@@ -46,7 +45,6 @@ public class FacilityDAO {
 				+ facility.getMaxInterval() + "', `Duration` = '" + facility.getDuration() + "', `Venue` = '"
 				+ facility.getType() + "', `Availability` = '" + facility.getAvailability()
 				+ "' WHERE `FacilityName` = '" + facility.getFacilityName() + "';";
-		 System.out.println("Printing facility query..."+queryString);
 		try {
 			stmt = conn.createStatement();
 			status = stmt.executeUpdate(queryString);
@@ -64,7 +62,6 @@ public class FacilityDAO {
 		int status = 0;
 		String queryString = "INSERT INTO `uta_mac_fms`.`facility` (`FacilityType`, `FacilityName`, `MaxInterval`, `Duration`, `Venue`, `Availability`) VALUES ('" + facility.getFacility()
 				+ "','" + facility.getFacilityName() + "', '" + facility.getMaxInterval() + "', '" + facility.getDuration() + "', '" + facility.getType() + "', '" + facility.getAvailability() + "');";
-		System.out.println("Printing facility query..."+queryString);
 		try {
 			
 			if(checkUniqueFacilityName(facility.getFacilityName()))

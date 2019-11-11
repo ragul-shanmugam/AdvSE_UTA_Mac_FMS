@@ -72,7 +72,6 @@ public class ProfileController extends HttpServlet {
 			//validate user here
 			user.validateUserDetailsAdmin(user, errorMsgs);
 			if (errorMsgs.getCommonerrorMsg() != "" || !errorMsgs.getCommonerrorMsg().isEmpty()) {
-				System.out.println("inside register error user  ");
 				session.setAttribute("errorMessage", errorMsgs);
 				//session.setAttribute("commonErrorMsg", errorMsg.getCommonerrorMsg());
 				getServletContext().getRequestDispatcher("/profilePage.jsp").forward(request, response);

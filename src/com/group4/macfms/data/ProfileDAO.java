@@ -17,7 +17,6 @@ public class ProfileDAO {
 		User user = new User();
 		String queryString = "SELECT * from uta_mac_fms.users where Username = '" + username + "';";
 
-		System.out.println("Printing user query..." + queryString);
 		try {
 			stmt = conn.createStatement();
 			ResultSet userList = stmt.executeQuery(queryString);
@@ -50,7 +49,6 @@ public class ProfileDAO {
 				+ "', `City` = '" + updateDetails.getCity() + "', `State` = '" + updateDetails.getState() + "', "
 				+ "`ZipCode` = '" + updateDetails.getZipcode() + "' WHERE `Username` = '" + updateDetails.getUsername()
 				+ "';";
-		System.out.println("Printing query...." + queryString);
 		try {
 			stmt = conn.createStatement();
 			status = stmt.executeUpdate(queryString);
