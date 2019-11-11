@@ -31,7 +31,9 @@ public class SQLConnection {
 		}
 
 		try {	 
+			System.out.println("abc");
 			dbConnection = DriverManager.getConnection(DB_CONNECTION, DB_USER,DB_PASSWORD);
+			System.out.println("abc1");
 			dbConnection.setAutoCommit(false);
 		} catch (SQLException e) {	    
 		}	 
