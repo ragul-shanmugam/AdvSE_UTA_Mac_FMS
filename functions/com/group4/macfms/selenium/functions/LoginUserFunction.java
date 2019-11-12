@@ -11,8 +11,8 @@ public class LoginUserFunction {
 	  public static WebDriver driver;
 	  public static Properties prop;	
 	   
-	   public String loginError(WebDriver driver, String sUserName, String sPassword ) {
-
+	   public String loginError(WebDriver driver, Properties prop, String sUserName, String sPassword ) {
+		   
 			// Provide user name.
 			driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).clear();
 			driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).sendKeys(sUserName);;
@@ -32,7 +32,7 @@ public class LoginUserFunction {
 				return incorrectError;
 		  }	
 	   
-	   public void loginSuccess(WebDriver driver, String sUserName, String sPassword ) {
+	   public void loginSuccess(WebDriver driver, Properties prop, String sUserName, String sPassword ) {
 			
 		// Provide user name.
 		driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).clear();

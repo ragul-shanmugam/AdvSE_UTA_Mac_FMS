@@ -19,14 +19,13 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.group4.macfms.model.User;
 import com.group4.macfms.model.UserErrorMsgs;
-import com.group4.macfms.selenium.functions.LoginUserFunction;
 import com.group4.macfms.selenium.functions.RegisterUserFunction;
 
 import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
 
 @RunWith(JUnitParamsRunner.class)
-public class RegisterUser extends LoginUserFunction{
+public class RegisterUser extends RegisterUserFunction {
 	//  private WebDriver driver;
 	private StringBuffer verificationErrors = new StringBuffer();
 	public static String sAppURL, sSharedUIMapPath, username, password;
@@ -61,12 +60,13 @@ public class RegisterUser extends LoginUserFunction{
 	}
 	
 	@Test
-	@FileParameters("./excel/userErrorTestLoginData.csv")
-	public void loginErrorValidationsTest(int testCaseNo, String userName, String password,String confirmPassword, String firstName,
+	@FileParameters("./excel/userErrorTestRegisterData.csv")
+	public void registerErrorValidationsTest(int testCaseNo, String userName, String password,String confirmPassword, String firstName,
 			String lastName, String utaID, String role, String phone, String email, String address, String city, String state, String zipcode, String commonErrorMsg,
 			String usernameErr, String passwordErr, String confirmPwdErr, String firstnameErr, String lastnameErr,
 			String utaidErr, String phoneErr, String emailErr,	String addressErr, String cityErr, String zipErr)
 			throws Exception {
+			driver.findElement(By.xpath(prop.getProperty("Btn_Home_Register"))).click();
 		User user = new User(firstName, lastName, userName, password, confirmPassword, utaID, role, phone, email, address, city, state, zipcode);
 		//UserErrorMsgs expectedErrorMsg = new UserErrorMsgs(firstnameErr, lastnameErr, usernameErr, passwordErr, confirmPwdErr, utaidErr, phoneErr, emailErr, addressErr, cityErr, zipErr);
 		UserErrorMsgs expectedErrorMsg = new UserErrorMsgs();
@@ -82,21 +82,18 @@ public class RegisterUser extends LoginUserFunction{
 		expectedErrorMsg.setCityError(cityErr);
 		expectedErrorMsg.setZipCodeError(zipErr);
 		
-		UserErrorMsgs actualErrorMsg = registerUser.registerUserError(driver, user);		
+		UserErrorMsgs actualErrorMsg = registerUser.registerUserError(driver, prop, user);		
 		validateErrMsgs(expectedErrorMsg, actualErrorMsg);
 	}
 
 	@Test
-	@FileParameters("./excel/userSuccessTestLoginData.csv")
-	public void loginSuccess(int testno, int testCaseNo, String userName, String password,String confirmPassword, String firstName,
+	@FileParameters("./excel/userSuccessTestRegisterData.csv")
+	public void registerSuccess(int testCaseNo, String userName, String password,String confirmPassword, String firstName,
 			String lastName, String utaID, String role, String phone, String email, String address, String city, String state, String zipcode, String expectedErrorMsg) throws Exception {
 		User user = new User(firstName, lastName, userName, password, confirmPassword, utaID, role, phone, email, address, city, state, zipcode);
-		registerUser.registerUserSuccess(driver, user);
-		logout();
-	}
-
-	private void logout() {
-		driver.findElement(By.xpath(prop.getProperty("Btn_UserHome_Logout"))).click();
+		//Thread.sleep(5_000);
+		driver.findElement(By.xpath(prop.getProperty("Btn_Home_Register"))).click();
+		registerUser.registerUserSuccess(driver, prop, user);
 	}
 	
 	private void validateErrMsgs(UserErrorMsgs expectedErrorMsg, UserErrorMsgs actualErrorMsg) {
@@ -110,8 +107,7 @@ public class RegisterUser extends LoginUserFunction{
 		assertEquals(expectedErrorMsg.getEmailError(), actualErrorMsg.getEmailError());
 		assertEquals(expectedErrorMsg.getAddressError(), actualErrorMsg.getAddressError());
 		assertEquals(expectedErrorMsg.getCityError(), actualErrorMsg.getCityError());
-		assertEquals(expectedErrorMsg.getZipCodeError(), actualErrorMsg.getZipCodeError());
-		assertEquals(expectedErrorMsg.getCommonerrorMsg(), actualErrorMsg.getCommonerrorMsg());		
+		assertEquals(expectedErrorMsg.getZipCodeError(), actualErrorMsg.getZipCodeError());		
 	}
 	
 	@After

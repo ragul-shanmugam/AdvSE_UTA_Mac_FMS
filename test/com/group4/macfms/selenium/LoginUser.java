@@ -23,7 +23,7 @@ import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
 
 @RunWith(JUnitParamsRunner.class)
-public class LoginUser extends LoginUserFunction{
+public class LoginUser extends LoginUserFunction {
 	//  private WebDriver driver;
 	private StringBuffer verificationErrors = new StringBuffer();
 	public static String sAppURL, sSharedUIMapPath, username, password;
@@ -63,7 +63,7 @@ public class LoginUser extends LoginUserFunction{
 			throws Exception {
 		String actualErrorMsg = "";
 
-		actualErrorMsg = loginUser.loginError(driver, userName, password);
+		actualErrorMsg = loginUser.loginError(driver, prop, userName, password);
 		//Thread.sleep(5_000);
 		assertEquals(expectedErrorMsg, actualErrorMsg);
 	}
@@ -71,7 +71,7 @@ public class LoginUser extends LoginUserFunction{
 	@Test
 	@FileParameters("./excel/userSuccessTestLoginData.csv")
 	public void loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg) throws Exception {
-		loginUser.loginSuccess(driver, username, password);
+		loginUser.loginSuccess(driver, prop, username, password);
 		//Thread.sleep(5_000);
 		logout();
 	}
