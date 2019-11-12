@@ -7,9 +7,9 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
-public class SnapshotFunction {
+public class SnapshotFunction extends SeleniumFunctionsBase {
 
-	   public void takeScreenshot(WebDriver driver, String screenshotname) {
+	   public void takeScreenshot(String screenshotname) {
 		   try
 			  {
 				  File source = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);			

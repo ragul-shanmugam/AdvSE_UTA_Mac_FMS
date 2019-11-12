@@ -1,12 +1,13 @@
 package com.group4.macfms.selenium;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.List;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.junit.*;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
@@ -15,24 +16,27 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import com.group4.macfms.model.User;
 import com.group4.macfms.model.UserErrorMsgs;
 import com.group4.macfms.selenium.functions.LoginUserFunction;
 import com.group4.macfms.selenium.functions.RegisterUserFunction;
+import com.group4.macfms.selenium.functions.SnapshotFunction;
 
 import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
 
 @RunWith(JUnitParamsRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class SeleniumTC04 extends SeleniumTestBase {
+public class SeleniumTC02 extends SeleniumTestBase {
 
-	public static String sAppURL, sSharedUIMapPath;
+	public static String sAppURL, sSharedUIMapPath, username, password;
 	// for distinguishing row > 1
 	int r = 0;
-	static LoginUserFunction loginUser;
+		static LoginUserFunction loginUser;
 	static RegisterUserFunction registerUser;
+	static SnapshotFunction snapShot;
 	static SeleniumTestBase seleniumTestBase;
 
 	// Add this for Jenkins to get rid of the
@@ -44,6 +48,7 @@ public class SeleniumTC04 extends SeleniumTestBase {
 		 seleniumTestBase = new SeleniumTestBase();
 		 loginUser = new LoginUserFunction();
 		 registerUser = new RegisterUserFunction();
+		 snapShot = new SnapshotFunction();
 		 setDriver();
 	}
 	
@@ -52,7 +57,7 @@ public class SeleniumTC04 extends SeleniumTestBase {
 		driver.close();
 	}
 
-	@Test
+/*	@Test
 	@FileParameters("./excel/allUserErrorTestRegisterData.csv")
 	public void a_registerErrorValidationsTest(int testCaseNo, String userName, String password, String confirmPassword,
 			String firstName, String lastName, String utaID, String role, String phone, String email, String address,
@@ -76,11 +81,13 @@ public class SeleniumTC04 extends SeleniumTestBase {
 		expectedErrorMsg.setZipCodeError(zipErr);
 
 		UserErrorMsgs actualErrorMsg = registerUser.registerUserError(user);
+		String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
+		snapShot.takeScreenshot(screenShotName);
 		validateRegisterErrMsgs(expectedErrorMsg, actualErrorMsg);
 	}
 
 	@Test
-	@FileParameters("./excel/repairerUserSuccessTestRegisterData.csv")
+	@FileParameters("./excel/managerUserSuccessTestRegisterData.csv")
 	public void b_registerSuccess(int testCaseNo, String userName, String password, String confirmPassword,
 			String firstName, String lastName, String utaID, String role, String phone, String email, String address,
 			String city, String state, String zipcode, String expectedErrorMsg) throws Exception {
@@ -112,18 +119,19 @@ public class SeleniumTC04 extends SeleniumTestBase {
 
 		actualErrorMsg = loginUser.loginError(userName, password);
 		assertEquals(expectedErrorMsg, actualErrorMsg);
-	}
+	}*/
 
 	@Test
-	@FileParameters("./excel/repairerUserSuccessTestLoginData.csv")
+	@FileParameters("./excel/managerUserSuccessTestLoginData.csv")
 	public void d_loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
 			throws Exception {
+		System.out.println(prop.getProperty("Btn_Report_Problem"));
 		loginUser.loginSuccess(username, password);
-		driver.findElement(By.xpath(prop.getProperty("Btn_Repairer_ViewRepairs"))).click();
-		e_viewAssignedMarDetailsTest();
+		driver.findElement(By.xpath(prop.getProperty("Btn_FMShome_SearchUnassignedMarAssignMar"))).click();
+		viewUnAssignedMarDetailsTest();
 	}
-
-	public void e_viewAssignedMarDetailsTest() throws InterruptedException {
+	
+	public void viewUnAssignedMarDetailsTest() throws InterruptedException {
 		List<WebElement> rows= driver.findElement(By.xpath("html/body/div[1]/form/div")).findElements(By.tagName("tr"));
 		int i=0;
 		  if((rows.size())>0){
@@ -132,19 +140,73 @@ public class SeleniumTC04 extends SeleniumTestBase {
 		  }
 		if(i == 0)
 		{
-			driver.findElement(By.xpath(prop.getProperty("Btn_List_Homepage"))).click();
+			driver.findElement(By.xpath(prop.getProperty("Btn_UnassignedMars_HomePage"))).click();
 		}
 		else
 		{
-			driver.findElement(By.xpath(".//*[@id='radioMar1']")).click();
-		    driver.findElement(By.xpath(prop.getProperty("Btn_List_ViewMarDetails"))).click();			
-		    driver.findElement(By.xpath(prop.getProperty("Btn_MarDetails_Homepage"))).click();
-		    f_logout();
+			driver.findElement(By.xpath(prop.getProperty("Link_UnassignedMars_View"))).click();
 		}
 	}
 
+	@Test
+	@FileParameters("./excel/managerUserSuccessTestLoginData.csv")
+	public void e_assignMarErrorRuleCheck(int testCaseNo, String urgency, String assignedTo, String estimatedTime) {
+		driver.findElement(By.xpath(prop.getProperty("Btn_MARDetails_EditDetails"))).click();
+		
+	}
+	
+	@Test
+	@FileParameters("./excel/managerUserSuccessTestLoginData.csv")
+	public void e_assignMarSuccessRuleCheck(int testCaseNo, String urgency, String assignedTo, String estimatedTime) {
+		driver.findElement(By.xpath(prop.getProperty("Btn_MARDetails_EditDetails"))).click();
+		
+		f_logout();
+	}
+
+	/*@Test
+	@FileParameters("./excel/reportMarErrorTestData.csv")
+	public void e_createMarErrorValidationsTest(int testCaseNo, String facilityName, String description,
+			String expectedErrorMsg) {
+		String actualErrorMsg = "";
+		actualErrorMsg = validateMarError(facilityName, description);
+		assertEquals(expectedErrorMsg, actualErrorMsg);
+	}
+
+	@Test
+	@FileParameters("./excel/reportMarSuccessTestData.csv")
+	public void f_createMarSuccess(int testCaseNo, String facilityName, String description, String expectedErrorMsg) {
+		new Select(driver.findElement(By.xpath(prop.getProperty("Select_Report_FacilityName"))))
+				.selectByVisibleText(facilityName);
+
+		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).clear();
+		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).sendKeys(description);
+		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Report"))).click();
+		String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
+		snapShot.takeScreenshot(screenShotName);
+		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Success"))).click();
+		f_logout();
+	}
+*/
+	/*private String validateMarError(String facilityName, String description) {
+
+		new Select(driver.findElement(By.xpath(prop.getProperty("Select_Report_FacilityName"))))
+				.selectByVisibleText(facilityName);
+		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).clear();
+		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).sendKeys(description);
+
+		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Report"))).click();
+		
+		String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
+		snapShot.takeScreenshot(screenShotName);
+		String emptyError = driver.findElement(By.xpath(prop.getProperty("Txt_Report_DescriptionError")))
+				.getAttribute("value");
+		return emptyError;
+	}*/
+
 	private void f_logout() {
 		driver.findElement(By.xpath(prop.getProperty("Btn_UserHome_Logout"))).click();
+		String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
+		snapShot.takeScreenshot(screenShotName);
 	}
 
 }

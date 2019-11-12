@@ -4,6 +4,7 @@ package com.group4.macfms.selenium.functions;
 import org.openqa.selenium.By;
 
 public class LoginUserFunction extends SeleniumFunctionsBase {	
+	SnapshotFunction snapShot = new SnapshotFunction();
 	   
 	   public String loginError(String sUserName, String sPassword ) {
 		   
@@ -17,6 +18,9 @@ public class LoginUserFunction extends SeleniumFunctionsBase {
 
 			 // Click on Login button.
 			driver.findElement(By.xpath(prop.getProperty("Btn_Login_Login"))).click();
+			
+			String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
+			snapShot.takeScreenshot(screenShotName);
 			
 			String emptyError = driver.findElement(By.xpath(prop.getProperty("Txt_Login_LoginError"))).getAttribute("value");
 			String incorrectError = driver.findElement(By.xpath(prop.getProperty("Txt_Login_PasswordError"))).getAttribute("value");
@@ -38,6 +42,9 @@ public class LoginUserFunction extends SeleniumFunctionsBase {
 
 		 // Click on Login button.
 		driver.findElement(By.xpath(prop.getProperty("Btn_Login_Login"))).click();
+		
+		String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
+		snapShot.takeScreenshot(screenShotName);
 
 		// We will put the verification of the Welcome message in the JUnit test file instead of here
 	  }

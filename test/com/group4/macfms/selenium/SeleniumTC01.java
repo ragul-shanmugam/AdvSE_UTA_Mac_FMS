@@ -20,6 +20,7 @@ import com.group4.macfms.model.User;
 import com.group4.macfms.model.UserErrorMsgs;
 import com.group4.macfms.selenium.functions.LoginUserFunction;
 import com.group4.macfms.selenium.functions.RegisterUserFunction;
+import com.group4.macfms.selenium.functions.SnapshotFunction;
 
 import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
@@ -33,6 +34,7 @@ public class SeleniumTC01 extends SeleniumTestBase {
 	int r = 0;
 		static LoginUserFunction loginUser;
 	static RegisterUserFunction registerUser;
+	static SnapshotFunction snapShot;
 	static SeleniumTestBase seleniumTestBase;
 
 	// Add this for Jenkins to get rid of the
@@ -44,6 +46,7 @@ public class SeleniumTC01 extends SeleniumTestBase {
 		 seleniumTestBase = new SeleniumTestBase();
 		 loginUser = new LoginUserFunction();
 		 registerUser = new RegisterUserFunction();
+		 snapShot = new SnapshotFunction();
 		 setDriver();
 	}
 	
@@ -76,6 +79,8 @@ public class SeleniumTC01 extends SeleniumTestBase {
 		expectedErrorMsg.setZipCodeError(zipErr);
 
 		UserErrorMsgs actualErrorMsg = registerUser.registerUserError(user);
+		/*String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
+		snapShot.takeScreenshot(screenShotName);*/
 		validateRegisterErrMsgs(expectedErrorMsg, actualErrorMsg);
 	}
 
@@ -141,6 +146,8 @@ public class SeleniumTC01 extends SeleniumTestBase {
 		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).clear();
 		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).sendKeys(description);
 		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Report"))).click();
+		String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
+		snapShot.takeScreenshot(screenShotName);
 		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Success"))).click();
 		f_logout();
 	}
@@ -153,7 +160,9 @@ public class SeleniumTC01 extends SeleniumTestBase {
 		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).sendKeys(description);
 
 		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Report"))).click();
-
+		
+		String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
+		snapShot.takeScreenshot(screenShotName);
 		String emptyError = driver.findElement(By.xpath(prop.getProperty("Txt_Report_DescriptionError")))
 				.getAttribute("value");
 		return emptyError;
@@ -161,6 +170,8 @@ public class SeleniumTC01 extends SeleniumTestBase {
 
 	private void f_logout() {
 		driver.findElement(By.xpath(prop.getProperty("Btn_UserHome_Logout"))).click();
+		String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
+		snapShot.takeScreenshot(screenShotName);
 	}
 
 }

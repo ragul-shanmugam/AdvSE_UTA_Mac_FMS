@@ -58,7 +58,6 @@
 						</tbody>
 					</table>
 				</div>
-				<br> <input type="submit" class="btn btn-primary col-md-3 offset-md-3" id="submit" value="Submit" disabled> <br> <br>
 			</form>
 		</div>
 </body>

@@ -10,10 +10,8 @@ import org.openqa.selenium.support.ui.Select;
 import com.group4.macfms.model.User;
 import com.group4.macfms.model.UserErrorMsgs;
 
-public class RegisterUserFunction {
-
-	  public static WebDriver driver;
-	  public static Properties prop;
+public class RegisterUserFunction extends SeleniumFunctionsBase {
+	  SnapshotFunction snapShot = new SnapshotFunction();
 
 	  public UserErrorMsgs registerUserError(User user){
 		  driver.findElement(By.xpath(prop.getProperty("Txt_Register_Username"))).clear();
@@ -41,6 +39,8 @@ public class RegisterUserFunction {
 		  driver.findElement(By.xpath(prop.getProperty("Txt_Register_Zipcode"))).clear();
 		  driver.findElement(By.xpath(prop.getProperty("Txt_Register_Zipcode"))).sendKeys(user.getZipcode());
 		  driver.findElement(By.xpath(prop.getProperty("Btn_Register_Register"))).click();
+		  String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
+		  snapShot.takeScreenshot(screenShotName);
 		  UserErrorMsgs actualErrorMsgs = new UserErrorMsgs();
 		  actualErrorMsgs.setUsernameError(driver.findElement(By.xpath(prop.getProperty("Txt_Register_UsernameError"))).getAttribute("value").toString());
 		  actualErrorMsgs.setPasswordError(driver.findElement(By.xpath(prop.getProperty("Txt_Register_PasswordError"))).getAttribute("value").toString());
@@ -85,6 +85,8 @@ public class RegisterUserFunction {
 			  driver.findElement(By.xpath(prop.getProperty("Txt_Register_Zipcode"))).clear();
 			  driver.findElement(By.xpath(prop.getProperty("Txt_Register_Zipcode"))).sendKeys(user.getZipcode());
 			  driver.findElement(By.xpath(prop.getProperty("Btn_Register_Register"))).click();
+			  String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
+			  snapShot.takeScreenshot(screenShotName);
 			  driver.findElement(By.xpath(prop.getProperty("Btn_Register_RegisterSuccess"))).click();
 		}
 
