@@ -27,14 +27,11 @@ import junitparams.JUnitParamsRunner;
 @RunWith(JUnitParamsRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SeleniumTC01 extends SeleniumTestBase {
-//	private static WebDriver driver;
-//	private static Properties prop;
+
 	public static String sAppURL, sSharedUIMapPath, username, password;
 	// for distinguishing row > 1
 	int r = 0;
-	//RegisterUserFunction registerUser = new RegisterUserFunction();
-	//LoginUserFunction loginUser = new LoginUserFunction();
-	static LoginUserFunction loginUser;
+		static LoginUserFunction loginUser;
 	static RegisterUserFunction registerUser;
 	static SeleniumTestBase seleniumTestBase;
 
@@ -143,13 +140,9 @@ public class SeleniumTC01 extends SeleniumTestBase {
 
 		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).clear();
 		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).sendKeys(description);
-
 		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Report"))).click();
-
 		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Success"))).click();
-
 		f_logout();
-
 	}
 
 	private String validateMarError(String facilityName, String description) {
