@@ -28,5 +28,6 @@ public class SeleniumTestBase extends SeleniumFunctionsBase{
 			prop.load(new FileInputStream(sSharedUIMapPath));
 			driver.get(sAppURL);
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			driver.manage().window().maximize();
 		}
 	}

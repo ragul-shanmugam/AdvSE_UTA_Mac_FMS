@@ -82,7 +82,7 @@ public class RegisterUser extends RegisterUserFunction {
 		expectedErrorMsg.setCityError(cityErr);
 		expectedErrorMsg.setZipCodeError(zipErr);
 		
-		UserErrorMsgs actualErrorMsg = registerUser.registerUserError(driver, prop, user);		
+		UserErrorMsgs actualErrorMsg = registerUser.registerUserError(user);		
 		validateErrMsgs(expectedErrorMsg, actualErrorMsg);
 	}
 
@@ -93,7 +93,7 @@ public class RegisterUser extends RegisterUserFunction {
 		User user = new User(firstName, lastName, userName, password, confirmPassword, utaID, role, phone, email, address, city, state, zipcode);
 		//Thread.sleep(5_000);
 		driver.findElement(By.xpath(prop.getProperty("Btn_Home_Register"))).click();
-		registerUser.registerUserSuccess(driver, prop, user);
+		registerUser.registerUserSuccess(user);
 	}
 	
 	private void validateErrMsgs(UserErrorMsgs expectedErrorMsg, UserErrorMsgs actualErrorMsg) {

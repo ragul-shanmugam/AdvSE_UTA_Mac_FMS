@@ -15,7 +15,7 @@ public class RegisterUserFunction {
 	  public static WebDriver driver;
 	  public static Properties prop;
 
-	  public UserErrorMsgs registerUserError(WebDriver driver, Properties prop, User user){
+	  public UserErrorMsgs registerUserError(User user){
 		  driver.findElement(By.xpath(prop.getProperty("Txt_Register_Username"))).clear();
 		  driver.findElement(By.xpath(prop.getProperty("Txt_Register_Username"))).sendKeys(user.getUsername());
 		  driver.findElement(By.xpath(prop.getProperty("Txt_Register_Password"))).clear();
@@ -58,7 +58,7 @@ public class RegisterUserFunction {
 	
 	}
 	   
-	  public void registerUserSuccess(WebDriver driver, Properties prop, User user)
+	  public void registerUserSuccess(User user)
 		{
 			  driver.findElement(By.xpath(prop.getProperty("Txt_Register_Username"))).clear();
 			  driver.findElement(By.xpath(prop.getProperty("Txt_Register_Username"))).sendKeys(user.getUsername());

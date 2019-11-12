@@ -26,7 +26,7 @@ import junitparams.JUnitParamsRunner;
 
 @RunWith(JUnitParamsRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class SeleniumTC01 extends SeleniumTestBase {
+public class SeleniumTC03 extends SeleniumTestBase {
 //	private static WebDriver driver;
 //	private static Properties prop;
 	public static String sAppURL, sSharedUIMapPath, username, password;
@@ -83,7 +83,7 @@ public class SeleniumTC01 extends SeleniumTestBase {
 	}
 
 	@Test
-	@FileParameters("./excel/studentUserSuccessTestRegisterData.csv")
+	@FileParameters("./excel/adminUserSuccessTestRegisterData.csv")
 	public void b_registerSuccess(int testCaseNo, String userName, String password, String confirmPassword,
 			String firstName, String lastName, String utaID, String role, String phone, String email, String address,
 			String city, String state, String zipcode, String expectedErrorMsg) throws Exception {
@@ -118,7 +118,7 @@ public class SeleniumTC01 extends SeleniumTestBase {
 	}
 
 	@Test
-	@FileParameters("./excel/studentUserSuccessTestLoginData.csv")
+	@FileParameters("./excel/adminUserSuccessTestLoginData.csv")
 	public void d_loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
 			throws Exception {
 		System.out.println(prop.getProperty("Btn_Report_Problem"));
@@ -146,7 +146,7 @@ public class SeleniumTC01 extends SeleniumTestBase {
 
 		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Report"))).click();
 
-		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Success"))).click();
+		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Success"))).click();
 
 		f_logout();
 
