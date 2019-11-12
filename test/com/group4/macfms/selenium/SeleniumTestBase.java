@@ -4,20 +4,16 @@ import java.io.FileInputStream;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.group4.macfms.selenium.functions.SeleniumFunctionsBase;
 
 public class SeleniumTestBase extends SeleniumFunctionsBase{
-	
-	protected static String baseUrl;
-	
-	private WebDriver driver;
-	private Properties prop;
+
 	public static String sAppURL, sSharedUIMapPath;
 	
-		public void setDriver() throws Exception {
+		public static void setDriver() throws Exception {
+			
 			// MAGIC CODE GOES HERE
 			System.setProperty("webdriver.firefox.marionette", "C:\\GeckoSelenium\\geckodriver.exe");
 			driver = new FirefoxDriver();

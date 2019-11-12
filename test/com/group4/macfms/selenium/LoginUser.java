@@ -3,19 +3,14 @@ package com.group4.macfms.selenium;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.io.FileInputStream;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.group4.macfms.selenium.functions.LoginUserFunction;
 
@@ -23,7 +18,7 @@ import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
 
 @RunWith(JUnitParamsRunner.class)
-public class LoginUser extends LoginUserFunction {
+public class LoginUser extends SeleniumTestBase {
 	//  private WebDriver driver;
 	private StringBuffer verificationErrors = new StringBuffer();
 	public static String sAppURL, sSharedUIMapPath, username, password;
@@ -37,24 +32,7 @@ public class LoginUser extends LoginUserFunction {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		Logger.getLogger("org.openqa.selenium.remote").setLevel(Level.OFF);
-	}
-
-	@Before
-	public void setUp() throws Exception {
-		//	MAGIC CODE GOES HERE 
-		System.setProperty("webdriver.firefox.marionette", "C:\\GeckoSelenium\\geckodriver.exe");
-		driver = new FirefoxDriver();
-		prop = new Properties();
-		
-		//	Load Configuration file
-		prop.load(new FileInputStream("./config/UTAFMSApp_Config.properties"));
-		sAppURL = prop.getProperty("sAppURL");
-		sSharedUIMapPath = prop.getProperty("sSharedUIMapPath");
-
-		//	Load Shared UI Map
-		prop.load(new FileInputStream(sSharedUIMapPath));
-		driver.get(sAppURL);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		setDriver();
 	}
 	
 	@Test
@@ -63,7 +41,7 @@ public class LoginUser extends LoginUserFunction {
 			throws Exception {
 		String actualErrorMsg = "";
 
-		actualErrorMsg = loginUser.loginError(driver, prop, userName, password);
+		actualErrorMsg = loginUser.loginError(userName, password);
 		//Thread.sleep(5_000);
 		assertEquals(expectedErrorMsg, actualErrorMsg);
 	}
@@ -71,7 +49,7 @@ public class LoginUser extends LoginUserFunction {
 	@Test
 	@FileParameters("./excel/userSuccessTestLoginData.csv")
 	public void loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg) throws Exception {
-		loginUser.loginSuccess(driver, prop, username, password);
+		loginUser.loginSuccess(username, password);
 		//Thread.sleep(5_000);
 		logout();
 	}

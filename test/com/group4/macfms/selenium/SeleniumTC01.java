@@ -3,23 +3,17 @@ package com.group4.macfms.selenium;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.io.FileInputStream;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.junit.After;
+import org.junit.*;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import com.group4.macfms.model.User;
@@ -32,15 +26,17 @@ import junitparams.JUnitParamsRunner;
 
 @RunWith(JUnitParamsRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class SeleniumTC01 {
-	private static WebDriver driver;
-	private static Properties prop;
-	private StringBuffer verificationErrors = new StringBuffer();
+public class SeleniumTC01 extends SeleniumTestBase {
+//	private static WebDriver driver;
+//	private static Properties prop;
 	public static String sAppURL, sSharedUIMapPath, username, password;
 	// for distinguishing row > 1
 	int r = 0;
-	RegisterUserFunction registerUser = new RegisterUserFunction();
-	LoginUserFunction loginUser = new LoginUserFunction();
+	//RegisterUserFunction registerUser = new RegisterUserFunction();
+	//LoginUserFunction loginUser = new LoginUserFunction();
+	static LoginUserFunction loginUser;
+	static RegisterUserFunction registerUser;
+	static SeleniumTestBase seleniumTestBase;
 
 	// Add this for Jenkins to get rid of the
 	// org.openqa.selenium.remote.ProtocolHandshake createSession
@@ -48,9 +44,19 @@ public class SeleniumTC01 {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		Logger.getLogger("org.openqa.selenium.remote").setLevel(Level.OFF);
+		 seleniumTestBase = new SeleniumTestBase();
+		 loginUser = new LoginUserFunction();
+		 registerUser = new RegisterUserFunction();
+		 setDriver();
+	}
+	
+	@AfterClass
+	public static void tearDownAfterTest() throws Exception {
+		System.out.println("Inside afterclass");
+		driver.close();
 	}
 
-	@Before
+	/*@Before
 	public void setUp() throws Exception {
 		// MAGIC CODE GOES HERE
 		System.setProperty("webdriver.firefox.marionette", "C:\\GeckoSelenium\\geckodriver.exe");
@@ -66,9 +72,9 @@ public class SeleniumTC01 {
 		prop.load(new FileInputStream(sSharedUIMapPath));
 		driver.get(sAppURL);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-	}
+	}*/
 
-/*	@Test
+	@Test
 	@FileParameters("./excel/userErrorTestRegisterData.csv")
 	public void a_registerErrorValidationsTest(int testCaseNo, String userName, String password, String confirmPassword,
 			String firstName, String lastName, String utaID, String role, String phone, String email, String address,
@@ -126,15 +132,16 @@ public class SeleniumTC01 {
 			throws Exception {
 		String actualErrorMsg = "";
 
-		actualErrorMsg = loginUser.loginError(driver, prop, userName, password);
+		actualErrorMsg = loginUser.loginError(userName, password);
 		assertEquals(expectedErrorMsg, actualErrorMsg);
-	}*/
+	}
 
 	@Test
 	@FileParameters("./excel/userSuccessTestLoginData.csv")
 	public void d_loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
 			throws Exception {
-		loginUser.loginSuccess(driver, prop, username, password);
+		System.out.println(prop.getProperty("Btn_Report_Problem"));
+		loginUser.loginSuccess(username, password);
 		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Problem"))).click();
 	}
 
@@ -175,22 +182,11 @@ public class SeleniumTC01 {
 
 		String emptyError = driver.findElement(By.xpath(prop.getProperty("Txt_Report_DescriptionError")))
 				.getAttribute("value");
-		if (emptyError != null && !emptyError.equals(""))
-			return emptyError;
 		return emptyError;
 	}
 
 	private void f_logout() {
 		driver.findElement(By.xpath(prop.getProperty("Btn_UserHome_Logout"))).click();
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		driver.quit();
-		String verificationErrorString = verificationErrors.toString();
-		if (!"".equals(verificationErrorString)) {
-			fail(verificationErrorString);
-		}
 	}
 
 }

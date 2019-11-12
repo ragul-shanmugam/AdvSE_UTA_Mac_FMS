@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 
 public class SeleniumFunctionsBase {
 
-	protected static Properties appProperties;
 	protected static Properties prop;
 	protected static WebDriver driver;
 }

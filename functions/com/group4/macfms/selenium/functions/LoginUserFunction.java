@@ -1,17 +1,11 @@
 package com.group4.macfms.selenium.functions;
 
 
-import java.util.Properties;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
-public class LoginUserFunction {
-
-	  public static WebDriver driver;
-	  public static Properties prop;	
+public class LoginUserFunction extends SeleniumFunctionsBase {	
 	   
-	   public String loginError(WebDriver driver, Properties prop, String sUserName, String sPassword ) {
+	   public String loginError(String sUserName, String sPassword ) {
 		   
 			// Provide user name.
 			driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).clear();
@@ -32,7 +26,7 @@ public class LoginUserFunction {
 				return incorrectError;
 		  }	
 	   
-	   public void loginSuccess(WebDriver driver, Properties prop, String sUserName, String sPassword ) {
+	   public void loginSuccess(String sUserName, String sPassword ) {
 			
 		// Provide user name.
 		driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).clear();
