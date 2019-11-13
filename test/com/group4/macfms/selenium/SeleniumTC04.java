@@ -86,7 +86,6 @@ public class SeleniumTC04 extends SeleniumTestBase {
 			String city, String state, String zipcode, String expectedErrorMsg) throws Exception {
 		User user = new User(firstName, lastName, userName, password, confirmPassword, utaID, role, phone, email,
 				address, city, state, zipcode);
-		// driver.findElement(By.xpath(prop.getProperty("Btn_Home_Register"))).click();
 		registerUser.registerUserSuccess(user);
 	}
 
@@ -126,7 +125,7 @@ public class SeleniumTC04 extends SeleniumTestBase {
 	public void e_viewAssignedMarDetailsTest() throws InterruptedException {
 		List<WebElement> rows= driver.findElement(By.xpath("html/body/div[1]/form/div")).findElements(By.tagName("tr"));
 		int i=0;
-		  if((rows.size())>0){
+		  if((rows.size())>1){
 			  i++;
 			  r++;
 		  }
@@ -139,11 +138,11 @@ public class SeleniumTC04 extends SeleniumTestBase {
 			driver.findElement(By.xpath(".//*[@id='radioMar1']")).click();
 		    driver.findElement(By.xpath(prop.getProperty("Btn_List_ViewMarDetails"))).click();			
 		    driver.findElement(By.xpath(prop.getProperty("Btn_MarDetails_Homepage"))).click();
-		    f_logout();
+		    logout();
 		}
 	}
 
-	private void f_logout() {
+	private void logout() {
 		driver.findElement(By.xpath(prop.getProperty("Btn_UserHome_Logout"))).click();
 	}
 

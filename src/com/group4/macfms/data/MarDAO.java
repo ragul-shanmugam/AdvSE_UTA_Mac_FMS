@@ -466,7 +466,7 @@ public class MarDAO {
 	}
 
 	public static ArrayList<Mar> listAssignedMars(String username) {
-		return ReturnMatchingMarsList(" SELECT * from uta_mac_fms.mardetails where MarStatus = 'Assigned' or MarStatus = 'Requested' and AssignedTo ='" + username + "' ORDER BY DateCreated;");
+		return ReturnMatchingMarsList("SELECT * from uta_mac_fms.mardetails where AssignedTo ='"+ username +"' and MarStatus in ( 'Assigned', 'Requested' ) ORDER BY DateCreated;");
 	}
 
 	public static ArrayList<Mar> listReportedMars(String username) {

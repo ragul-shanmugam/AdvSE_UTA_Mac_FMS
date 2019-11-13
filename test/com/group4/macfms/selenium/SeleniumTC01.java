@@ -149,7 +149,7 @@ public class SeleniumTC01 extends SeleniumTestBase {
 		String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
 		snapShot.takeScreenshot(screenShotName);
 		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Success"))).click();
-		f_logout();
+		logout();
 	}
 
 	private String validateMarError(String facilityName, String description) {
@@ -168,7 +168,7 @@ public class SeleniumTC01 extends SeleniumTestBase {
 		return emptyError;
 	}
 
-	private void f_logout() {
+	private void logout() {
 		driver.findElement(By.xpath(prop.getProperty("Btn_UserHome_Logout"))).click();
 		String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
 		snapShot.takeScreenshot(screenShotName);

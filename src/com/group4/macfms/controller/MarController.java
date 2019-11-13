@@ -180,11 +180,8 @@ public class MarController extends HttpServlet {
 					mar.setMarStatus("Unassigned");
 					session.setAttribute("mar", mar);
 					response.sendRedirect("viewRequestedMarToManager.jsp");
-				}
-				
-			}
-			
-			
+				}			
+			}					
 		}
 		
 		if (action.equalsIgnoreCase("viewAssignedMarsByDate")) {
@@ -192,22 +189,18 @@ public class MarController extends HttpServlet {
 			 String date = request.getParameter("datepicker");
 
 			if (date == null)
-
 			 getServletContext().getRequestDispatcher("/searchRepairs.jsp").forward(request, response);
-
-			 
-
 			 ArrayList<Mar> marInDB = new ArrayList<Mar>();
-
 			 marInDB = MarDAO.viewAssignedMarsByDate(date);
-
 			 session.setAttribute("MARS", marInDB);
-
 			 getServletContext().getRequestDispatcher("/listMars.jsp").forward(request, response);
 
 			}
 		
 		if (action.equalsIgnoreCase("updateMarDetails")) { 
+			session.removeAttribute("assignMarError");
+			session.removeAttribute("assignedToError");
+			session.removeAttribute("mar");
 			MarDAO marUpdate = new MarDAO();
 			MarErrorMsgs errorMsgs = new MarErrorMsgs();
 			Mar mar = new Mar();
@@ -217,8 +210,7 @@ public class MarController extends HttpServlet {
 			String todayDate = dateFormat.format(date);
 			mar.setAssignedDate(todayDate);
 			
-			mar.validateAssignedTo(mar, errorMsgs);
-			
+			mar.validateAssignedTo(mar, errorMsgs);			
 			if (errorMsgs.getAssignedToError() != "" || !errorMsgs.getAssignedToError().isEmpty()) {
 				session.setAttribute("assignedToError", errorMsgs.getAssignedToError());
 				getServletContext().getRequestDispatcher("/viewMar.jsp").forward(request, response);

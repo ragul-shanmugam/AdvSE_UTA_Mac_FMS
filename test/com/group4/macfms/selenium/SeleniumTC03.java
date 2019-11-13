@@ -118,49 +118,80 @@ public class SeleniumTC03 extends SeleniumTestBase {
 	@FileParameters("./excel/adminUserSuccessTestLoginData.csv")
 	public void d_loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
 			throws Exception {
-		System.out.println(prop.getProperty("Btn_Report_Problem"));
 		loginUser.loginSuccess(username, password);
-		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Problem"))).click();
+		driver.findElement(By.xpath("html/body/div[1]/a[3]")).click();
 	}
 
 	@Test
-	@FileParameters("./excel/reportMarErrorTestData.csv")
-	public void e_createMarErrorValidationsTest(int testCaseNo, String facilityName, String description,
-			String expectedErrorMsg) {
+	@FileParameters("./excel/searchUserAdminErrorTestData.csv")
+	public void e_searchUserErrorValidationsTest(int testCaseNo, String lastName, String userRole, String expectedErrorMsg) {
 		String actualErrorMsg = "";
-		actualErrorMsg = validateMarError(facilityName, description);
+		actualErrorMsg = validateUserError(lastName, userRole);
 		assertEquals(expectedErrorMsg, actualErrorMsg);
 	}
+	
+	@Test
+	@FileParameters("./excel/searchUserAdminSuccessTestData.csv")
+	public void f_searchUserSuccessTest(int testCaseNo, String lastName, String userRole) {
+		driver.findElement(By.xpath(".//*[@id='lastname']")).clear();
+		driver.findElement(By.xpath(".//*[@id='lastname']")).sendKeys(lastName);
+		
+		new Select(driver.findElement(By.xpath(".//*[@id='role']"))).selectByVisibleText(userRole);
+		
+		driver.findElement(By.xpath("html/body/div[1]/div/form/input")).click();
+		driver.findElement(By.xpath("html/body/div[1]/h1[2]/a[1]")).click();	
+		driver.findElement(By.xpath("html/body/div[1]/a[2]")).click();	
+	}
+	
+	@Test
+	@FileParameters("./excel/searchUsernameAdminErrorTestData.csv")
+	public void g_searchUsernameErrorValidationsTest(int testCaseNo, String username, String expectedErrorMsg) {	
+		String actualErrorMsg = "";
+		actualErrorMsg = validateUsernameError(username);
+		assertEquals(expectedErrorMsg, actualErrorMsg);
+	}
+	
 
 	@Test
-	@FileParameters("./excel/reportMarSuccessTestData.csv")
-	public void f_createMarSuccess(int testCaseNo, String facilityName, String description, String expectedErrorMsg) {
-		new Select(driver.findElement(By.xpath(prop.getProperty("Select_Report_FacilityName"))))
-				.selectByVisibleText(facilityName);
-
-		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).clear();
-		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).sendKeys(description);
-		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Report"))).click();
-		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Success"))).click();
-		f_logout();
-
+	@FileParameters("./excel/searchUsernameAdminSuccessTestData.csv")
+	public void h_searchUsernameSuccessTest(int testCaseNo, String username, String userRole) {
+		driver.findElement(By.xpath(".//*[@id='username']")).clear();
+		driver.findElement(By.xpath(".//*[@id='username']")).sendKeys(username);
+		
+		driver.findElement(By.xpath("html/body/div[1]/div/form/input")).click();
+		
+		new Select(driver.findElement(By.xpath(".//*[@id='role']"))).selectByVisibleText(userRole);
+		driver.findElement(By.xpath(".//*[@id='update']")).click();
+			
+		driver.findElement(By.xpath(".//*[@id='userhome']")).click();	
+		logout();		
 	}
 
-	private String validateMarError(String facilityName, String description) {
+	private String validateUserError(String lastName, String userRole) {
 
-		new Select(driver.findElement(By.xpath(prop.getProperty("Select_Report_FacilityName"))))
-				.selectByVisibleText(facilityName);
-		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).clear();
-		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).sendKeys(description);
+		driver.findElement(By.xpath(".//*[@id='lastname']")).clear();
+		driver.findElement(By.xpath(".//*[@id='lastname']")).sendKeys(lastName);
+		
+		new Select(driver.findElement(By.xpath(".//*[@id='role']"))).selectByVisibleText(userRole);
 
-		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Report"))).click();
+		driver.findElement(By.xpath("html/body/div[1]/div/form/input")).click();
 
-		String emptyError = driver.findElement(By.xpath(prop.getProperty("Txt_Report_DescriptionError")))
+		String userError = driver.findElement(By.xpath(".//*[@id='common_errorMessage']"))
 				.getAttribute("value");
-		return emptyError;
+		return userError;
+	}
+	
+	private String validateUsernameError(String username) {
+		driver.findElement(By.xpath(".//*[@id='username']")).clear();
+		driver.findElement(By.xpath(".//*[@id='username']")).sendKeys(username);
+		driver.findElement(By.xpath("html/body/div[1]/div/form/input")).click();
+
+		String usernameError = driver.findElement(By.xpath(".//*[@id='username_errorMessage']"))
+				.getAttribute("value");
+		return usernameError;
 	}
 
-	private void f_logout() {
+	private void logout() {
 		driver.findElement(By.xpath(prop.getProperty("Btn_UserHome_Logout"))).click();
 	}
 

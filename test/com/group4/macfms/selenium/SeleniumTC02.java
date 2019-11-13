@@ -57,7 +57,7 @@ public class SeleniumTC02 extends SeleniumTestBase {
 		driver.close();
 	}
 
-/*	@Test
+	@Test
 	@FileParameters("./excel/allUserErrorTestRegisterData.csv")
 	public void a_registerErrorValidationsTest(int testCaseNo, String userName, String password, String confirmPassword,
 			String firstName, String lastName, String utaID, String role, String phone, String email, String address,
@@ -119,22 +119,21 @@ public class SeleniumTC02 extends SeleniumTestBase {
 
 		actualErrorMsg = loginUser.loginError(userName, password);
 		assertEquals(expectedErrorMsg, actualErrorMsg);
-	}*/
+	} 
 
 	@Test
 	@FileParameters("./excel/managerUserSuccessTestLoginData.csv")
 	public void d_loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
 			throws Exception {
-		System.out.println(prop.getProperty("Btn_Report_Problem"));
 		loginUser.loginSuccess(username, password);
-		driver.findElement(By.xpath(prop.getProperty("Btn_FMShome_SearchUnassignedMarAssignMar"))).click();
+		driver.findElement(By.xpath(prop.getProperty("Btn_FMShome_SearchUnassignedMar"))).click();
 		viewUnAssignedMarDetailsTest();
 	}
 	
 	public void viewUnAssignedMarDetailsTest() throws InterruptedException {
 		List<WebElement> rows= driver.findElement(By.xpath("html/body/div[1]/form/div")).findElements(By.tagName("tr"));
 		int i=0;
-		  if((rows.size())>0){
+		  if((rows.size())>1){
 			  i++;
 			  r++;
 		  }
@@ -145,66 +144,82 @@ public class SeleniumTC02 extends SeleniumTestBase {
 		else
 		{
 			driver.findElement(By.xpath(prop.getProperty("Link_UnassignedMars_View"))).click();
+			driver.findElement(By.xpath(prop.getProperty("Btn_MARDetails_EditDetails"))).click();			
 		}
 	}
 
 	@Test
-	@FileParameters("./excel/managerUserSuccessTestLoginData.csv")
-	public void e_assignMarErrorRuleCheck(int testCaseNo, String urgency, String assignedTo, String estimatedTime) {
-		driver.findElement(By.xpath(prop.getProperty("Btn_MARDetails_EditDetails"))).click();
+	@FileParameters("./excel/assignMarErrorTestData.csv")
+	public void e_assignMarErrorTest(int testCaseNo, String urgency, String assignedTo, String estimatedTime, String expectedErrorMsg) throws InterruptedException {
 		
+		String actualErrorMsg = "";
+		actualErrorMsg = validateAssignMarError(urgency,assignedTo,estimatedTime);
+		assertEquals(expectedErrorMsg, actualErrorMsg);
+		driver.findElement(By.xpath(prop.getProperty("Btn_MARDetails_Back"))).click();
+		driver.findElement(By.xpath(prop.getProperty("Link_UnassignedMars_View"))).click();
+		
+	}
+	@Test
+	@FileParameters("./excel/assignMarErrorRuleCheckTestData.csv")
+	public void f_assignMarErrorRuleCheckTest(int testCaseNo, String urgency, String assignedTo, String estimatedTime, String expectedSuccessMsg) throws InterruptedException {
+		
+		driver.findElement(By.xpath(prop.getProperty("Btn_MARDetails_EditDetails"))).click();
+		new Select(driver.findElement(By.xpath(prop.getProperty("Select_MARDetails_Urgency")))).selectByVisibleText(urgency);
+		
+		driver.findElement(By.xpath(prop.getProperty("Txt_MARDetails_AssignedTo"))).clear();
+		driver.findElement(By.xpath(prop.getProperty("Txt_MARDetails_AssignedTo"))).sendKeys(assignedTo);
+		new Select(driver.findElement(By.xpath(prop.getProperty("Select_MARDetails_EstimatedTime")))).selectByVisibleText(estimatedTime);
+		
+		driver.findElement(By.xpath(prop.getProperty("Btn_MARDetails_UpdateMARDetails"))).click();
+		
+		String actualSuccessMsg = driver.findElement(By.xpath(prop.getProperty("Txt_MARDetails_MARStatus_Errormsg")))
+				.getAttribute("value");
+		assertEquals(expectedSuccessMsg, actualSuccessMsg);
 	}
 	
 	@Test
-	@FileParameters("./excel/managerUserSuccessTestLoginData.csv")
-	public void e_assignMarSuccessRuleCheck(int testCaseNo, String urgency, String assignedTo, String estimatedTime) {
+	@FileParameters("./excel/assignMarSuccessRuleCheckTestData.csv")
+	public void g_assignMarSuccessRuleCheckTest(int testCaseNo, String urgency, String assignedTo, String estimatedTime, String expectedSuccessMsg) throws InterruptedException {
+		
 		driver.findElement(By.xpath(prop.getProperty("Btn_MARDetails_EditDetails"))).click();
+		new Select(driver.findElement(By.xpath(prop.getProperty("Select_MARDetails_Urgency")))).selectByVisibleText(urgency);
 		
-		f_logout();
-	}
-
-	/*@Test
-	@FileParameters("./excel/reportMarErrorTestData.csv")
-	public void e_createMarErrorValidationsTest(int testCaseNo, String facilityName, String description,
-			String expectedErrorMsg) {
-		String actualErrorMsg = "";
-		actualErrorMsg = validateMarError(facilityName, description);
-		assertEquals(expectedErrorMsg, actualErrorMsg);
-	}
-
-	@Test
-	@FileParameters("./excel/reportMarSuccessTestData.csv")
-	public void f_createMarSuccess(int testCaseNo, String facilityName, String description, String expectedErrorMsg) {
-		new Select(driver.findElement(By.xpath(prop.getProperty("Select_Report_FacilityName"))))
-				.selectByVisibleText(facilityName);
-
-		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).clear();
-		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).sendKeys(description);
-		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Report"))).click();
-		String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
-		snapShot.takeScreenshot(screenShotName);
-		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Success"))).click();
-		f_logout();
-	}
-*/
-	/*private String validateMarError(String facilityName, String description) {
-
-		new Select(driver.findElement(By.xpath(prop.getProperty("Select_Report_FacilityName"))))
-				.selectByVisibleText(facilityName);
-		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).clear();
-		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).sendKeys(description);
-
-		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Report"))).click();
+		driver.findElement(By.xpath(prop.getProperty("Txt_MARDetails_AssignedTo"))).clear();
+		driver.findElement(By.xpath(prop.getProperty("Txt_MARDetails_AssignedTo"))).sendKeys(assignedTo);
+		new Select(driver.findElement(By.xpath(prop.getProperty("Select_MARDetails_EstimatedTime")))).selectByVisibleText(estimatedTime);
 		
-		String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
-		snapShot.takeScreenshot(screenShotName);
-		String emptyError = driver.findElement(By.xpath(prop.getProperty("Txt_Report_DescriptionError")))
+		driver.findElement(By.xpath(prop.getProperty("Btn_MARDetails_UpdateMARDetails"))).click();
+		
+		String actualSuccessMsg = driver.findElement(By.xpath(prop.getProperty("Txt_MARDetails_MARStatus_Errormsg")))
 				.getAttribute("value");
-		return emptyError;
-	}*/
+		assertEquals(expectedSuccessMsg, actualSuccessMsg);
+		logout();
+	}
+	
+	
+	private String validateAssignMarError(String urgency, String assignedTo, String estimatedTime) throws InterruptedException {
 
-	private void f_logout() {
-		driver.findElement(By.xpath(prop.getProperty("Btn_UserHome_Logout"))).click();
+		driver.findElement(By.xpath(prop.getProperty("Btn_MARDetails_EditDetails"))).click();
+		new Select(driver.findElement(By.xpath(prop.getProperty("Select_MARDetails_Urgency")))).selectByVisibleText(urgency);
+		
+		driver.findElement(By.xpath(prop.getProperty("Txt_MARDetails_AssignedTo"))).clear();
+		driver.findElement(By.xpath(prop.getProperty("Txt_MARDetails_AssignedTo"))).sendKeys(assignedTo);
+		new Select(driver.findElement(By.xpath(prop.getProperty("Select_MARDetails_EstimatedTime")))).selectByVisibleText(estimatedTime);
+		driver.findElement(By.xpath(prop.getProperty("Btn_MARDetails_UpdateMARDetails"))).click();
+
+		String emptyError = driver.findElement(By.xpath(prop.getProperty("Txt_MARDetails_AssignedToError")))
+				.getAttribute("value");
+		/*String noUserError = driver.findElement(By.xpath(prop.getProperty("Txt_MARDetails_MARStatus_Errormsg")))
+				.getAttribute("value");*/
+		/*if(emptyError != null || !emptyError.isEmpty())
+			return emptyError;
+		else*/
+			return emptyError;
+	}
+	
+
+	private void logout() {
+		driver.findElement(By.xpath(prop.getProperty("Btn_MARDetails_Logout"))).click();
 		String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
 		snapShot.takeScreenshot(screenShotName);
 	}
