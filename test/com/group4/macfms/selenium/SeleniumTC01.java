@@ -48,6 +48,9 @@ public class SeleniumTC01 extends SeleniumTestBase {
 		 registerUser = new RegisterUserFunction();
 		 snapShot = new SnapshotFunction();
 		 setDriver();
+		 String screenShotName = "TC01_Homepage";
+		 snapShot.takeScreenshot(screenShotName);
+		 driver.findElement(By.xpath(prop.getProperty("Btn_Home_Register"))).click();
 	}
 	
 	@AfterClass
@@ -62,7 +65,6 @@ public class SeleniumTC01 extends SeleniumTestBase {
 			String city, String state, String zipcode, String commonErrorMsg, String usernameErr, String passwordErr,
 			String confirmPwdErr, String firstnameErr, String lastnameErr, String utaidErr, String phoneErr,
 			String emailErr, String addressErr, String cityErr, String zipErr) throws Exception {
-		driver.findElement(By.xpath(prop.getProperty("Btn_Home_Register"))).click();
 		User user = new User(firstName, lastName, userName, password, confirmPassword, utaID, role, phone, email,
 				address, city, state, zipcode);
 		UserErrorMsgs expectedErrorMsg = new UserErrorMsgs();
@@ -76,11 +78,9 @@ public class SeleniumTC01 extends SeleniumTestBase {
 		expectedErrorMsg.setEmailError(emailErr);
 		expectedErrorMsg.setAddressError(addressErr);
 		expectedErrorMsg.setCityError(cityErr);
-		expectedErrorMsg.setZipCodeError(zipErr);
-
-		UserErrorMsgs actualErrorMsg = registerUser.registerUserError(user);
-		/*String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
-		snapShot.takeScreenshot(screenShotName);*/
+		expectedErrorMsg.setZipCodeError(zipErr);		
+		String screenShotName = "TC01_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+		UserErrorMsgs actualErrorMsg = registerUser.registerUserError(user, screenShotName);
 		validateRegisterErrMsgs(expectedErrorMsg, actualErrorMsg);
 	}
 
@@ -91,8 +91,8 @@ public class SeleniumTC01 extends SeleniumTestBase {
 			String city, String state, String zipcode, String expectedErrorMsg) throws Exception {
 		User user = new User(firstName, lastName, userName, password, confirmPassword, utaID, role, phone, email,
 				address, city, state, zipcode);
-		// driver.findElement(By.xpath(prop.getProperty("Btn_Home_Register"))).click();
-		registerUser.registerUserSuccess(user);
+		String screenShotName = "TC01_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+		registerUser.registerUserSuccess(user, screenShotName);
 	}
 
 	private void validateRegisterErrMsgs(UserErrorMsgs expectedErrorMsg, UserErrorMsgs actualErrorMsg) {
@@ -114,8 +114,8 @@ public class SeleniumTC01 extends SeleniumTestBase {
 	public void c_loginErrorValidationsTest(int testCaseNo, String userName, String password, String expectedErrorMsg)
 			throws Exception {
 		String actualErrorMsg = "";
-
-		actualErrorMsg = loginUser.loginError(userName, password);
+		String screenShotName = "TC01_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+		actualErrorMsg = loginUser.loginError(userName, password, screenShotName);		
 		assertEquals(expectedErrorMsg, actualErrorMsg);
 	}
 
@@ -123,17 +123,18 @@ public class SeleniumTC01 extends SeleniumTestBase {
 	@FileParameters("./excel/studentUserSuccessTestLoginData.csv")
 	public void d_loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
 			throws Exception {
-		System.out.println(prop.getProperty("Btn_Report_Problem"));
-		loginUser.loginSuccess(username, password);
+		String screenShotName = "TC01_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;		
+		loginUser.loginSuccess(username, password, screenShotName);
 		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Problem"))).click();
 	}
-
+	
 	@Test
 	@FileParameters("./excel/reportMarErrorTestData.csv")
 	public void e_createMarErrorValidationsTest(int testCaseNo, String facilityName, String description,
 			String expectedErrorMsg) {
-		String actualErrorMsg = "";
-		actualErrorMsg = validateMarError(facilityName, description);
+		String actualErrorMsg = "";	
+		String screenShotName = "TC01_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;		
+		actualErrorMsg = validateMarError(facilityName, description, screenShotName);
 		assertEquals(expectedErrorMsg, actualErrorMsg);
 	}
 
@@ -146,22 +147,19 @@ public class SeleniumTC01 extends SeleniumTestBase {
 		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).clear();
 		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).sendKeys(description);
 		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Report"))).click();
-		String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
+		String screenShotName = "TC01_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
 		snapShot.takeScreenshot(screenShotName);
 		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Success"))).click();
 		logout();
 	}
 
-	private String validateMarError(String facilityName, String description) {
+	private String validateMarError(String facilityName, String description, String screenShotName) {
 
 		new Select(driver.findElement(By.xpath(prop.getProperty("Select_Report_FacilityName"))))
 				.selectByVisibleText(facilityName);
 		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).clear();
 		driver.findElement(By.xpath(prop.getProperty("Txt_Report_Description"))).sendKeys(description);
-
-		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Report"))).click();
-		
-		String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
+		driver.findElement(By.xpath(prop.getProperty("Btn_Report_Report"))).click();	
 		snapShot.takeScreenshot(screenShotName);
 		String emptyError = driver.findElement(By.xpath(prop.getProperty("Txt_Report_DescriptionError")))
 				.getAttribute("value");
@@ -170,7 +168,7 @@ public class SeleniumTC01 extends SeleniumTestBase {
 
 	private void logout() {
 		driver.findElement(By.xpath(prop.getProperty("Btn_UserHome_Logout"))).click();
-		String screenShotName = "TC 01_"+new Throwable().getStackTrace()[0].getMethodName();;
+		String screenShotName = "TC01_"+new Throwable().getStackTrace()[0].getMethodName();
 		snapShot.takeScreenshot(screenShotName);
 	}
 

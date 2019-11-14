@@ -200,7 +200,6 @@ public class MarController extends HttpServlet {
 		if (action.equalsIgnoreCase("updateMarDetails")) { 
 			session.removeAttribute("assignMarError");
 			session.removeAttribute("assignedToError");
-			session.removeAttribute("mar");
 			MarDAO marUpdate = new MarDAO();
 			MarErrorMsgs errorMsgs = new MarErrorMsgs();
 			Mar mar = new Mar();

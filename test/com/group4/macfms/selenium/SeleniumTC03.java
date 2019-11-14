@@ -20,6 +20,7 @@ import com.group4.macfms.model.User;
 import com.group4.macfms.model.UserErrorMsgs;
 import com.group4.macfms.selenium.functions.LoginUserFunction;
 import com.group4.macfms.selenium.functions.RegisterUserFunction;
+import com.group4.macfms.selenium.functions.SnapshotFunction;
 
 import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
@@ -33,6 +34,7 @@ public class SeleniumTC03 extends SeleniumTestBase {
 	int r = 0;
 	static LoginUserFunction loginUser;
 	static RegisterUserFunction registerUser;
+	static SnapshotFunction snapShot;
 	static SeleniumTestBase seleniumTestBase;
 
 	// Add this for Jenkins to get rid of the
@@ -43,8 +45,12 @@ public class SeleniumTC03 extends SeleniumTestBase {
 		Logger.getLogger("org.openqa.selenium.remote").setLevel(Level.OFF);
 		 seleniumTestBase = new SeleniumTestBase();
 		 loginUser = new LoginUserFunction();
+		 snapShot = new SnapshotFunction();
 		 registerUser = new RegisterUserFunction();
 		 setDriver();
+		 String screenShotName = "TC03_Homepage";
+		 snapShot.takeScreenshot(screenShotName);
+		 driver.findElement(By.xpath(prop.getProperty("Btn_Home_Register"))).click();
 	}
 	
 	@AfterClass
@@ -59,7 +65,6 @@ public class SeleniumTC03 extends SeleniumTestBase {
 			String city, String state, String zipcode, String commonErrorMsg, String usernameErr, String passwordErr,
 			String confirmPwdErr, String firstnameErr, String lastnameErr, String utaidErr, String phoneErr,
 			String emailErr, String addressErr, String cityErr, String zipErr) throws Exception {
-		driver.findElement(By.xpath(prop.getProperty("Btn_Home_Register"))).click();
 		User user = new User(firstName, lastName, userName, password, confirmPassword, utaID, role, phone, email,
 				address, city, state, zipcode);
 		UserErrorMsgs expectedErrorMsg = new UserErrorMsgs();
@@ -74,8 +79,8 @@ public class SeleniumTC03 extends SeleniumTestBase {
 		expectedErrorMsg.setAddressError(addressErr);
 		expectedErrorMsg.setCityError(cityErr);
 		expectedErrorMsg.setZipCodeError(zipErr);
-
-		UserErrorMsgs actualErrorMsg = registerUser.registerUserError(user);
+		String screenShotName = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+		UserErrorMsgs actualErrorMsg = registerUser.registerUserError(user, screenShotName);
 		validateRegisterErrMsgs(expectedErrorMsg, actualErrorMsg);
 	}
 
@@ -86,8 +91,8 @@ public class SeleniumTC03 extends SeleniumTestBase {
 			String city, String state, String zipcode, String expectedErrorMsg) throws Exception {
 		User user = new User(firstName, lastName, userName, password, confirmPassword, utaID, role, phone, email,
 				address, city, state, zipcode);
-		// driver.findElement(By.xpath(prop.getProperty("Btn_Home_Register"))).click();
-		registerUser.registerUserSuccess(user);
+		String screenShotName = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+		registerUser.registerUserSuccess(user, screenShotName);
 	}
 
 	private void validateRegisterErrMsgs(UserErrorMsgs expectedErrorMsg, UserErrorMsgs actualErrorMsg) {
@@ -109,8 +114,8 @@ public class SeleniumTC03 extends SeleniumTestBase {
 	public void c_loginErrorValidationsTest(int testCaseNo, String userName, String password, String expectedErrorMsg)
 			throws Exception {
 		String actualErrorMsg = "";
-
-		actualErrorMsg = loginUser.loginError(userName, password);
+		String screenShotName = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+		actualErrorMsg = loginUser.loginError(userName, password, screenShotName);
 		assertEquals(expectedErrorMsg, actualErrorMsg);
 	}
 
@@ -118,7 +123,8 @@ public class SeleniumTC03 extends SeleniumTestBase {
 	@FileParameters("./excel/adminUserSuccessTestLoginData.csv")
 	public void d_loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
 			throws Exception {
-		loginUser.loginSuccess(username, password);
+		String screenShotName = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;		
+		loginUser.loginSuccess(username, password, screenShotName);
 		driver.findElement(By.xpath("html/body/div[1]/a[3]")).click();
 	}
 
@@ -126,20 +132,21 @@ public class SeleniumTC03 extends SeleniumTestBase {
 	@FileParameters("./excel/searchUserAdminErrorTestData.csv")
 	public void e_searchUserErrorValidationsTest(int testCaseNo, String lastName, String userRole, String expectedErrorMsg) {
 		String actualErrorMsg = "";
-		actualErrorMsg = validateUserError(lastName, userRole);
+		String screenShotName = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+		actualErrorMsg = validateUserError(lastName, userRole, screenShotName);
 		assertEquals(expectedErrorMsg, actualErrorMsg);
 	}
 	
 	@Test
 	@FileParameters("./excel/searchUserAdminSuccessTestData.csv")
 	public void f_searchUserSuccessTest(int testCaseNo, String lastName, String userRole) {
+		String screenShotName = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
 		driver.findElement(By.xpath(".//*[@id='lastname']")).clear();
-		driver.findElement(By.xpath(".//*[@id='lastname']")).sendKeys(lastName);
-		
+		driver.findElement(By.xpath(".//*[@id='lastname']")).sendKeys(lastName);		
 		new Select(driver.findElement(By.xpath(".//*[@id='role']"))).selectByVisibleText(userRole);
-		
 		driver.findElement(By.xpath("html/body/div[1]/div/form/input")).click();
-		driver.findElement(By.xpath("html/body/div[1]/h1[2]/a[1]")).click();	
+		snapShot.takeScreenshot(screenShotName);
+		driver.findElement(By.xpath("html/body/div[1]/h1[2]/a[1]")).click();
 		driver.findElement(By.xpath("html/body/div[1]/a[2]")).click();	
 	}
 	
@@ -147,7 +154,8 @@ public class SeleniumTC03 extends SeleniumTestBase {
 	@FileParameters("./excel/searchUsernameAdminErrorTestData.csv")
 	public void g_searchUsernameErrorValidationsTest(int testCaseNo, String username, String expectedErrorMsg) {	
 		String actualErrorMsg = "";
-		actualErrorMsg = validateUsernameError(username);
+		String screenShotName = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+		actualErrorMsg = validateUsernameError(username, screenShotName);
 		assertEquals(expectedErrorMsg, actualErrorMsg);
 	}
 	
@@ -155,37 +163,36 @@ public class SeleniumTC03 extends SeleniumTestBase {
 	@Test
 	@FileParameters("./excel/searchUsernameAdminSuccessTestData.csv")
 	public void h_searchUsernameSuccessTest(int testCaseNo, String username, String userRole) {
+		String screenShotName = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
 		driver.findElement(By.xpath(".//*[@id='username']")).clear();
 		driver.findElement(By.xpath(".//*[@id='username']")).sendKeys(username);
-		
 		driver.findElement(By.xpath("html/body/div[1]/div/form/input")).click();
-		
+		snapShot.takeScreenshot(screenShotName);
 		new Select(driver.findElement(By.xpath(".//*[@id='role']"))).selectByVisibleText(userRole);
 		driver.findElement(By.xpath(".//*[@id='update']")).click();
-			
-		driver.findElement(By.xpath(".//*[@id='userhome']")).click();	
+		String screenShotName1 = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_roleSuccess";	
+		snapShot.takeScreenshot(screenShotName1);
+		driver.findElement(By.xpath(".//*[@id='userhome']")).click();
 		logout();		
 	}
 
-	private String validateUserError(String lastName, String userRole) {
+	private String validateUserError(String lastName, String userRole, String screenShotName) {
 
 		driver.findElement(By.xpath(".//*[@id='lastname']")).clear();
 		driver.findElement(By.xpath(".//*[@id='lastname']")).sendKeys(lastName);
-		
 		new Select(driver.findElement(By.xpath(".//*[@id='role']"))).selectByVisibleText(userRole);
-
 		driver.findElement(By.xpath("html/body/div[1]/div/form/input")).click();
-
+		snapShot.takeScreenshot(screenShotName);
 		String userError = driver.findElement(By.xpath(".//*[@id='common_errorMessage']"))
 				.getAttribute("value");
 		return userError;
 	}
 	
-	private String validateUsernameError(String username) {
+	private String validateUsernameError(String username, String screenShotName) {
 		driver.findElement(By.xpath(".//*[@id='username']")).clear();
 		driver.findElement(By.xpath(".//*[@id='username']")).sendKeys(username);
 		driver.findElement(By.xpath("html/body/div[1]/div/form/input")).click();
-
+		snapShot.takeScreenshot(screenShotName);
 		String usernameError = driver.findElement(By.xpath(".//*[@id='username_errorMessage']"))
 				.getAttribute("value");
 		return usernameError;
@@ -193,6 +200,8 @@ public class SeleniumTC03 extends SeleniumTestBase {
 
 	private void logout() {
 		driver.findElement(By.xpath(prop.getProperty("Btn_UserHome_Logout"))).click();
+		String screenShotName = "TC03_"+new Throwable().getStackTrace()[0].getMethodName();;
+		snapShot.takeScreenshot(screenShotName);
 	}
 
 }

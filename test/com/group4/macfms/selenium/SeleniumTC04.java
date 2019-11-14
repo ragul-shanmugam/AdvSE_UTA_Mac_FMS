@@ -20,6 +20,7 @@ import com.group4.macfms.model.User;
 import com.group4.macfms.model.UserErrorMsgs;
 import com.group4.macfms.selenium.functions.LoginUserFunction;
 import com.group4.macfms.selenium.functions.RegisterUserFunction;
+import com.group4.macfms.selenium.functions.SnapshotFunction;
 
 import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
@@ -33,6 +34,7 @@ public class SeleniumTC04 extends SeleniumTestBase {
 	int r = 0;
 	static LoginUserFunction loginUser;
 	static RegisterUserFunction registerUser;
+	static SnapshotFunction snapShot;
 	static SeleniumTestBase seleniumTestBase;
 
 	// Add this for Jenkins to get rid of the
@@ -44,7 +46,11 @@ public class SeleniumTC04 extends SeleniumTestBase {
 		 seleniumTestBase = new SeleniumTestBase();
 		 loginUser = new LoginUserFunction();
 		 registerUser = new RegisterUserFunction();
+		 snapShot = new SnapshotFunction();
 		 setDriver();
+		 String screenShotName = "TC04_Homepage";
+		 snapShot.takeScreenshot(screenShotName);
+		 driver.findElement(By.xpath(prop.getProperty("Btn_Home_Register"))).click();
 	}
 	
 	@AfterClass
@@ -59,7 +65,6 @@ public class SeleniumTC04 extends SeleniumTestBase {
 			String city, String state, String zipcode, String commonErrorMsg, String usernameErr, String passwordErr,
 			String confirmPwdErr, String firstnameErr, String lastnameErr, String utaidErr, String phoneErr,
 			String emailErr, String addressErr, String cityErr, String zipErr) throws Exception {
-		driver.findElement(By.xpath(prop.getProperty("Btn_Home_Register"))).click();
 		User user = new User(firstName, lastName, userName, password, confirmPassword, utaID, role, phone, email,
 				address, city, state, zipcode);
 		UserErrorMsgs expectedErrorMsg = new UserErrorMsgs();
@@ -74,8 +79,8 @@ public class SeleniumTC04 extends SeleniumTestBase {
 		expectedErrorMsg.setAddressError(addressErr);
 		expectedErrorMsg.setCityError(cityErr);
 		expectedErrorMsg.setZipCodeError(zipErr);
-
-		UserErrorMsgs actualErrorMsg = registerUser.registerUserError(user);
+		String screenShotName = "TC04_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+		UserErrorMsgs actualErrorMsg = registerUser.registerUserError(user, screenShotName);
 		validateRegisterErrMsgs(expectedErrorMsg, actualErrorMsg);
 	}
 
@@ -86,7 +91,8 @@ public class SeleniumTC04 extends SeleniumTestBase {
 			String city, String state, String zipcode, String expectedErrorMsg) throws Exception {
 		User user = new User(firstName, lastName, userName, password, confirmPassword, utaID, role, phone, email,
 				address, city, state, zipcode);
-		registerUser.registerUserSuccess(user);
+		String screenShotName = "TC04_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+		registerUser.registerUserSuccess(user, screenShotName);
 	}
 
 	private void validateRegisterErrMsgs(UserErrorMsgs expectedErrorMsg, UserErrorMsgs actualErrorMsg) {
@@ -108,8 +114,8 @@ public class SeleniumTC04 extends SeleniumTestBase {
 	public void c_loginErrorValidationsTest(int testCaseNo, String userName, String password, String expectedErrorMsg)
 			throws Exception {
 		String actualErrorMsg = "";
-
-		actualErrorMsg = loginUser.loginError(userName, password);
+		String screenShotName = "TC04_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+		actualErrorMsg = loginUser.loginError(userName, password, screenShotName);
 		assertEquals(expectedErrorMsg, actualErrorMsg);
 	}
 
@@ -117,14 +123,16 @@ public class SeleniumTC04 extends SeleniumTestBase {
 	@FileParameters("./excel/repairerUserSuccessTestLoginData.csv")
 	public void d_loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
 			throws Exception {
-		loginUser.loginSuccess(username, password);
+		String screenShotName = "TC04_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;		
+		loginUser.loginSuccess(username, password, screenShotName);
 		driver.findElement(By.xpath(prop.getProperty("Btn_Repairer_ViewRepairs"))).click();
-		e_viewAssignedMarDetailsTest();
+		viewAssignedMarDetailsTest();
 	}
 
-	public void e_viewAssignedMarDetailsTest() throws InterruptedException {
+	public void viewAssignedMarDetailsTest() throws InterruptedException {
 		List<WebElement> rows= driver.findElement(By.xpath("html/body/div[1]/form/div")).findElements(By.tagName("tr"));
 		int i=0;
+		String screenShotName = "TC04_"+new Throwable().getStackTrace()[0].getMethodName();	
 		  if((rows.size())>1){
 			  i++;
 			  r++;
@@ -135,8 +143,9 @@ public class SeleniumTC04 extends SeleniumTestBase {
 		}
 		else
 		{
-			driver.findElement(By.xpath(".//*[@id='radioMar1']")).click();
-		    driver.findElement(By.xpath(prop.getProperty("Btn_List_ViewMarDetails"))).click();			
+			driver.findElement(By.xpath(".//*[@id='radioMar1']")).click();	
+		    driver.findElement(By.xpath(prop.getProperty("Btn_List_ViewMarDetails"))).click();	
+		    snapShot.takeScreenshot(screenShotName);
 		    driver.findElement(By.xpath(prop.getProperty("Btn_MarDetails_Homepage"))).click();
 		    logout();
 		}
@@ -144,6 +153,8 @@ public class SeleniumTC04 extends SeleniumTestBase {
 
 	private void logout() {
 		driver.findElement(By.xpath(prop.getProperty("Btn_UserHome_Logout"))).click();
+		String screenShotName = "TC04_"+new Throwable().getStackTrace()[0].getMethodName();;
+		snapShot.takeScreenshot(screenShotName);
 	}
 
 }
