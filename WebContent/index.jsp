@@ -16,7 +16,6 @@
 		<div>
 			<form action="/UTA_Mac_FMS/LoginController?action=login"
 				method="POST" name="login_form">
-				<input value="<c:out value='${commonErrorMsg}'/>" id = "common_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
 				<br> <div class="row">
 				<div class="col">
 					<label for="username">Enter your Username</label> <input name="username" id="username" type="text" class="form-control" placeholder="Username">

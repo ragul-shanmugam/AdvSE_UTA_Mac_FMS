@@ -1,5 +1,7 @@
 package com.group4.macfms.model;
 
+import com.group4.macfms.data.FacilityDAO;
+
 public class Facility {
 	private String facility;
 	private String facilityName;
@@ -66,5 +68,27 @@ public class Facility {
 	public void setAvailability(String availability) {
 		this.availability = availability;
 	}
+	
+	public void validatefacilityName(Facility facility, FacilityErrorMsgs errorMessage) {	
+		errorMessage.setFacilityNameError(validateFacilityName(facility.getFacilityName(), errorMessage));
+    }
+	
+	public String validateFacilityName(String facilityName, FacilityErrorMsgs errorMessage) {
+		
+		String result="";
+		if(FacilityDAO.checkUniqueFacilityName(facilityName))
+		{
+			result = "Facility name already exists! Try a different name";
+		}
+		else if (facilityName.isEmpty())
+			result = "Facility name cannot be empty";  	  
+		else
+		{
+			boolean hasNonAlphaNumeric = facilityName.matches("^[A-Z]{2,4}[ ][0-9]{1,2}$");			
+			if(!hasNonAlphaNumeric)
+			        result = "Facility name should be alphanumeric (EX IVC 52)";
+		}		 
+        return result;        	
+    }
 
 }

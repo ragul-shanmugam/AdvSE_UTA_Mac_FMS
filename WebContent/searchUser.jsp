@@ -42,7 +42,8 @@
 			</div>
 			<br> <input type="submit" class="btn btn-primary col-md-3" role="button" value="Submit"> 
 			</form>
-		</div>
+			</div>
 	</div>
+	<input value="<c:out value='${userNotExist}'/>" class="button-box col-lg-12 offset-md-1" id = "common_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">	
 </body>
 </html>

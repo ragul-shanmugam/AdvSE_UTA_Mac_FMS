@@ -22,23 +22,23 @@ public class ProfileController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	User user = new User();
 	
-	private void getUserParam(HttpServletRequest request, User user) {
+/*	private void getUserParam(HttpServletRequest request, User user) {
 		user.setUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("confirm"), request.getParameter("fname"),
 				request.getParameter("lname"), request.getParameter("id"), request.getParameter("phone"),
 				request.getParameter("email"), request.getParameter("address"), request.getParameter("city"),
 				request.getParameter("state"), request.getParameter("zip"), request.getParameter("role"));
-	}
+	}*/
  
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		session.removeAttribute("errorMessage");
 		User user = new User();
 		//String action = request.getParameter("action");
 		ProfileDAO retriveUser = new ProfileDAO();
 		User temp = (User) session.getAttribute("userInfo");
-		//System.out.println("Printing useInfo details..."+temp.getUsername());
 		user = retriveUser.retrieveUserDetails(temp.getUsername());
 		
 		session.setAttribute("profile", user);
@@ -47,17 +47,31 @@ public class ProfileController extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		session.removeAttribute("errorMessage");
 		String action = request.getParameter("action");
 		ProfileDAO updateUser = new ProfileDAO();
-		getUserParam(request, user);
+		//getUserParam(request, user);
+		user.setUsername(request.getParameter("username"));
+		user.setPassword(request.getParameter("password"));
+		user.setConfirmPassword(request.getParameter("confirm"));
+		user.setFirstname(request.getParameter("fname"));
+		user.setLastname(request.getParameter("lname"));
+		user.setId(request.getParameter("id"));
+		user.setPhone(request.getParameter("phone"));
+		user.setEmail(request.getParameter("email"));
+		user.setAddress(request.getParameter("address"));
+		user.setCity(request.getParameter("city"));
+		user.setState(request.getParameter("state"));
+		user.setZipcode(request.getParameter("zip"));
+		user.setRole(request.getParameter("role"));
+		
 		UserErrorMsgs errorMsgs = new UserErrorMsgs();
 		
 		if(action.equalsIgnoreCase("updateUserDetails"))
 		{
 			//validate user here
-			user.validateUserDetails(user, errorMsgs);
+			user.validateUserDetailsAdmin(user, errorMsgs);
 			if (errorMsgs.getCommonerrorMsg() != "" || !errorMsgs.getCommonerrorMsg().isEmpty()) {
-				System.out.println("inside register error user  ");
 				session.setAttribute("errorMessage", errorMsgs);
 				//session.setAttribute("commonErrorMsg", errorMsg.getCommonerrorMsg());
 				getServletContext().getRequestDispatcher("/profilePage.jsp").forward(request, response);
@@ -91,12 +105,22 @@ public class ProfileController extends HttpServlet {
 		
 		if(action.equalsIgnoreCase("updateUserDetailsAdmin"))
 		{
-			System.err.println("Printing user phone..."+user.getPhone());
 			//validate user here
-			user.validateUserDetails(user, errorMsgs);
+			user.validateUserDetailsAdmin(user, errorMsgs);
 			if (errorMsgs.getCommonerrorMsg() != "" || !errorMsgs.getCommonerrorMsg().isEmpty()) {
-				System.out.println("inside register error user  ");
-				session.setAttribute("errorMessage", errorMsgs);
+				/*System.out.println("inside register error user..."+errorMsgs.getCommonerrorMsg());
+				System.out.println("inside register error user..."+errorMsgs.getFnameError());
+				System.out.println("inside register error user..."+errorMsgs.getLnameError());
+				System.out.println("inside register error user..."+errorMsgs.getConfirmPasswordError());
+				System.out.println("inside register error user..."+errorMsgs.getPasswordError());
+				System.out.println("inside register error user..."+errorMsgs.getLoginErrMsg());
+				System.out.println("inside register error user..."+errorMsgs.getEmailError());
+				System.out.println("inside register error user..."+errorMsgs.getCityError());
+				System.out.println("inside register error user..."+errorMsgs.getUsernameError());
+				System.out.println("inside register error user..."+errorMsgs.getIdError());
+				System.out.println("inside register error user..."+errorMsgs.getPhoneError());
+				System.out.println("inside register error user..."+errorMsgs.getAddressError());*/
+				session.setAttribute("errorMsg", errorMsgs);
 				//session.setAttribute("commonErrorMsg", errorMsg.getCommonerrorMsg());
 				getServletContext().getRequestDispatcher("/viewUser.jsp").forward(request, response);
 			}

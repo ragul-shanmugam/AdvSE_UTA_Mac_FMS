@@ -16,18 +16,53 @@ public class UserErrorMsgs {
 	private String zipCodeError = "";
 	
 	private String loginErrMsg = "";
+	private String userNotExistError = "";
 
+	/*public UserErrorMsgs(String fnameError, String lnameError, String usernameError, String passwordError, String confirmPasswordError, String idError,
+			String phoneError, String emailError, String addressError, String cityError, String zipCodeError) {
+		this.fnameError = fnameError;
+		this.lnameError = lnameError;
+		this.usernameError = usernameError;
+		this.passwordError = passwordError;
+		this.confirmPasswordError = confirmPasswordError;
+		this.idError = idError;
+		this.phoneError = phoneError;
+		this.emailError = emailError;
+		this.addressError = addressError;
+		this.cityError = cityError;
+		this.zipCodeError = zipCodeError;		
+	}*/
+	
 	public String getCommonerrorMsg() {
 		return commonerrorMsg;
 	}
 	public void setCommonerrorMsg() {
-		if(!usernameError.equals("") || !passwordError.equals("") || !confirmPasswordError.equals("") || !fnameError.equals("") || !lnameError.equals("") 
-				|| !idError.equals("") || !emailError.equals("") || !addressError.equals("") || !cityError.equals("") 
-				|| !zipCodeError.equals(""))
+		if(!usernameError.equals(""))
+			this.commonerrorMsg = "Please correct the following:";
+		else if( !passwordError.equals("") )
+			this.commonerrorMsg = "Please correct the following:";
+		else if( !confirmPasswordError.equals(""))
+			this.commonerrorMsg = "Please correct the following:";
+		else if(!fnameError.equals(""))
+			this.commonerrorMsg = "Please correct the following:";
+		else if( !lnameError.equals(""))
+			this.commonerrorMsg = "Please correct the following:";
+		else if( !idError.equals(""))
+			this.commonerrorMsg = "Please correct the following:";
+		else if( !zipCodeError.equals(""))
+			this.commonerrorMsg = "Please correct the following:";
+		else if(!addressError.equals(""))
+			this.commonerrorMsg = "Please correct the following:";
+		else if( !cityError.equals(""))
+			this.commonerrorMsg = "Please correct the following:";
+		else if( !phoneError.equals(""))
+			this.commonerrorMsg = "Please correct the following:";
+		else if	(!emailError.equals(""))
 			this.commonerrorMsg = "Please correct the following:";
 		else
 			this.commonerrorMsg = "";
 	}
+	
 	public String getUsernameError() {
 		return usernameError;
 	}
@@ -99,5 +134,11 @@ public class UserErrorMsgs {
 	}
 	public void setLoginErrMsg(String loginErrMsg) {
 		this.loginErrMsg = loginErrMsg;
+	}
+	public String getUserNotExistError() {
+		return userNotExistError;
+	}
+	public void setUserNotExistError(String userNotExistError) {
+		this.userNotExistError = userNotExistError;
 	}
 }

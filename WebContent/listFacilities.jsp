@@ -19,7 +19,8 @@
 <title>Facilities - UTA Mac FMS</title>
 </head>
 <body onload='onPageLoad();'><br>
-	<br>
+<div class="button-box col-lg-12 offset-md-1">
+<h1><a	class="btn btn-secondary " href='${backFacilitySearchPage}'>Back</a> </h1>
 	<h1>
 		List of Facilities Available <a class="btn btn-secondary offset-md-1 "
 			href='${homePage}'>Home Page</a> <a
@@ -27,8 +28,7 @@
 			href="/UTA_Mac_FMS/LogoutController">Logout</a>
 	</h1>
 	<h3>
-		<small class="offset-md-7"><strong>Select a Facility
-				and click on View Facility Details to view more details!!</strong></small>
+		<small class="offset-md-7"><strong>Click on Facility Name to view more details!!</strong></small>
 	</h3>
 	<div>
 		<form
@@ -38,21 +38,19 @@
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th scope="col" style="text-align: center">Select a Facility</th>
-							<th scope="col">Facility</th>
+							<!-- <th scope="col" style="text-align: center">Select a Facility</th> -->
+							<th scope="col">Facility Type</th>
 							<th scope="col">Facility Name</th>
-							<th scope="col">Type</th>
+							<th scope="col">Venue</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${FACILITIES}" var="facility" varStatus="status">
 							<tr>
-								<td style="text-align: center"><input
-									onclick="document.getElementById('submit').disabled = false;"
-									type="radio" id="radioFacility${status.count}"
-									name="radioFacility" value="${status.count}"></td>
+								<%-- <td style="text-align: center"><input onclick="document.getElementById('submit').disabled = false;" type="radio" id="radioFacility${status.count}" name="radioFacility" value="${status.count}"></td> --%>
 								<td><c:out value="${facility.facility}" /></td>
-								<td><c:out value="${facility.facilityName}" /></td>
+								<td><a href="/UTA_Mac_FMS/ViewSpecificFacilityController?action=viewFacility&viewSpecificFacility=${facility.facilityName}"> <c:out value="${facility.facilityName}"/> </a></td>
+								<%-- <td><c:out value="${facility.facilityName}" /></td> --%>
 								<td><c:out value="${facility.type}" /></td>
 							</tr>
 						</c:forEach>
@@ -62,6 +60,7 @@
 			 <input type="submit" class="btn btn-primary col-md-3 offset-md-3" id="submit"
 				value="View Facility Details" disabled> <br> <br>
 		</form>
+	</div>
 	</div>
 </body>
 </html>

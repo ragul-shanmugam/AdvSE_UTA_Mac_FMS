@@ -27,7 +27,7 @@
 					<input type="text" name="username" id="username" class="form-control" placeholder="Username">
 				</div>
 				<div class="col">
-				<br> <input value="Add cout Error here" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
+				<br> <input value='${usernameNotExist}' class="form-control" id = "username_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
 				</div>
 			</div>	
 			<br> <input type="submit" class="btn btn-primary col-md-3" role="button" value="Search for User"> 

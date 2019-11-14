@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
 <!DOCTYPE html>
@@ -28,7 +29,6 @@ function editDetails() {
 	document.getElementById('description').disabled = false;
 	document.getElementById('datecreated').disabled = false;
 	document.getElementById('assignedto').disabled = false;
-	document.getElementById('assigneddate').disabled = false;
 	document.getElementById('time').disabled = false;
 	document.getElementById('updatemar').disabled = false;
 	document.getElementById('edit').disabled = true;
@@ -42,12 +42,7 @@ $(function () {
 <title>MAR Details - UTA Mac FMS</title>
 </head>
 <body onload='onPageLoad();'><br>
-<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver"
-		url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false"
-		user="root" password="admin" />
-	<sql:query dataSource="${dsfacility}" var="repairerresult">
-    SELECT Username FROM uta_mac_fms.users where Role='Repairer';
-</sql:query>
+
 	<div class="button-box col-lg-12 offset-md-1">
 	<h1><a	class="btn btn-secondary " href='${backListPage}'>Back</a></h1>
 		<h1> MAR Details for ${mar.marNumber} <a	class="btn btn-primary offset-md-1 " href='${homePage}'>Home Page</a>
@@ -67,28 +62,34 @@ $(function () {
 				</div> <br>
 				<div class="row">
 					<div class="col">
-						<label for="type">Facility Type</label> <input type="text" name="type" id="type" class="form-control" value='${mar.facilityType}' disabled>
+						<label for="type">Facility Type</label> <input type="text" name="type" id="type" class="form-control" value='${mar.facilityType}' READONLY>
 					</div>
 					<div class="col"></div>
 				</div><br>
 				<div class="row">
 					<div class="col">
-						<label for="rid">Reservation ID</label> <input type="text" name="rid" id="rid" class="form-control"	value='${mar.reservationId}' disabled>
+						<label for="rid">Reservation ID</label> <input type="text" name="rid" id="rid" class="form-control"	value='${mar.reservationId}' READONLY>
 					</div>
 					<div class="col"></div>
 				</div><br>
 				<div class="row">
 					<div class="col">
-						<label for="reportedby">Reported By</label> <input type="text" name="reportedby" id="reportedby" class="form-control" value='${mar.reportedBy}' disabled>
+						<label for="reportedby">Reported By</label> <input type="text" name="reportedby" id="reportedby" class="form-control" value='${mar.reportedBy}' READONLY>
 					</div>
 					<div class="col"></div>
 				</div><br>
 				<div class="row">
-					<div class="col">
-						<label for="urgency">Urgency</label> <input type="text" name="urgency" id="urgency" class="form-control" value='${mar.urgency}' disabled>
-					</div>
-					<div class="col"></div>
-				</div><br>
+				<div class="col">
+					<label for="urgency">Urgency</label> <select name="urgency" id="urgency" class="form-control" disabled>
+						<option>${mar.urgency}</option>
+						<option value="Unusable">Unusable</option>
+						<option value="Major">Major</option>
+						<option value="Medium">Medium</option>
+						<option value="Minor">Minor</option>
+					</select>
+				</div>
+				<div class="col"></div>
+			</div><br>
 				<div class="row">
 					<div class="col">
 						<label for="description">Description</label> <input type="text" name="description" id="description" class="form-control" value='${mar.description}' disabled>
@@ -97,24 +98,19 @@ $(function () {
 				</div><br>
 				<div class="row">
 					<div class="col">
-						<label for="datecreated">Date Created (MM/DD/YYYY)</label> <input type="text" name="datecreated" id="datecreated" class="form-control" value='${mar.dateCreated}' disabled>
+						<label for="datecreated">Date Created (MM/DD/YYYY)</label> <input type="text" name="datecreated" id="datecreated" class="form-control" value='${mar.dateCreated}' READONLY>
 					</div>
 					<div class="col"></div>
 				</div><br>
 				<div class="row">
-				<div class="col">
-					<label for="assignedto">Assigned To</label> <select name="assignedto"
-						id="assignedto" class="form-control" disabled>
-						<option value="${mar.assignedTo}">${mar.assignedTo}</option>
-						<c:forEach var="row" items="${repairerresult.rows}">
-							<option value='<c:out value="${row.username}"/>'><c:out
-									value="${row.username}" /></option>
-						</c:forEach>
-					</select>
-				</div>
-				<div class="col"></div>
-			</div>
-			<br>
+					<div class="col">
+						<label for="assignedto">Assigned To</label> <input type="text" name="assignedto" id="assignedto" class="form-control" value='${mar.assignedTo}' disabled>
+					</div>
+					<div class="col">
+						<br> <input value="<c:out value='${assignedToError}'/>" class="form-control" id = "assignedToErrorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
+					</div>
+					
+				</div><br>
 			<div class="row">
 					<div class="col">
 						<label for="time">Estimated Time</label> <select name="time" id="time" class="form-control" disabled>
@@ -132,9 +128,11 @@ $(function () {
 					<div class="col">
 						<label for="status">MAR Status</label> <input type="text" name="status" id="status" class="form-control" value='${mar.marStatus}' disabled>
 					</div>
-					<div class="col"></div>
+					<div class="col">
+						<br> <input value="<c:out value='${assignMarError}'/>" class="form-control" id = "assignMarErrorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
+					</div>
 				</div>
-				<br> 
+				<br> 			
 				<input type="submit" class="btn btn-primary col-md-3" id="updatemar" role="button" value="Update MAR Details" disabled>
 			</form>
 		</div>

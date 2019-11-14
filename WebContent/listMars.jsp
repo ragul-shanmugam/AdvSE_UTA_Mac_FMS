@@ -19,19 +19,19 @@
 </head>
 <body onload='onPageLoad();'><br>
 		<h1>
-			List of MARs created <a class="btn btn-secondary offset-md-1 "
+			List of MARs <a class="btn btn-secondary offset-md-1 "
 				href='${homePage}'>Home Page</a> <a
 				class="btn btn-danger offset-md-1"
 				href="/UTA_Mac_FMS/LogoutController">Logout</a>
 		</h1>
-		<h3><small class="offset-md-6"><strong>Select a MAR and click on View MAR Details to view more details!!</strong></small></h3>
+		<h3><small class="offset-md-6"><strong>Click on View MAR Details to view more details!!</strong></small></h3>
 		<div>
 			<form action="/UTA_Mac_FMS/MarController?action=listSpecificMar" method="POST">
 				<div class="table-responsive">
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th scope="col" style="text-align: center">Select MAR</th>
+								<!-- <th scope="col" style="text-align: center">Select MAR</th> -->
 								<th scope="col">MAR number</th>
 								<th scope="col">Facility Type</th>
 								<th scope="col">Reservation ID</th>
@@ -45,8 +45,9 @@
 						<tbody>
 							<c:forEach items="${MARS}" var="mar" varStatus="status">
 								<tr>
-									<td style="text-align: center"><input onclick="document.getElementById('submit').disabled = false;"  type="radio" id="radioMar${status.count}" name="radioMar" value="${status.count}"></td>
-									<td><c:out value="${mar.marNumber}" /></td>
+									<%-- <td style="text-align: center"><input onclick="document.getElementById('submit').disabled = false;"  type="radio" id="radioMar${status.count}" name="radioMar" value="${status.count}"></td> --%>
+									<td><a href="/UTA_Mac_FMS/ViewSpecificMarController?action=viewMar&viewSpecificMar=${mar.marNumber}"> <c:out value="${mar.marNumber}"/> </a></td>
+									<%-- <td><c:out value="${mar.marNumber}" /></td> --%>
 									<td><c:out value="${mar.facilityType}" /></td>
 									<td><c:out value="${mar.reservationId}" /></td>
 									<td><c:out value="${mar.reportedBy}" /></td>
@@ -59,7 +60,7 @@
 						</tbody>
 					</table>
 				</div>
-				<br> <input type="submit" class="btn btn-primary col-md-3 offset-md-3" id="submit" value="View MAR Details" disabled> <br> <br>
+			<!-- 	<br> <input type="submit" class="btn btn-primary col-md-3 offset-md-3" id="submit" value="View MAR Details" disabled> <br> <br> -->
 			</form>
 		</div>
 </body>

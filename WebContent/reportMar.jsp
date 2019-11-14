@@ -25,10 +25,8 @@ $(function () {
 <body><br>
 	<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false"
-		user="root" password="admin" />
-	<sql:query dataSource="${dsfacility}" var="facilityresult">
-    SELECT distinct Facility FROM uta_mac_fms.facility;
-</sql:query>
+		user="root" password="MyNewPass" />
+	
 	<sql:query dataSource="${dsfacility}" var="facilitynameresult">
     SELECT FacilityName FROM uta_mac_fms.facility order by FacilityName;
 </sql:query>
@@ -41,23 +39,22 @@ $(function () {
 		</h1>
 		<form action="/UTA_Mac_FMS/MarController?action=reportProblem"
 			method="POST" name="reportProblem_form">
-			<input value="<c:out value='${commonErrorMsg}'/>" id = "common_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">
-			<div class="row">
+			<%-- <div class="row">
 				<div class="col">
 					<label for="role">Select Facility Type</label> <select name="ftype"
 						id="ftype" class="form-control">
 						<c:forEach var="row" items="${facilityresult.rows}">
-							<option value='<c:out value="${row.Facility}"/>'><c:out
-									value="${row.Facility}" /></option>
+							<option value='<c:out value="${row.FacilityType}"/>'><c:out
+									value="${row.FacilityType}" /></option>
 						</c:forEach>
 					</select>
 				</div>
 				<div class="col"></div>
 			</div>
-			<br>
+			<br> --%>
 			<div class="row">
 				<div class="col">
-					<label for="role">Select Facility Name</label> <select name="fname"
+					<label for="role">Select Facility Name received during the time of reservation</label> <select name="fname"
 						id="fname" class="form-control">
 						<c:forEach var="row" items="${facilitynameresult.rows}">
 							<option value='<c:out value="${row.FacilityName}"/>'><c:out
@@ -65,10 +62,12 @@ $(function () {
 						</c:forEach>
 					</select>
 				</div>
-				<div class="col"></div>
+				<div class="col">
+				<br> <input value="<c:out value='${facilityNameDropDownError}'/>" class="form-control" id = "facility_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
+				</div>
 			</div>
 			<br>
-			<div class="row">
+			<!-- <div class="row">
 				<div class="col">
 					<label for="urgency">Urgency</label> <select name="urgency"
 						class="form-control">
@@ -80,14 +79,14 @@ $(function () {
 				</div>
 				<div class="col"></div>
 			</div>
-			<br>
+			<br> -->
 			<div class="row">
 				<div class="col">
 					<label for="description">Description</label> <input name="description"
 						maxlength="200" type="text" class="form-control" placeholder="Description">
 				</div>
 				<div class="col">
-				<br> <input value="<c:out value='${errorMessage.descriptionError}'/>" class="form-control" id = "login_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
+				<br> <input value="<c:out value='${descriptionError}'/>" class="form-control" id = "description_errorMessage" type="text" style ="background-color: white; color: red; border: none; width: 800px" disabled="disabled" maxlength="60">  
 				</div>
 			</div>
 			<br>

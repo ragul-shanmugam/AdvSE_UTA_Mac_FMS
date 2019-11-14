@@ -19,7 +19,7 @@
 </head>
 <body onload='onPageLoad();'><br>
 		<h1>
-			List of Repairs Assigned <a class="btn btn-secondary offset-md-1 "
+			My Repairs <a class="btn btn-secondary offset-md-1 "
 				href='${homePage}'>Home Page</a>  <a
 				class="btn btn-danger offset-md-1"
 				href="/UTA_Mac_FMS/LogoutController">Logout</a>
@@ -36,7 +36,9 @@
 								<th scope="col">Urgency</th>
 								<th scope="col">Description</th>
 								<th scope="col">Date created</th>
+								<th scope="col">Assigned Date</th>
 								<th scope="col">Estimated Time</th>
+								<th scope="col">Status</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -48,7 +50,9 @@
 									<td><c:out value="${mar.urgency}" /></td>
 									<td><c:out value="${mar.description}" /></td>
 									<td><c:out value="${mar.dateCreated}" /></td>
+									<td><c:out value="${mar.assignedDate}" /></td>
 									<td><c:out value="${mar.estimatedTime}" /></td>
+									<td><c:out value="${mar.marStatus}" /></td>
 								</tr>
 							</c:forEach>
 						</tbody>
