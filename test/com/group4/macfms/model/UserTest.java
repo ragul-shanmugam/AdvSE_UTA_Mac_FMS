@@ -38,6 +38,18 @@ public class UserTest {
 		userTest.validateUserPassword(userTest, regerrMsg);
 		assertEquals(errMsg,regerrMsg.getLoginErrMsg());
 	}
+	
+	@Test
+	@FileParameters("./junitTestData/userNameTestData.csv")
+	public void validateUserNameTest(int testno, String username, String password, String errMsg) {
+		UserErrorMsgs regerrMsg  = new UserErrorMsgs();
+		User userTest = new User();
+		userTest.setUsername(username);
+		userTest.setPassword(password);
+		userTest.validateUserName(userTest, regerrMsg);
+		assertEquals(errMsg,regerrMsg.getLoginErrMsg());
+	}
+	
 	@Test
 	@FileParameters("./junitTestData/validateUserTestData.csv")
 	public void validateUserTest(int testno, String username, String password, String confirmPass, String firstname,
