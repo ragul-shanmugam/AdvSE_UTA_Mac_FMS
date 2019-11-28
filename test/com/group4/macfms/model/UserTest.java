@@ -38,6 +38,18 @@ public class UserTest {
 		userTest.validateUserPassword(userTest, regerrMsg);
 		assertEquals(errMsg,regerrMsg.getLoginErrMsg());
 	}
+	
+	@Test
+	@FileParameters("./junitTestData/userNameTestData.csv")
+	public void validateUserNameTest(int testno, String username, String password, String errMsg) {
+		UserErrorMsgs regerrMsg  = new UserErrorMsgs();
+		User userTest = new User();
+		userTest.setUsername(username);
+		userTest.setPassword(password);
+		userTest.validateUserName(userTest, regerrMsg);
+		assertEquals(errMsg,regerrMsg.getLoginErrMsg());
+	}
+	
 	@Test
 	@FileParameters("./junitTestData/validateUserTestData.csv")
 	public void validateUserTest(int testno, String username, String password, String confirmPass, String firstname,
@@ -47,8 +59,9 @@ public class UserTest {
 			String utaidErr, String emailErr, String phoneErr, String zipErr,
 			String addErr, String cityErr) {
 			UserErrorMsgs regerrMsg  = new UserErrorMsgs();
+			//User userTest = new User();
 			User userTest = new User(firstname,lastname,username,password,confirmPass,utaid,user_role,phone,email,address,city,state,zip);
-			userTest.setFirstname(firstname);
+			/*userTest.setFirstname(firstname);
 			userTest.setLastname(lastname);
 			userTest.setPassword(password);
 			userTest.setConfirmPassword(confirmPass);
@@ -59,7 +72,7 @@ public class UserTest {
 			userTest.setCity(city);
 			userTest.setZipcode(zip);
 			userTest.setState(state);
-			
+			*/
 			userTest.validateUserDetails(userTest, regerrMsg);
 			assertEquals(firstnameErr,regerrMsg.getFnameError());
 			assertEquals(lastnameErr,regerrMsg.getLnameError());

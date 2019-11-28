@@ -25,19 +25,19 @@ public class User {
 	
 	public User(String firstname, String lastname, String username, String password, String confirmPassword, String uta_id, String role,
 			String phone, String email, String street_add, String city, String state, String zip) {
-		this.firstName = firstname;
-		this.lastName = lastname;
-		this.userName = username;
-		this.password = password;
-		this.confirmPassword = confirmPassword;
-		this.id = uta_id;
-		this.role = role;
-		this.phone = phone;
-		this.email = email;
-		this.address = street_add;
-		this.city = city;
-		this.state = state;
-		this.zipCode = zip;
+		setUsername(username);
+		setPassword(password);
+		setConfirmPassword(confirmPassword);
+		setFirstname(firstname);
+		setLastname(lastname);
+		setId(uta_id);
+		setPhone(phone);
+		setEmail(email);
+		setAddress(street_add);
+		setCity(city);
+		setState(state);
+		setZipcode(zip);
+		setRole(role);
 		
 	}
 
@@ -233,10 +233,7 @@ public class User {
 	}
 	
 	private String validateUserExistsUsername(String userName2) {
-		boolean hasChar = false;
-		boolean hasNumber = false;
 		String result="";
-		char[] array=userName2.toCharArray();
 		if (userName2.equals(""))
 			result= "Please enter a Username to search";
 		else{
@@ -244,29 +241,19 @@ public class User {
 				result="Username not exists in system! Please try a different Username";
 			else if(!stringSize(userName2,2,17))
 				result = "Username should be 3 and 16 characters long";
-			
-		char[] characters = {'~', '!', '@', '#','$','%','^','&','*','(',')','_','-','+','=','{','}','[',']',':',';','"','<','>','?','/','\\'};
-		for(int i=0;i<characters.length;i++) {
-			char a = characters[i];
-			for(char b: array) {
-				if (a == b){
-					hasChar = true;
-				}
-				else if(Character.isDigit(b)) {
-					hasNumber = true;
+			if(!(userName2.matches("[A-Za-z]+$")))
+				{
+				result = "Username should not contain special characters or numeric characters";
+				return result;
 				}
 			}
-		}
-		if(hasChar || hasNumber) {
-			result = "Username should not contain special characters or numeric characters";
-		}
-		}
+			
 		return result;
 	}
 
 	private String validateZipCode(String zipcode) {
 		String result = "";
-		if(isTextAnInteger(zipcode) == false) {
+		if(!(zipcode.matches("[0-9]+$"))) {
 		result = "Zip code should be a 5-digit number";
 		}
 		else if(zipcode.length()!=5)
@@ -282,7 +269,7 @@ public class User {
 			result = "City cannot be empty";
 		else if(!stringSize(city,1,21))
 			result = "City name should be between 2 and 20 characters long";
-		else if(hasChar(city) || isCharAnInteger(city))
+		else if(!(city.matches("[a-zA-Z]+$")))
 			result = "City name should only have alphabets";
 		return result;
 	}
@@ -333,7 +320,7 @@ public class User {
 
 	private String validatePhone(String phone) {
 		String result="";
-		if(isTextAnInteger(phone) == false || phone.length() != 10) {
+		if(!phone.matches("[0-9]+$")|| phone.length() != 10) {
 			result = "Please enter a valid 10-digit phone number";
 		}
 		else
@@ -345,7 +332,7 @@ public class User {
 
 	private String validateId(String id) {
 		String result="";
-		if(isTextAnInteger(id) == false) {
+		if(!id.matches("[0-9]+$")) {
 			result = "UTA ID should be a 10-digit number";
 		}
 		else if(id.length() != 10) {
@@ -357,39 +344,24 @@ public class User {
 	}
 	
 	private String validatePassword(String password) {
-		boolean hasChar = false;
-		boolean hasNumber = false;
-		char[] array=password.toCharArray();
 		String result="";
 		if (!stringSize(password,7,13)) {
 			result= "Password should have atleast 8 characters but not exceed 12";
 		}
 		else{
-		char[] characters = {'~', '!', '@', '#','$','%','^','&','*','(',')','_','-','+','=','{','}','[',']',':',';','"','<','>','?','/','\\'};
-		for(int i=0;i<characters.length;i++) {
-			char a = characters[i];
-			for(char b: array) {
-				if (a == b){
-					hasChar = true;
-				}
-				else if(Character.isDigit(b)) {
-					hasNumber = true;
-				}	
-			}
-		}
-		if(!hasChar && !hasNumber) {
+		if(password.matches("[a-zA-Z]+$")) {
 			result = "Your password must contain atleast 1 special character & 1 number";
-		}
-		else if(!hasChar) {
-			result = "Password should contain atleast 1 special character";
-		}
-		else if(!hasNumber) {
-			result = "Password should include atleast 1 number";
-		}
-		
-		else {
 			return result;
 		}
+		else if(password.matches("[a-zA-Z0-9]+$")) {
+			result = "Password should contain atleast 1 special character";
+			return result;
+		}
+		else if(password.matches("[a-zA-Z@]+$")){
+			result = "Password should include atleast 1 number";
+			return result;
+		}
+		
 		}
 		return result;
 	}
@@ -420,12 +392,9 @@ public class User {
 		return result;
 	}
 
-
+	
 	private String validateUsername(String username) {
-		boolean hasChar = false;
-		boolean hasNumber = false;
 		String result="";
-		char[] array=username.toCharArray();
 		if (username.equals(""))
 			result= "Your Username cannot be empty";
 		else{
@@ -434,21 +403,12 @@ public class User {
 			else if(!stringSize(username,2,17))
 				result = "Username should be 3 and 16 characters long";
 			
-		char[] characters = {'~', '!', '@', '#','$','%','^','&','*','(',')','_','-','+','=','{','}','[',']',':',';','"','<','>','?','/','\\'};
-		for(int i=0;i<characters.length;i++) {
-			char a = characters[i];
-			for(char b: array) {
-				if (a == b){
-					hasChar = true;
-				}
-				if(Character.isDigit(b)) {
-					hasNumber = true;
-				}
-			}
-		}
-		if(hasChar || hasNumber) {
+			if(!(username.matches("[A-Za-z]+$")))
+			{
 			result = "Username should not contain special characters or numeric characters";
-		}
+			return result;
+			}
+		
 		}
 		return result;
 	}
@@ -456,43 +416,5 @@ public class User {
 	private boolean stringSize(String string, int min, int max) {
 		return string.length()>min && string.length()<max; 
 	}
-	private boolean isTextAnInteger (String string) {
-        boolean result = false;
-		try
-        {
-            Long.parseLong(string);
-            result=true;
-        } 
-        catch (NumberFormatException e) 
-        {
-            result=false;
-        }
-		return result; 
-	}
-	private boolean isCharAnInteger (String string) {
-        boolean result = false;
-        char[] array=string.toCharArray();
-        for(int i=0;i<array.length;i++) {
-			if(Character.isDigit(array[i]))
-					result = true;
-		}
-		return result;
-	}
-
-	private boolean hasChar(String input) {
-		boolean result = false;
-		char[] array=input.toCharArray();
-		char[] characters = {'~', '!', '@', '#','$','%','^','&','*','(',')','_','-','+','=','{','}','[',']',':',';','"','<','>','?','/','\\'};
-		for(int i=0;i<characters.length;i++) {
-			char a = characters[i];
-			for(char b: array) {
-				if (a == b){
-					result = true;
-				}
-				
-			}
-			
-		}
-		return result;
-	}
+	
 }

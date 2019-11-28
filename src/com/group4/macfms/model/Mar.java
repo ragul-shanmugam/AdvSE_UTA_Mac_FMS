@@ -189,6 +189,30 @@ public class Mar {
 	}
 	
 	public  String validateAssignRuleCheck(Mar mar) {
+				String result = "";
+				// checks if repairer exists in DB and is available today based on his his schedule
+				Date now = new Date();
+				SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
+		        String day = simpleDateformat.format(now);
+				boolean userAvailable = MarDAO.checkUniqueUsername(mar.getAssignedTo(), day);
+				mar.setRepairerAvailable(userAvailable);
+				if (mar.isRepairerAvailable() && mar.getMarCountsPerDay() < 5  && mar.getMarCountPerWeek() < 10) {
+					mar.setMarStatus("Assigned");
+					result = "Mar has been assigned to the repairer "+mar.getAssignedTo();
+				} else if (!mar.isRepairerAvailable()) {
+					mar.setMarStatus("Unassigned");
+					result = "No such user found";
+				} else if (mar.getMarCountsPerDay() >= 5  && mar.getMarCountPerWeek() < 10) {
+					mar.setMarStatus("Unassigned");
+					result = "The repairer has exceeded 5 counts per day";
+				}
+				else{
+					mar.setMarStatus("Unassigned");
+					result = "The repairer has exceeded 10 counts per week";
+				}
+				return result;	
+			}
+	/*public  String validateAssignRuleCheck(Mar mar) {
 		String result = "";
 		
 		// checks if repairer exists in DB and is available today based on his his schedule
@@ -219,7 +243,7 @@ public class Mar {
 			return result;
 		}		
 		return result;
-	}	
+	}*/	
 	
 	public void validateAssignedToStatus(Mar mar, MarErrorMsgs errorMsg, int status) {
 		errorMsg.setAssignMarError(validateAssignedToStatus(mar,status));

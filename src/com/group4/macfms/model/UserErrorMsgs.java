@@ -2,36 +2,28 @@ package com.group4.macfms.model;
 
 public class UserErrorMsgs {
 	
-	private String commonerrorMsg = "";
-	private String usernameError = "";
-	private String passwordError = "";
-	private String confirmPasswordError = "";
-	private String fnameError = "";
-	private String lnameError = "";
-	private String idError = "";
-	private String emailError = "";
-	private String phoneError = "";
-	private String addressError = "";
-	private String cityError = "";
-	private String zipCodeError = "";
+	private String commonerrorMsg;
+	private String usernameError;
+	private String passwordError;
+	private String confirmPasswordError;
+	private String fnameError;
+	private String lnameError;
+	private String idError;
+	private String emailError;
+	private String phoneError;
+	private String addressError;
+	private String cityError;
+	private String zipCodeError;
 	
-	private String loginErrMsg = "";
-	private String userNotExistError = "";
+	private String loginErrMsg;
+	private String userNotExistError;
 
-	/*public UserErrorMsgs(String fnameError, String lnameError, String usernameError, String passwordError, String confirmPasswordError, String idError,
-			String phoneError, String emailError, String addressError, String cityError, String zipCodeError) {
-		this.fnameError = fnameError;
-		this.lnameError = lnameError;
-		this.usernameError = usernameError;
-		this.passwordError = passwordError;
-		this.confirmPasswordError = confirmPasswordError;
-		this.idError = idError;
-		this.phoneError = phoneError;
-		this.emailError = emailError;
-		this.addressError = addressError;
-		this.cityError = cityError;
-		this.zipCodeError = zipCodeError;		
-	}*/
+	public UserErrorMsgs() {
+		this.setUsernameError("");
+		
+		this.setLoginErrMsg("");
+		this.setUserNotExistError("");
+	}
 	
 	public String getCommonerrorMsg() {
 		return commonerrorMsg;
