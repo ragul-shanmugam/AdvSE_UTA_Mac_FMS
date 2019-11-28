@@ -201,6 +201,7 @@ public class SeleniumTC02 extends SeleniumTestBase {
 		String actualError = "";
 		actualError = driver.findElement(By.xpath(prop.getProperty("Txt_MARDetails_MARStatus_Errormsg")))
 				.getAttribute("value");
+		snapShot.takeScreenshot(screenShotName);
 		assertEquals(marStatusErr, actualError);
 		snapShot.takeScreenshot(screenShotName);
 	}
@@ -224,6 +225,7 @@ public class SeleniumTC02 extends SeleniumTestBase {
 		assertEquals(expectedSuccessMsg, actualSuccessMsg);
 		logout();
 	}
+	
 
 	private void logout() {
 		driver.findElement(By.xpath(prop.getProperty("Btn_MARDetails_Logout"))).click();
