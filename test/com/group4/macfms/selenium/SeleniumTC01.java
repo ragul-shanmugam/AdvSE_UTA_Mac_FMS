@@ -40,6 +40,7 @@ public class SeleniumTC01 extends SeleniumTestBase {
 	// Add this for Jenkins to get rid of the
 	// org.openqa.selenium.remote.ProtocolHandshake createSession
 	// which causes it to report the test as failed due to "error"
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		Logger.getLogger("org.openqa.selenium.remote").setLevel(Level.OFF);
