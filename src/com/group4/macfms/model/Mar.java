@@ -202,13 +202,15 @@ public class Mar {
 				} else if (!mar.isRepairerAvailable()) {
 					mar.setMarStatus("Unassigned");
 					result = "No such user found";
-				} else if (mar.getMarCountsPerDay() >= 5  && mar.getMarCountPerWeek() < 10) {
+				} else if (mar.getMarCountPerWeek() >= 10) {
 					mar.setMarStatus("Unassigned");
-					result = "The repairer has exceeded 5 counts per day";
+					//result = "The repairer has exceeded 5 counts per day";
+					result = "The repairer has exceeded 10 counts per week";
 				}
 				else{
 					mar.setMarStatus("Unassigned");
-					result = "The repairer has exceeded 10 counts per week";
+					result = "The repairer has exceeded 5 counts per day";
+					//result = "The repairer has exceeded 10 counts per week";
 				}
 				return result;	
 			}

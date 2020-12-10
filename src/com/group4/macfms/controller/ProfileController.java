@@ -71,7 +71,7 @@ public class ProfileController extends HttpServlet {
 		{
 			//validate user here
 			user.validateUserDetailsAdmin(user, errorMsgs);
-			if (errorMsgs.getCommonerrorMsg() != "" || !errorMsgs.getCommonerrorMsg().isEmpty()) {
+			if (errorMsgs.getCommonerrorMsg() != "") {
 				session.setAttribute("errorMessage", errorMsgs);
 				//session.setAttribute("commonErrorMsg", errorMsg.getCommonerrorMsg());
 				getServletContext().getRequestDispatcher("/profilePage.jsp").forward(request, response);
@@ -107,19 +107,7 @@ public class ProfileController extends HttpServlet {
 		{
 			//validate user here
 			user.validateUserDetailsAdmin(user, errorMsgs);
-			if (errorMsgs.getCommonerrorMsg() != "" || !errorMsgs.getCommonerrorMsg().isEmpty()) {
-				/*System.out.println("inside register error user..."+errorMsgs.getCommonerrorMsg());
-				System.out.println("inside register error user..."+errorMsgs.getFnameError());
-				System.out.println("inside register error user..."+errorMsgs.getLnameError());
-				System.out.println("inside register error user..."+errorMsgs.getConfirmPasswordError());
-				System.out.println("inside register error user..."+errorMsgs.getPasswordError());
-				System.out.println("inside register error user..."+errorMsgs.getLoginErrMsg());
-				System.out.println("inside register error user..."+errorMsgs.getEmailError());
-				System.out.println("inside register error user..."+errorMsgs.getCityError());
-				System.out.println("inside register error user..."+errorMsgs.getUsernameError());
-				System.out.println("inside register error user..."+errorMsgs.getIdError());
-				System.out.println("inside register error user..."+errorMsgs.getPhoneError());
-				System.out.println("inside register error user..."+errorMsgs.getAddressError());*/
+			if (errorMsgs.getCommonerrorMsg() != "") {
 				session.setAttribute("errorMsg", errorMsgs);
 				//session.setAttribute("commonErrorMsg", errorMsg.getCommonerrorMsg());
 				getServletContext().getRequestDispatcher("/viewUser.jsp").forward(request, response);

@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import com.group4.macfms.model.User;
 import com.group4.macfms.model.UserErrorMsgs;
@@ -150,9 +151,119 @@ public class SeleniumTC04 extends SeleniumTestBase {
 		    logout();
 		}
 	}
+	
+	@Test
+	@FileParameters("./excel/repairerUserSuccessTestLoginData.csv")
+	public void d0_loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
+			throws Exception {
+		String screenShotName = "TC04_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;		
+		loginUser.loginSuccess(username, password, screenShotName);
+		driver.findElement(By.xpath(prop.getProperty("Btn_Repairer_SearchForMar"))).click();
+		requestMarDetailsTest();
+	}
+
+	public void requestMarDetailsTest() throws InterruptedException {
+		List<WebElement> rows= driver.findElement(By.xpath("html/body/div[1]/form")).findElements(By.tagName("tr"));
+		int i=0;
+		String screenShotName = "TC04_"+new Throwable().getStackTrace()[0].getMethodName();	
+		  if((rows.size())>1){
+			  i++;
+			  r++;
+		  }
+		if(i == 0)
+		{
+			driver.findElement(By.xpath(prop.getProperty("Btn_List_Homepage"))).click();
+		}
+		else
+		{
+			driver.findElement(By.xpath(".//*[@id='radioMar1']")).click();	
+		    driver.findElement(By.xpath(prop.getProperty("Btn_List_ViewMarDetails"))).click();	
+		    snapShot.takeScreenshot(screenShotName);
+		    driver.findElement(By.xpath(prop.getProperty("Btn_MARDetails_UpdateMARDetails"))).click();
+		    logout2();
+		}
+	}
+	
+	
+	@Test
+	@FileParameters("./excel/repairerUserSuccessTestLoginData.csv")
+	public void d1_loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
+			throws Exception {
+		String screenShotName = "TC04_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;		
+		loginUser.loginSuccess(username, password, screenShotName);
+		driver.findElement(By.xpath(prop.getProperty("Btn_Repairer_ViewRepairs"))).click();
+		editAssignedMarDetailsTest();
+	}
+
+	public void editAssignedMarDetailsTest() throws InterruptedException {
+		List<WebElement> rows= driver.findElement(By.xpath("html/body/div[1]/form/div")).findElements(By.tagName("tr"));
+		int i=0;
+		String screenShotName = "TC04_"+new Throwable().getStackTrace()[0].getMethodName();	
+		  if((rows.size())>1){
+			  i++;
+			  r++;
+		  }
+		if(i == 0)
+		{
+			driver.findElement(By.xpath(prop.getProperty("Btn_List_Homepage"))).click();
+		}
+		else
+		{
+			driver.findElement(By.xpath(".//*[@id='radioMar1']")).click();	
+		    driver.findElement(By.xpath(prop.getProperty("Btn_List_ViewMarDetails"))).click();	
+		    snapShot.takeScreenshot(screenShotName);
+		    driver.findElement(By.xpath(prop.getProperty("Btn_MarDetails_editdetails"))).click();
+			new Select(driver.findElement(By.xpath(".//*[@id='time']"))).selectByVisibleText("30 Minutes");
+		    driver.findElement(By.xpath(prop.getProperty("Btn_MarDetails_requestmar"))).click(); 
+		    logout2();
+		}
+	}
+	
+	@Test
+	@FileParameters("./excel/repairerUserSuccessTestLoginData.csv")
+	public void d2_loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
+			throws Exception {
+		String screenShotName = "TC04_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;		
+		loginUser.loginSuccess(username, password, screenShotName);
+		driver.findElement(By.xpath(prop.getProperty("Btn_Repairer_ViewRepairs"))).click();
+		deleteAssignedMarDetailsTest();
+	}
+	
+	public void deleteAssignedMarDetailsTest() throws InterruptedException {
+		
+		List<WebElement> rows= driver.findElement(By.xpath("html/body/div[1]/form/div")).findElements(By.tagName("tr"));
+		int i=0;
+		String screenShotName = "TC04_"+new Throwable().getStackTrace()[0].getMethodName();	
+		  if((rows.size())>1){
+			  i++;
+			  r++;
+		  }
+		if(i == 0)
+		{
+			driver.findElement(By.xpath(prop.getProperty("Btn_List_Homepage"))).click();
+		}
+		else
+		{
+			driver.findElement(By.xpath(".//*[@id='radioMar1']")).click();	
+		    driver.findElement(By.xpath(prop.getProperty("Btn_List_ViewMarDetails"))).click();	
+		    snapShot.takeScreenshot(screenShotName);
+		    driver.findElement(By.xpath(prop.getProperty("Btn_MarDetails_editdetails"))).click();
+			new Select(driver.findElement(By.xpath(".//*[@id='request']"))).selectByVisibleText("Deny");
+		    driver.findElement(By.xpath(prop.getProperty("Btn_MarDetails_requestmar"))).click(); 
+		    String screenShotName_edittime = "TC04_"+new Throwable().getStackTrace()[0].getMethodName()+"_roleSuccess";	
+			snapShot.takeScreenshot(screenShotName_edittime);
+		    logout2();
+		}
+	}
 
 	private void logout() {
 		driver.findElement(By.xpath(prop.getProperty("Btn_UserHome_Logout"))).click();
+		String screenShotName = "TC04_"+new Throwable().getStackTrace()[0].getMethodName();;
+		snapShot.takeScreenshot(screenShotName);
+	}
+	
+	private void logout2() {
+		driver.findElement(By.xpath(prop.getProperty("Btn_MarDetails_logout"))).click();
 		String screenShotName = "TC04_"+new Throwable().getStackTrace()[0].getMethodName();;
 		snapShot.takeScreenshot(screenShotName);
 	}

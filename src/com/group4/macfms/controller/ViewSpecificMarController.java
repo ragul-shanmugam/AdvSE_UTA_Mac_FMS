@@ -46,7 +46,7 @@ public class ViewSpecificMarController extends HttpServlet {
 			getServletContext().getRequestDispatcher("/viewMar.jsp").forward(request, response);
 		}
 
-		if (action.equalsIgnoreCase("viewReport")) {
+		else if (action.equalsIgnoreCase("viewReport")) {
 			searchReport.setMarNumber(request.getParameter("viewSpecificReport"));
 
 				try {
@@ -57,18 +57,6 @@ public class ViewSpecificMarController extends HttpServlet {
 				session.setAttribute("mar", dbMar);
 				session.setAttribute("backListPage", "listReportedMars.jsp");
 				getServletContext().getRequestDispatcher("/viewReportedProblem.jsp").forward(request, response);
-		}
-		
-		if (action.equalsIgnoreCase("viewMyAssignedMar")) {
-			searchMar.setMarNumber(request.getParameter("viewAssignedMar"));
-			try {
-				dbMar = searchDb.searchSpecificMarDetails(request.getParameter("viewAssignedMar"));
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			session.setAttribute("mar", dbMar);
-			session.setAttribute("backListPage", "listAssignedRepairs.jsp");
-			getServletContext().getRequestDispatcher("/viewRepair.jsp").forward(request, response);
 		}
 	}
 }

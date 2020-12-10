@@ -46,31 +46,21 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("userInfo", loginUser);
 			loginUser.validateUser(loginUser, errorMsg);
 
-			if (errorMsg.getLoginErrMsg() != "" || !errorMsg.getLoginErrMsg().isEmpty()) {
+			if (errorMsg.getLoginErrMsg() != "") {
 				url = "/index.jsp";
 				session.setAttribute("errorMessage", errorMsg.getLoginErrMsg());
 				getServletContext().getRequestDispatcher(url).forward(request, response);
 			} else {
 				session.removeAttribute("errorMessage");
 				loginUser.validateUserName(loginUser, errorMsg);
-				if (errorMsg.getLoginErrMsg() != "" || !errorMsg.getLoginErrMsg().isEmpty()) {
+				if (errorMsg.getLoginErrMsg() != "") {
 					url = "/index.jsp";
 					session.setAttribute("incorrectPassword", errorMsg.getLoginErrMsg());
 					getServletContext().getRequestDispatcher(url).forward(request, response);
 				} else {
 					loginUser.validateUserPassword(loginUser, errorMsg);
-					if (errorMsg.getLoginErrMsg() != "" || !errorMsg.getLoginErrMsg().isEmpty()) {
-						url = "/index.jsp";
-						session.setAttribute("incorrectPassword", errorMsg.getLoginErrMsg());
-						getServletContext().getRequestDispatcher(url).forward(request, response);
-					} else {
-						dbUser = login.userCheck(request.getParameter("username"));
-
-						if (errorMsg.getLoginErrMsg() != "" || !errorMsg.getLoginErrMsg().isEmpty()) {
-							url = "/index.jsp";
-							session.setAttribute("incorrectPassword", errorMsg.getLoginErrMsg());
-						} else {
-							if (dbUser.getRole().equalsIgnoreCase("student/faculty")) {
+					dbUser = login.userCheck(request.getParameter("username"));
+						if (dbUser.getRole().equalsIgnoreCase("student/faculty")) {
 								session.setAttribute("user", dbUser);
 								response.sendRedirect("/UTA_Mac_FMS/userHome.jsp");
 								session.setAttribute("homePage", "userHome.jsp");
@@ -82,13 +72,12 @@ public class LoginController extends HttpServlet {
 								session.setAttribute("user", dbUser);
 								response.sendRedirect("/UTA_Mac_FMS/repairerHome.jsp");
 								session.setAttribute("homePage", "repairerHome.jsp");
-							} else if (dbUser.getRole().equalsIgnoreCase("admin")) {
+							} else {
 								session.setAttribute("user", dbUser);
 								response.sendRedirect("/UTA_Mac_FMS/adminHome.jsp");
 								session.setAttribute("homePage", "adminHome.jsp");
 							}
-						}
-					}
+					
 				}
 			}
 		}
@@ -116,7 +105,7 @@ public class LoginController extends HttpServlet {
 
 			user.validateUserDetails(user, errorMsgs);
 
-			if (errorMsgs.getCommonerrorMsg() != "" || !errorMsgs.getCommonerrorMsg().isEmpty()) {
+			if (errorMsgs.getCommonerrorMsg() != "") {
 				url = "/register.jsp";
 				session.setAttribute("errorMessage", errorMsgs);
 				session.setAttribute("commonErrorMsg", "Please correct the following errors");

@@ -101,10 +101,6 @@ public class FacilityDAO {
 		return userNameExists;
 	}
 
-	public static ArrayList<Facility> listFacilities() {
-		return ReturnMatchingFacilitiesList(" SELECT * from uta_mac_fms.facility order by FacilityName;");
-	}
-
 	public static ArrayList<Facility> listFacilitiesWithType(String facility) {
 		return ReturnMatchingFacilitiesList("SELECT * from uta_mac_fms.facility where FacilityType ='" + facility + "';");
 	}
@@ -112,11 +108,6 @@ public class FacilityDAO {
 	public static ArrayList<Facility> listFacilitiesWithName(String facilityName) {
 		return ReturnMatchingFacilitiesList(
 				"SELECT * from uta_mac_fms.facility where FacilityName ='" + facilityName + "';");
-	}
-
-	public static ArrayList<Facility> listSpecificFacility(String facility, String facilityName) {
-		return ReturnMatchingFacilitiesList("SELECT * from uta_mac_fms.facility where FacilityType = '" + facility
-				+ "'and FacilityName ='" + facilityName + "';");
 	}
 
 }

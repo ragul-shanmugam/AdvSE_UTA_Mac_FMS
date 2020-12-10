@@ -18,9 +18,9 @@
 	<br>
 	<sql:setDataSource var="dsfacility" driver="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/uta_mac_fms?autoReconnect=true&useSSL=false"
-		user="root" password="worldshaker" />
+		user="root" password="Sree@321" />
 	<sql:query dataSource="${dsfacility}" var="facilityresult">
-   SELECT distinct FacilityType FROM uta_mac_fms.facility order by FacilityName;
+   SELECT distinct FacilityType FROM uta_mac_fms.facility;
 </sql:query>
 	<div class="button-box col-lg-12 offset-md-1">
 		<h1>

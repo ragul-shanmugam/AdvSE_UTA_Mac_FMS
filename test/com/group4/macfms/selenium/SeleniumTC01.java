@@ -40,7 +40,6 @@ public class SeleniumTC01 extends SeleniumTestBase {
 	// Add this for Jenkins to get rid of the
 	// org.openqa.selenium.remote.ProtocolHandshake createSession
 	// which causes it to report the test as failed due to "error"
-	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		Logger.getLogger("org.openqa.selenium.remote").setLevel(Level.OFF);
@@ -58,6 +57,7 @@ public class SeleniumTC01 extends SeleniumTestBase {
 	public static void tearDownAfterTest() throws Exception {
 		driver.close();
 	}
+
 
 	@Test
 	@FileParameters("./excel/allUserErrorTestRegisterData.csv")
@@ -172,5 +172,86 @@ public class SeleniumTC01 extends SeleniumTestBase {
 		String screenShotName = "TC01_"+new Throwable().getStackTrace()[0].getMethodName();
 		snapShot.takeScreenshot(screenShotName);
 	}
+	private void logout2() {
+		driver.findElement(By.xpath(prop.getProperty("Btn_UserHome_Logout2"))).click();
+		String screenShotName = "TC01_"+new Throwable().getStackTrace()[0].getMethodName();
+		snapShot.takeScreenshot(screenShotName);
+	}
+	@Test
+	@FileParameters("./excel/studentUserSuccessTestLoginData.csv")
+	public void g_loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
+			throws Exception {
+		String screenShotName = "TC05_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;		
+		loginUser.loginSuccess(username, password, screenShotName);
+		driver.findElement(By.xpath(prop.getProperty("Btn_Repairer_ViewProfile"))).click();
+		driver.findElement(By.xpath(prop.getProperty("Btn_Profile_edit"))).click();
+		
+	}
+	@Test
+	@FileParameters("./excel/updatedata.csv")
+	public void h_updateErrorValidationsTest(int testCaseNo, String address, String expectedErrorMsg) {	
+		String actualErrorMsg = "";
+		String screenShotName = "TC05_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+		actualErrorMsg = validateaddressError(address, screenShotName);
+		assertEquals(expectedErrorMsg, actualErrorMsg);
+	}
+	@Test
+	@FileParameters("./excel/updatedatasuccess.csv")
+	public void i_updateSuccessTest(int testCaseNo, String address) {
+		String screenShotName = "TC05_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+		driver.findElement(By.xpath(prop.getProperty("Btn_Profile_edit"))).click();
+		driver.findElement(By.xpath(".//*[@id='address']")).clear();
+		driver.findElement(By.xpath(".//*[@id='address']")).sendKeys(address);
+		driver.findElement(By.xpath(".//*[@id='update']")).click();
+		snapShot.takeScreenshot(screenShotName);
+		
+		logout2();		
+	}
+	
+	private String validateaddressError(String address, String screenShotName) {
+		driver.findElement(By.xpath(prop.getProperty("Btn_Profile_edit"))).click();
+		driver.findElement(By.xpath(".//*[@id='address']")).clear();
+		driver.findElement(By.xpath(".//*[@id='address']")).sendKeys(address);
+		driver.findElement(By.xpath(".//*[@id='update']")).click();
+		
+		String addressError = driver.findElement(By.xpath(".//*[@id='address_errorMessage']"))
+				.getAttribute("value");
+		snapShot.takeScreenshot(screenShotName);
+		return addressError;
+	}
+	
+	@Test
+	@FileParameters("./excel/studentUserSuccessTestLoginData.csv")
+	public void j_loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
+			throws Exception {
+		String screenShotName = "TC01_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;		
+		loginUser.loginSuccess(username, password, screenShotName);
+		
+		j_view_reported_problem();
+		
+		
+	}
+
+	private void j_view_reported_problem() {
+		// TODO Auto-generated method stub 
+		
+		driver.findElement(By.xpath(prop.getProperty("Btn_Search_Reported_Problem"))).click();
+		
+		String screenShotName = "TC01_1"+new Throwable().getStackTrace()[0].getMethodName();		
+		snapShot.takeScreenshot(screenShotName);
+		driver.findElement(By.xpath(prop.getProperty("Link_First_Reported_Problem"))).click();
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		driver.findElement(By.xpath(prop.getProperty("Btn_ReportDetails_logout"))).click();
+		screenShotName = "TC01_2"+new Throwable().getStackTrace()[0].getMethodName();		
+		snapShot.takeScreenshot(screenShotName);
+		
+		
+	}
+
 
 }

@@ -125,7 +125,7 @@ public class SeleniumTC03 extends SeleniumTestBase {
 			throws Exception {
 		String screenShotName = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;		
 		loginUser.loginSuccess(username, password, screenShotName);
-		driver.findElement(By.xpath("html/body/div[1]/a[3]")).click();
+		driver.findElement(By.xpath(prop.getProperty("Btn_FMShome_SearchForAssignedRepairs"))).click();
 	}
 
 	@Test
@@ -139,20 +139,149 @@ public class SeleniumTC03 extends SeleniumTestBase {
 	
 	@Test
 	@FileParameters("./excel/searchUserAdminSuccessTestData.csv")
-	public void f_searchUserSuccessTest(int testCaseNo, String lastName, String userRole) {
+	public void e_searchUserSuccessTest(int testCaseNo, String lastName, String userRole,String address) {
 		String screenShotName = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
-		driver.findElement(By.xpath(".//*[@id='lastname']")).clear();
-		driver.findElement(By.xpath(".//*[@id='lastname']")).sendKeys(lastName);		
-		new Select(driver.findElement(By.xpath(".//*[@id='role']"))).selectByVisibleText(userRole);
-		driver.findElement(By.xpath("html/body/div[1]/div/form/input")).click();
+		driver.findElement(By.xpath(prop.getProperty("Txt_Profile_lastname"))).clear();
+		driver.findElement(By.xpath(prop.getProperty("Txt_Profile_lastname"))).sendKeys(lastName);		
+		new Select(driver.findElement(By.xpath(prop.getProperty("Txt_Profile_userrole")))).selectByVisibleText(userRole);
+		driver.findElement(By.xpath(prop.getProperty("Btn_SearchForAssignedRepair_SearchForRepairs"))).click();
 		snapShot.takeScreenshot(screenShotName);
-		driver.findElement(By.xpath("html/body/div[1]/h1[2]/a[1]")).click();
-		driver.findElement(By.xpath("html/body/div[1]/a[2]")).click();	
+		driver.findElement(By.xpath(prop.getProperty("Link_First_RadioButton"))).click();
+		driver.findElement(By.xpath(prop.getProperty("Btn_Profile_edit"))).click();
+		driver.findElement(By.xpath(prop.getProperty("Txt_Profile_address"))).clear();
+		driver.findElement(By.xpath(prop.getProperty("Txt_Profile_address"))).sendKeys(address);
+		driver.findElement(By.xpath(prop.getProperty("Btn_Profile_Update"))).click();
+		String screenShotName1 = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+		snapShot.takeScreenshot(screenShotName1);
+
+		 //driver.findElement(By.xpath(prop.getProperty("Btn_ReportDetails_logout"))).click();
+		 
+		 
+		 driver.findElement(By.xpath(prop.getProperty("Btn_MarDetails_Homepage"))).click();
+		 
+		 logout();
 	}
+	
+	//new login 1
+	@Test
+	@FileParameters("./excel/adminUserSuccessTestLoginData.csv")
+	public void g_loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
+			throws Exception {
+		String screenShotName = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;		
+		loginUser.loginSuccess(username, password, screenShotName);
+		//driver.findElement(By.xpath(prop.getProperty("Btn_FMShome_SearchForAssignedRepairs"))).click();
+	}
+	
+	//update csv for new role (lastname and role allUsers)
+	@Test
+	@FileParameters("./excel/f1_searchUserAdminSuccessTestData.csv")
+	public void h_searchUserSuccessTest(int testCaseNo, String lastName, String userRole,String address) {
+		String screenShotName = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+		driver.findElement(By.xpath(prop.getProperty("Btn_FMShome_SearchForAssignedRepairs"))).click();
+
+		driver.findElement(By.xpath(prop.getProperty("Txt_Profile_lastname"))).clear();
+		driver.findElement(By.xpath(prop.getProperty("Txt_Profile_lastname"))).clear();
+		driver.findElement(By.xpath(prop.getProperty("Txt_Profile_lastname"))).sendKeys(lastName);		
+		new Select(driver.findElement(By.xpath(prop.getProperty("Txt_Profile_userrole")))).selectByVisibleText(userRole);
+		driver.findElement(By.xpath(prop.getProperty("Btn_SearchForAssignedRepair_SearchForRepairs"))).click();
+		snapShot.takeScreenshot(screenShotName);
+		driver.findElement(By.xpath(prop.getProperty("Link_First_RadioButton"))).click();
+		driver.findElement(By.xpath(prop.getProperty("Btn_Profile_edit"))).click();
+		driver.findElement(By.xpath(prop.getProperty("Txt_Profile_address"))).clear();
+		driver.findElement(By.xpath(prop.getProperty("Txt_Profile_address"))).sendKeys(address);
+		driver.findElement(By.xpath(prop.getProperty("Btn_Profile_Update"))).click();
+		String screenShotName1 = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+		snapShot.takeScreenshot(screenShotName1);
+
+//		 driver.findElement(By.xpath(prop.getProperty("Btn_Homepage"))).click();
+//		 driver.findElement(By.xpath(prop.getProperty("Btn_UserHome_Logout"))).click();
+		 driver.findElement(By.xpath(prop.getProperty("Btn_MarDetails_Homepage"))).click();
+		 logout();
+		 
+		 //driver.findElement(By.xpath(prop.getProperty("Btn_Repairer_Logout"))).click();
+		 
+		 //add this in last one 
+		 //driver.findElement(By.xpath(prop.getProperty("Btn_Repairer_SearchForMar"))).click();
+	}
+	
+	
+	
+		//new login 2
+		@Test
+		@FileParameters("./excel/adminUserSuccessTestLoginData.csv")
+		public void i_loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
+				throws Exception {
+			String screenShotName = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;		
+			loginUser.loginSuccess(username, password, screenShotName);
+			driver.findElement(By.xpath(prop.getProperty("Btn_FMShome_SearchForAssignedRepairs"))).click();
+		}
+		
+		
+		//update csv for new role (Blank lastname and for repairer)
+		@Test
+		@FileParameters("./excel/f2_searchUserAdminSuccessTestData.csv")
+		public void i_searchUserSuccessTest(int testCaseNo, String lastName, String userRole,String address) {
+			String screenShotName = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+			driver.findElement(By.xpath(prop.getProperty("Txt_Profile_lastname"))).clear();
+			driver.findElement(By.xpath(prop.getProperty("Txt_Profile_lastname"))).sendKeys(lastName);		
+			new Select(driver.findElement(By.xpath(prop.getProperty("Txt_Profile_userrole")))).selectByVisibleText(userRole);
+			driver.findElement(By.xpath(prop.getProperty("Btn_SearchForAssignedRepair_SearchForRepairs"))).click();
+			snapShot.takeScreenshot(screenShotName);
+			driver.findElement(By.xpath(prop.getProperty("Link_First_RadioButton"))).click();
+			driver.findElement(By.xpath(prop.getProperty("Btn_Profile_edit"))).click();
+			driver.findElement(By.xpath(prop.getProperty("Txt_Profile_address"))).clear();
+			driver.findElement(By.xpath(prop.getProperty("Txt_Profile_address"))).sendKeys(address);
+			driver.findElement(By.xpath(prop.getProperty("Btn_Profile_Update"))).click();
+			String screenShotName1 = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+			snapShot.takeScreenshot(screenShotName1);
+
+			 driver.findElement(By.xpath(prop.getProperty("Btn_MarDetails_Homepage"))).click();
+			 //driver.findElement(By.xpath(prop.getProperty("Btn_UserHome_Logout"))).click();
+			 
+			 logout();
+			 //add this in last one 
+			 //driver.findElement(By.xpath(prop.getProperty("Btn_Repairer_SearchForMar"))).click();
+		}
+		
+		//new login 3
+				@Test
+				@FileParameters("./excel/adminUserSuccessTestLoginData.csv")
+				public void j_loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
+						throws Exception {
+					String screenShotName = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;		
+					loginUser.loginSuccess(username, password, screenShotName);
+					driver.findElement(By.xpath(prop.getProperty("Btn_FMShome_SearchForAssignedRepairs"))).click();
+				}
+				
+				//update csv for new role (lastname and for repairer)
+				@Test
+				@FileParameters("./excel/f3_searchUserAdminSuccessTestData.csv")
+				public void j_searchUserSuccessTest(int testCaseNo, String lastName, String userRole,String address) {
+					String screenShotName = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+					driver.findElement(By.xpath(prop.getProperty("Txt_Profile_lastname"))).clear();
+					driver.findElement(By.xpath(prop.getProperty("Txt_Profile_lastname"))).sendKeys(lastName);		
+					new Select(driver.findElement(By.xpath(prop.getProperty("Txt_Profile_userrole")))).selectByVisibleText(userRole);
+					driver.findElement(By.xpath(prop.getProperty("Btn_SearchForAssignedRepair_SearchForRepairs"))).click();
+					snapShot.takeScreenshot(screenShotName);
+					driver.findElement(By.xpath(prop.getProperty("Link_First_RadioButton"))).click();
+					driver.findElement(By.xpath(prop.getProperty("Btn_Profile_edit"))).click();
+					driver.findElement(By.xpath(prop.getProperty("Txt_Profile_address"))).clear();
+					driver.findElement(By.xpath(prop.getProperty("Txt_Profile_address"))).sendKeys(address);
+					driver.findElement(By.xpath(prop.getProperty("Btn_Profile_Update"))).click();
+					String screenShotName1 = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+					snapShot.takeScreenshot(screenShotName1);
+
+					 driver.findElement(By.xpath(prop.getProperty("Btn_Homepage"))).click();
+					 
+					 //add this in last one 
+					 driver.findElement(By.xpath(prop.getProperty("Btn_Repairer_SearchForMar"))).click();
+				}	
+		
+	
 	
 	@Test
 	@FileParameters("./excel/searchUsernameAdminErrorTestData.csv")
-	public void g_searchUsernameErrorValidationsTest(int testCaseNo, String username, String expectedErrorMsg) {	
+	public void k_searchUsernameErrorValidationsTest(int testCaseNo, String username, String expectedErrorMsg) {	
 		String actualErrorMsg = "";
 		String screenShotName = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
 		actualErrorMsg = validateUsernameError(username, screenShotName);
@@ -162,38 +291,38 @@ public class SeleniumTC03 extends SeleniumTestBase {
 
 	@Test
 	@FileParameters("./excel/searchUsernameAdminSuccessTestData.csv")
-	public void h_searchUsernameSuccessTest(int testCaseNo, String username, String userRole) {
+	public void l_searchUsernameSuccessTest(int testCaseNo, String username, String userRole) {
 		String screenShotName = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
-		driver.findElement(By.xpath(".//*[@id='username']")).clear();
-		driver.findElement(By.xpath(".//*[@id='username']")).sendKeys(username);
-		driver.findElement(By.xpath("html/body/div[1]/div/form/input")).click();
+		driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).clear();
+		driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).sendKeys(username);
+		driver.findElement(By.xpath(prop.getProperty("Btn_SearchForAssignedRepair_SearchForRepairs"))).click();
 		snapShot.takeScreenshot(screenShotName);
-		new Select(driver.findElement(By.xpath(".//*[@id='role']"))).selectByVisibleText(userRole);
-		driver.findElement(By.xpath(".//*[@id='update']")).click();
+		new Select(driver.findElement(By.xpath(prop.getProperty("Txt_Profile_userrole")))).selectByVisibleText(userRole);
+		driver.findElement(By.xpath(prop.getProperty("Btn_Profile_Update"))).click();
 		String screenShotName1 = "TC03_"+new Throwable().getStackTrace()[0].getMethodName()+"_roleSuccess";	
 		snapShot.takeScreenshot(screenShotName1);
-		driver.findElement(By.xpath(".//*[@id='userhome']")).click();
+		driver.findElement(By.xpath(prop.getProperty("Btn_Userhome"))).click();
 		logout();		
 	}
 
 	private String validateUserError(String lastName, String userRole, String screenShotName) {
 
-		driver.findElement(By.xpath(".//*[@id='lastname']")).clear();
-		driver.findElement(By.xpath(".//*[@id='lastname']")).sendKeys(lastName);
-		new Select(driver.findElement(By.xpath(".//*[@id='role']"))).selectByVisibleText(userRole);
-		driver.findElement(By.xpath("html/body/div[1]/div/form/input")).click();
+		driver.findElement(By.xpath(prop.getProperty("Txt_Profile_lastname"))).clear();
+		driver.findElement(By.xpath(prop.getProperty("Txt_Profile_lastname"))).sendKeys(lastName);
+		new Select(driver.findElement(By.xpath(prop.getProperty("Txt_Profile_userrole")))).selectByVisibleText(userRole);
+		driver.findElement(By.xpath(prop.getProperty("Btn_SearchForAssignedRepair_SearchForRepairs"))).click();
 		snapShot.takeScreenshot(screenShotName);
-		String userError = driver.findElement(By.xpath(".//*[@id='common_errorMessage']"))
+		String userError = driver.findElement(By.xpath(prop.getProperty("Common_Error_Msg")))
 				.getAttribute("value");
 		return userError;
 	}
 	
 	private String validateUsernameError(String username, String screenShotName) {
-		driver.findElement(By.xpath(".//*[@id='username']")).clear();
-		driver.findElement(By.xpath(".//*[@id='username']")).sendKeys(username);
-		driver.findElement(By.xpath("html/body/div[1]/div/form/input")).click();
+		driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).clear();
+		driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).sendKeys(username);
+		driver.findElement(By.xpath(prop.getProperty("Btn_SearchForAssignedRepair_SearchForRepairs"))).click();
 		snapShot.takeScreenshot(screenShotName);
-		String usernameError = driver.findElement(By.xpath(".//*[@id='username_errorMessage']"))
+		String usernameError = driver.findElement(By.xpath(prop.getProperty("Username_Error_Msg")))
 				.getAttribute("value");
 		return usernameError;
 	}

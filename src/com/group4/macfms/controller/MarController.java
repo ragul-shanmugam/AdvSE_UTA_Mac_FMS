@@ -110,28 +110,7 @@ public class MarController extends HttpServlet {
 		User user = (User) session.getAttribute("userInfo");
 		String username = user.getUsername();
 
-		if (action.equalsIgnoreCase("listSpecificMar")) {
-			ArrayList<Mar> marInDB = new ArrayList<Mar>();
-			Mar selectedMar = new Mar();
-			int selectedMarIndex;
 
-			if (request.getParameter("radioMar") != null) {
-				selectedMarIndex = Integer.parseInt(request.getParameter("radioMar")) - 1;
-				marInDB = MarDAO.listMars();
-				selectedMar.setMar(marInDB.get(selectedMarIndex).getMarNumber(),
-						marInDB.get(selectedMarIndex).getFacilityType(),
-						marInDB.get(selectedMarIndex).getReservationId(), marInDB.get(selectedMarIndex).getReportedBy(),
-						marInDB.get(selectedMarIndex).getUrgency(), marInDB.get(selectedMarIndex).getDescription(),
-						marInDB.get(selectedMarIndex).getDateCreated(), marInDB.get(selectedMarIndex).getAssignedTo(),
-						marInDB.get(selectedMarIndex).getAssignedDate(),
-						marInDB.get(selectedMarIndex).getEstimatedTime(), marInDB.get(selectedMarIndex).getMarStatus());
-				session.setAttribute("mar", selectedMar);
-				session.setAttribute("backListPage", "listMars.jsp");
-				// getServletContext().getRequestDispatcher("/viewMar.jsp").forward(request,
-				// response);
-				response.sendRedirect("viewMar.jsp");
-			}
-		}
 		
 		if (action.equalsIgnoreCase("listSpecificRequestedMar")) {
 			ArrayList<Mar> marInDB = new ArrayList<Mar>();
@@ -155,33 +134,6 @@ public class MarController extends HttpServlet {
 				// response);
 				response.sendRedirect("viewRequestedMarToManager.jsp");
 			}
-		}
-		
-		if(action.equalsIgnoreCase("acceptDeclineRepairRequest")) {
-			MarDAO marDao = new MarDAO();
-			Mar mar  = new Mar();
-			getUserParam(request, mar);
-			
-			String reqStatus = request.getParameter("request");
-			
-			if (reqStatus.equalsIgnoreCase("Accept")) {
-				String Stat = "Assigned";
-				int status = marDao.acceptDeclineRepairRequest(mar, Stat);
-				if (status == 1) {
-					mar.setMarStatus("Assigned");
-					session.setAttribute("mar", mar);
-					response.sendRedirect("viewRequestedMarToManager.jsp");
-				}
-			} else {
-				String Stat = "Unassigned";
-				mar.setAssignedTo(null);
-				int status = marDao.acceptDeclineRepairRequest(mar, Stat);
-				if (status == 1) {
-					mar.setMarStatus("Unassigned");
-					session.setAttribute("mar", mar);
-					response.sendRedirect("viewRequestedMarToManager.jsp");
-				}			
-			}					
 		}
 		
 		if (action.equalsIgnoreCase("viewAssignedMarsByDate")) {
@@ -210,7 +162,7 @@ public class MarController extends HttpServlet {
 			mar.setAssignedDate(todayDate);
 			
 			mar.validateAssignedTo(mar, errorMsgs);			
-			if (errorMsgs.getAssignedToError() != "" || !errorMsgs.getAssignedToError().isEmpty()) {
+			if (errorMsgs.getAssignedToError() != "") {
 				session.setAttribute("assignedToError", errorMsgs.getAssignedToError());
 				getServletContext().getRequestDispatcher("/viewMar.jsp").forward(request, response);
 			} 
@@ -282,42 +234,11 @@ public class MarController extends HttpServlet {
 				mar.setAssignedTo(username);
 			}
 			
-			//DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-			//Date date = new Date();
-			//String todayDate = dateFormat.format(date);
-			//mar.setAssignedDate(todayDate);
-//			if (mar.getAssignedTo() != null || !mar.getAssignedTo().isEmpty() || !mar.getAssignedTo().contains("")) {
-//				mar.setEstimatedTime(request.getParameter("time"));
-//			}
 			int status = marUpdate.updateMarByRepairer(mar);
 			if (status == 1) {
 				session.setAttribute("mar", mar);
 //				response.sendRedirect("viewMarToRepairer.jsp");
 				response.sendRedirect("viewRepair.jsp");
-			}
-		}
-		
-
-		if (action.equalsIgnoreCase("listSpecificUnassignedMar")) {
-			ArrayList<Mar> marInDB = new ArrayList<Mar>();
-			Mar selectedMar = new Mar();
-			int selectedMarIndex;
-
-			if (request.getParameter("radioMar") != null) {
-				selectedMarIndex = Integer.parseInt(request.getParameter("radioMar")) - 1;
-				marInDB = MarDAO.listUnassignedMars();
-				selectedMar.setMar(marInDB.get(selectedMarIndex).getMarNumber(),
-						marInDB.get(selectedMarIndex).getFacilityType(),
-						marInDB.get(selectedMarIndex).getReservationId(), marInDB.get(selectedMarIndex).getReportedBy(),
-						marInDB.get(selectedMarIndex).getUrgency(), marInDB.get(selectedMarIndex).getDescription(),
-						marInDB.get(selectedMarIndex).getDateCreated(), marInDB.get(selectedMarIndex).getAssignedTo(),
-						marInDB.get(selectedMarIndex).getAssignedDate(),
-						marInDB.get(selectedMarIndex).getEstimatedTime(), marInDB.get(selectedMarIndex).getMarStatus());
-				session.setAttribute("mar", selectedMar);
-				session.setAttribute("backListPage", "listUnassignedMars.jsp");
-				// getServletContext().getRequestDispatcher("/viewMar.jsp").forward(request,
-				// response);
-				response.sendRedirect("viewMar.jsp");
 			}
 		}
 		
@@ -370,28 +291,7 @@ public class MarController extends HttpServlet {
 				response.sendRedirect("viewRepair.jsp");
 			}
 		}
-		if (action.equalsIgnoreCase("listSpecificProblem")) {
-			ArrayList<Mar> marInDB = new ArrayList<Mar>();
-			Mar selectedMar = new Mar();
-			int selectedMarIndex;
 
-			if (request.getParameter("radioMar") != null) {
-				selectedMarIndex = Integer.parseInt(request.getParameter("radioMar")) - 1;
-				marInDB = MarDAO.listReportedMars(username);
-				selectedMar.setMar(marInDB.get(selectedMarIndex).getMarNumber(),
-						marInDB.get(selectedMarIndex).getFacilityType(),
-						marInDB.get(selectedMarIndex).getReservationId(), marInDB.get(selectedMarIndex).getReportedBy(),
-						marInDB.get(selectedMarIndex).getUrgency(), marInDB.get(selectedMarIndex).getDescription(),
-						marInDB.get(selectedMarIndex).getDateCreated(), marInDB.get(selectedMarIndex).getAssignedTo(),
-						marInDB.get(selectedMarIndex).getAssignedDate(),
-						marInDB.get(selectedMarIndex).getEstimatedTime(), marInDB.get(selectedMarIndex).getMarStatus());
-				session.setAttribute("mar", selectedMar);
-				session.setAttribute("backListPage", "listReportedMars.jsp");
-				// getServletContext().getRequestDispatcher("/viewMar.jsp").forward(request,
-				// response);
-				response.sendRedirect("viewReportedProblem.jsp");
-			}
-		}
 		if (action.equalsIgnoreCase("reportProblem")) {
 			MarDAO marInsert = new MarDAO();
 			Mar mar = new Mar();
@@ -409,7 +309,7 @@ public class MarController extends HttpServlet {
 			
 			mar.validateDescription(mar, errorMsgs);
 		
-			if (errorMsgs.getDescriptionError() != "" || !errorMsgs.getDescriptionError().isEmpty()) {
+			if (errorMsgs.getDescriptionError() != "") {
 				session.setAttribute("descriptionError", errorMsgs.getDescriptionError());
 				//session.setAttribute("commonErrorMsg", "Please correct the following errors");
 				getServletContext().getRequestDispatcher("/reportMar.jsp").forward(request, response);

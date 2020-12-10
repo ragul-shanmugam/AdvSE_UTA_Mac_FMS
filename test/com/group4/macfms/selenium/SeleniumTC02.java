@@ -18,11 +18,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import com.group4.macfms.model.Facility;
+import com.group4.macfms.model.FacilityErrorMsgs;
 import com.group4.macfms.model.User;
 import com.group4.macfms.model.UserErrorMsgs;
+import com.group4.macfms.selenium.functions.AddFacilityFunction;
 import com.group4.macfms.selenium.functions.LoginUserFunction;
 import com.group4.macfms.selenium.functions.RegisterUserFunction;
 import com.group4.macfms.selenium.functions.SnapshotFunction;
+
 
 import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
@@ -38,6 +42,7 @@ public class SeleniumTC02 extends SeleniumTestBase {
 	static RegisterUserFunction registerUser;
 	static SnapshotFunction snapShot;
 	static SeleniumTestBase seleniumTestBase;
+	static AddFacilityFunction addfacility;
 
 	// Add this for Jenkins to get rid of the
 	// org.openqa.selenium.remote.ProtocolHandshake createSession
@@ -47,6 +52,7 @@ public class SeleniumTC02 extends SeleniumTestBase {
 		Logger.getLogger("org.openqa.selenium.remote").setLevel(Level.OFF);
 		seleniumTestBase = new SeleniumTestBase();
 		loginUser = new LoginUserFunction();
+		addfacility=new AddFacilityFunction();
 		registerUser = new RegisterUserFunction();
 		snapShot = new SnapshotFunction();
 		setDriver();
@@ -84,7 +90,7 @@ public class SeleniumTC02 extends SeleniumTestBase {
 		String screenShotName = "TC02_" + new Throwable().getStackTrace()[0].getMethodName() + "_" + testCaseNo;
 		UserErrorMsgs actualErrorMsg = registerUser.registerUserError(user, screenShotName);
 		validateRegisterErrMsgs(expectedErrorMsg, actualErrorMsg);
-	}
+	} 
 
 	@Test
 	@FileParameters("./excel/managerUserSuccessTestRegisterData.csv")
@@ -109,7 +115,7 @@ public class SeleniumTC02 extends SeleniumTestBase {
 		assertEquals(expectedErrorMsg.getAddressError(), actualErrorMsg.getAddressError());
 		assertEquals(expectedErrorMsg.getCityError(), actualErrorMsg.getCityError());
 		assertEquals(expectedErrorMsg.getZipCodeError(), actualErrorMsg.getZipCodeError());
-	}
+	} 
 
 	@Test
 	@FileParameters("./excel/allUserErrorTestLoginData.csv")
@@ -201,7 +207,6 @@ public class SeleniumTC02 extends SeleniumTestBase {
 		String actualError = "";
 		actualError = driver.findElement(By.xpath(prop.getProperty("Txt_MARDetails_MARStatus_Errormsg")))
 				.getAttribute("value");
-		snapShot.takeScreenshot(screenShotName);
 		assertEquals(marStatusErr, actualError);
 		snapShot.takeScreenshot(screenShotName);
 	}
@@ -223,8 +228,10 @@ public class SeleniumTC02 extends SeleniumTestBase {
 		String actualSuccessMsg = driver.findElement(By.xpath(prop.getProperty("Txt_MARDetails_MARStatus_Errormsg")))
 				.getAttribute("value");
 		assertEquals(expectedSuccessMsg, actualSuccessMsg);
-		logout();
+		//logout();
+		i_searchAssignedRepairsByDate();
 	}
+	
 	
 
 	private void logout() {
@@ -232,5 +239,216 @@ public class SeleniumTC02 extends SeleniumTestBase {
 		String screenShotName = "TC02_" + new Throwable().getStackTrace()[0].getMethodName();
 		snapShot.takeScreenshot(screenShotName);
 	}
+	
+	
+	public void i_searchAssignedRepairsByDate() {
+		// TODO Auto-generated method stub
+		
+		//search assigned repairs by date.
+		driver.findElement(By.xpath(prop.getProperty("Btn_MARDetails_HomePage"))).click();
+		driver.findElement(By.xpath(prop.getProperty("Btn_FMShome_SearchForAssignedRepairs"))).click();
 
+		driver.findElement(By.xpath(prop.getProperty("Btn_SearchForAssignedRepair_SearchForRepairs"))).click();
+		driver.findElement(By.xpath(prop.getProperty("Btn_UnassignedMars_HomePage"))).click();
+		
+		
+		// update facility availability status.
+		
+		driver.findElement(By.xpath(prop.getProperty("Btn_FMShome_SearchViewFacilityDetails"))).click();
+		//new Select(driver.findElement(By.xpath(prop.getProperty("Btn_SearchforAFacility_ViewDetails")))).selectByVisibleText("Badminton courts");
+		new Select(driver.findElement(By.xpath(".//*[@id='ftype']"))).selectByVisibleText("Badminton courts");
+		driver.findElement(By.xpath(prop.getProperty("Btn_SearchforAFacility_ViewDetails"))).click();
+		driver.findElement(By.xpath(prop.getProperty("Link_ListFacilitiesAvailable_BMC1"))).click();
+		driver.findElement(By.xpath(".//*[@id='updateavailability']")).click();	
+		new Select(driver.findElement(By.xpath(".//*[@id='availability']"))).selectByVisibleText("Unavailable");
+		driver.findElement(By.xpath(".//*[@id='updatefacility']")).click();
+		
+		driver.findElement(By.xpath(prop.getProperty("Btn_Logout_Update_Facility"))).click();
+		String screenShotName = "TC02_" + new Throwable().getStackTrace()[0].getMethodName();
+		snapShot.takeScreenshot(screenShotName);
+//		logout();
+	}
+	
+//	private void logoutFromViewAssignedByDate() {
+//		driver.findElement(By.xpath(prop.getProperty("Btn_ViewAssignedMars_LogOut"))).click();
+//		String screenShotName = "TC02_" + new Throwable().getStackTrace()[0].getMethodName();
+//		snapShot.takeScreenshot(screenShotName);
+//	}
+		
+//	@Test
+//	@FileParameters("./excel/managerUserSuccessTestLoginData.csv")
+//	public void j_loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
+//			throws Exception {
+//		String screenShotName = "TC02_" + new Throwable().getStackTrace()[0].getMethodName() + "_" + testCaseNo;
+//		loginUser.loginSuccess(username, password, screenShotName);
+//		j_viewAndChangeStatusFacility();
+//	}
+
+//	private void j_viewAndChangeStatusFacility() {
+//		// TODO Auto-generated method stub
+//		driver.findElement(By.xpath(prop.getProperty("Btn_FMShome_SearchViewFacilityDetails"))).click();
+//		
+//		//new Select(driver.findElement(By.xpath(prop.getProperty("Btn_SearchforAFacility_ViewDetails")))).selectByVisibleText("Badminton courts");
+//		new Select(driver.findElement(By.xpath(prop.getProperty("List_SearchforAFacility_SelectFacilityType")))).selectByVisibleText("Badminton courts");
+//		driver.findElement(By.xpath(prop.getProperty("Btn_SearchforAFacility_ViewDetails"))).click();
+//		driver.findElement(By.xpath(prop.getProperty("Link_ListFacilitiesAvailable_BMC1"))).click();
+//		driver.findElement(By.xpath(prop.getProperty("Btn_FacilityDetailsforXYZ1_UpdateAvailability"))).click();	
+//		new Select(driver.findElement(By.xpath(prop.getProperty("List_FacilityDetailsforXYZ1_Availability")))).selectByVisibleText("Unavailable");
+//		driver.findElement(By.xpath(prop.getProperty("Btn_FacilityDetailsforXYZ1_UpdateAvailability"))).click();
+//		logout();
+//		
+//	}
+	
+	@Test
+	@FileParameters("./excel/managerUserSuccessTestLoginData.csv")
+	public void i_loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
+			throws Exception {
+		String screenShotName = "TC02_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;		
+		loginUser.loginSuccess(username, password, screenShotName);
+		driver.findElement(By.xpath(prop.getProperty("Btn_FMShome_AddANewFacility"))).click();
+		
+		
+	}
+	
+	@Test
+	@FileParameters("./excel/ManagerAddFacilityTestData.csv")
+	public void j_addfacilityErrorValidationsTest(int testCaseNo, String facilityName , String facilityNameError) throws Exception {
+		Facility fac = new Facility();
+		fac.getFacilityName();
+		fac.setFacilityName(facilityName);
+		FacilityErrorMsgs expectedErrorMsg = new FacilityErrorMsgs();
+		expectedErrorMsg.setFacilityNameError(facilityNameError);
+			
+		String screenShotName = "TC02_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+		FacilityErrorMsgs actualErrorMsg = addfacility.AddFacilityError(fac, screenShotName);
+		validateFacilityErrMsgs(expectedErrorMsg, actualErrorMsg);
+		
+	}
+	
+	private void validateFacilityErrMsgs(FacilityErrorMsgs expectedErrorMsg, FacilityErrorMsgs actualErrorMsg) {
+		assertEquals(expectedErrorMsg.getFacilityNameError(), actualErrorMsg.getFacilityNameError());
+		
+	}
+	
+	@Test
+	@FileParameters("./excel/ManagerAddFacilityTestDataSuccess.csv")
+	public void k_addfacilitySuccess(int testCaseNo,String facilityName) throws Exception {
+		
+		Facility fac = new Facility();
+		fac.getFacilityName();
+		fac.setFacilityName(facilityName);
+		String screenShotName = "TC02_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;
+		addfacility.addFacilitySuccess(fac, screenShotName);
+		driver.findElement(By.xpath(".//*[@id='managerhome']")).click();
+		driver.findElement(By.xpath("html/body/div[1]/h1/a")).click();
+
+		
+		
+
+	}
+	
+	
+	@Test
+	@FileParameters("./excel/managerUserSuccessTestLoginData.csv")
+	public void k_loginViewAllMarSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
+			throws Exception {
+		String screenShotName = "TC02_" + new Throwable().getStackTrace()[0].getMethodName() + "_" + testCaseNo;
+		loginUser.loginSuccess(username, password, screenShotName);
+		driver.findElement(By.xpath(prop.getProperty("Btn_FMShome_ViewallMARs"))).click();
+		viewAllMarDetailsTest();
+		logout();
+		
+	}
+	
+	public void viewAllMarDetailsTest() throws InterruptedException {
+		List<WebElement> rows = driver.findElement(By.xpath("html/body/div[1]/form/div"))
+				.findElements(By.tagName("tr"));
+		int i = 0;
+		if ((rows.size()) > 1) {
+			i++;
+			r++;
+		}
+		if (i == 0) {
+			driver.findElement(By.xpath(prop.getProperty("Btn_UnassignedMars_HomePage"))).click();
+		} else {
+			driver.findElement(By.xpath(prop.getProperty("Link_UnassignedMars_View"))).click();
+			String screenShotName = "TC02_" + new Throwable().getStackTrace()[0].getMethodName();
+			snapShot.takeScreenshot(screenShotName);
+		}
+	}
+	
+	
+	
+	// Requesting a repair to test accept requested repair function.
+	@Test
+	@FileParameters("./excel/repairerUserSuccessTestLoginData.csv")
+	public void d0_loginSuccess(int testCaseNo, String username, String password, String expectedErrorMsg)
+			throws Exception {
+		String screenShotName = "TC02_"+new Throwable().getStackTrace()[0].getMethodName()+"_"+testCaseNo;		
+		loginUser.loginSuccess(username, password, screenShotName);
+		driver.findElement(By.xpath(prop.getProperty("Btn_Repairer_SearchForMar"))).click();
+		requestMarDetailsTest();
+	}
+
+	public void requestMarDetailsTest() throws InterruptedException {
+		List<WebElement> rows= driver.findElement(By.xpath("html/body/div[1]/form")).findElements(By.tagName("tr"));
+		int i=0;
+		String screenShotName = "TC02_"+new Throwable().getStackTrace()[0].getMethodName();	
+		  if((rows.size())>1){
+			  i++;
+			  r++;
+		  }
+		if(i == 0)
+		{
+			driver.findElement(By.xpath(prop.getProperty("Btn_List_Homepage"))).click();
+		}
+		else
+		{
+			driver.findElement(By.xpath(".//*[@id='radioMar1']")).click();	
+		    driver.findElement(By.xpath(prop.getProperty("Btn_List_ViewMarDetails"))).click();	
+		    snapShot.takeScreenshot(screenShotName);
+		    driver.findElement(By.xpath(prop.getProperty("Btn_MARDetails_UpdateMARDetails"))).click();
+		    logout2();
+		}
+	}
+	private void logout2() {
+		driver.findElement(By.xpath(prop.getProperty("Btn_MarDetails_logout"))).click();
+		String screenShotName = "TC02_"+new Throwable().getStackTrace()[0].getMethodName();;
+		snapShot.takeScreenshot(screenShotName);
+	}
+	
+	
+	// accept requested repairs.
+	@Test
+	@FileParameters("./excel/managerUserSuccessTestLoginData.csv")
+	public void l_loginViewRequestedRepairs(int testCaseNo, String username, String password, String expectedErrorMsg)
+			throws Exception {
+		String screenShotName = "TC02_" + new Throwable().getStackTrace()[0].getMethodName() + "_" + testCaseNo;
+		loginUser.loginSuccess(username, password, screenShotName);
+		driver.findElement(By.xpath(prop.getProperty("Btn_FMShome_ViewRequestedMARs"))).click();
+		AcceptRequestedRepairsTest(screenShotName);
+		logoutrep();
+	}
+	private void logoutrep() {
+		driver.findElement(By.xpath(prop.getProperty("Btn_MARDetails_Logout_rep"))).click();
+		String screenShotName = "TC02_" + new Throwable().getStackTrace()[0].getMethodName();
+		snapShot.takeScreenshot(screenShotName);
+	}
+
+	private void AcceptRequestedRepairsTest(String screenShotName) {
+		// TODO Auto-generated method stub
+		driver.findElement(By.xpath(prop.getProperty("RadioBtn_ViewRequestedMar"))).click();	
+	    driver.findElement(By.xpath(prop.getProperty("Btn_ViewRequested_Details"))).click();	
+	    
+	    driver.findElement(By.xpath(prop.getProperty("Btn_Edit_ViewRequestedDetails"))).click();	
+	    
+	    new Select(driver.findElement(By.xpath(prop.getProperty("List_EstimatedTime")))).selectByVisibleText("30 Minutes");
+	    new Select(driver.findElement(By.xpath(prop.getProperty("List_AcceptDeny_Requested")))).selectByVisibleText("Accept");
+	    driver.findElement(By.xpath(prop.getProperty("Btn_Edit_ViewRequestedDetails"))).click();	
+	    snapShot.takeScreenshot(screenShotName+"_1");
+	    driver.findElement(By.xpath(prop.getProperty("Btn_Homepage"))).click();	
+	    driver.findElement(By.xpath(prop.getProperty("Btn_FMShome_ViewRequestedMARs"))).click();
+//	    driver.findElement(By.xpath(prop.getProperty("Btn_logout"))).click();
+	    snapShot.takeScreenshot(screenShotName+"_2");
+	}
 }

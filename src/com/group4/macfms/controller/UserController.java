@@ -39,7 +39,7 @@ public class UserController extends HttpServlet {
 		searchUser.setLastname(request.getParameter("lastname"));
 		searchUser.setRole(request.getParameter("role"));
 		
-		if ((searchUser.getLastname() == null || searchUser.getLastname().isEmpty()) && searchUser.getRole().equalsIgnoreCase("All Users")) {
+		if ((searchUser.getLastname().isEmpty()) && searchUser.getRole().equalsIgnoreCase("All Users")) {
 			try {
 				usersInDB = searchDetails.searchAllUserDetails(searchUser);
 				session.setAttribute("USERS", usersInDB);
@@ -61,7 +61,7 @@ public class UserController extends HttpServlet {
 			}
 		}
 		
-		else if ((searchUser.getLastname() == null || searchUser.getLastname().isEmpty()) && !searchUser.getRole().equalsIgnoreCase("All Users"))
+		else if ((searchUser.getLastname().isEmpty()) && !searchUser.getRole().equalsIgnoreCase("All Users"))
 		{
 			try {
 				usersInDB = searchDetails.searchUserWithRole(searchUser);
@@ -84,7 +84,7 @@ public class UserController extends HttpServlet {
 			}
 		}
 		
-		else if ((searchUser.getLastname() != null || !searchUser.getLastname().isEmpty())  && searchUser.getRole().equalsIgnoreCase("All Users"))
+		else if ((!searchUser.getLastname().isEmpty())  && searchUser.getRole().equalsIgnoreCase("All Users"))
 		{
 			try {
 				usersInDB = searchDetails.searchUserDetails(searchUser);

@@ -237,10 +237,10 @@ public class User {
 		if (userName2.equals(""))
 			result= "Please enter a Username to search";
 		else{
-			if (!LoginDAO.checkUniqueUsername(userName2) && stringSize(userName2,2,17))
-				result="Username not exists in system! Please try a different Username";
-			else if(!stringSize(userName2,2,17))
+			if(!stringSize(userName2,2,17))
 				result = "Username should be 3 and 16 characters long";
+			else if (!LoginDAO.checkUniqueUsername(userName2))
+				result="Username not exists in system! Please try a different Username";
 			if(!(userName2.matches("[A-Za-z]+$")))
 				{
 				result = "Username should not contain special characters or numeric characters";

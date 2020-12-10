@@ -32,14 +32,6 @@ public class FacilityController extends HttpServlet {
 		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
 		
-		if(action.equalsIgnoreCase("listFacilities"))
-		{
-			ArrayList<Facility> facilityInDB = new ArrayList<Facility>();
-			facilityInDB = FacilityDAO.listFacilities();
-			session.setAttribute("FACILITIES", facilityInDB);
-			response.sendRedirect("listFacilities.jsp");
-		}
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,57 +40,7 @@ public class FacilityController extends HttpServlet {
 		session.removeAttribute("errorMessage");
 		session.removeAttribute("facilityNameError");
 		
-		/*if(action.equalsIgnoreCase("listFacilities"))
-		{
-			ArrayList<Facility> facilityInDB = new ArrayList<Facility>();
-			facilityInDB = FacilityDAO.listFacilities();
-			session.setAttribute("FACILITIES", facilityInDB);
-			response.sendRedirect("listFacilities.jsp");
-			
-			String facility = request.getParameter("ftype");
-			String facilityName = request.getParameter("fname");
-			if(facility.equalsIgnoreCase("selectfacility") && facilityName.equalsIgnoreCase("selectname"))
-			{
-				facilityInDB = FacilityDAO.listFacilities();
-				session.setAttribute("FACILITIES", facilityInDB);	
-				session.setAttribute("backSearchFacilityPage", "searchFacility.jsp");
-				//getServletContext().getRequestDispatcher("/listFacilities.jsp").forward(request, response);
-				response.sendRedirect("listFacilities.jsp");
-			}
-			else if(facilityName.equalsIgnoreCase("selectname"))
-			{
-				facilityInDB = FacilityDAO.listFacilitiesWithType(facility);
-				session.setAttribute("FACILITIES", facilityInDB);	
-				session.setAttribute("backSearchFacilityPage", "searchFacility.jsp");
-				//getServletContext().getRequestDispatcher("/listFacilities.jsp").forward(request, response);
-				response.sendRedirect("listFacilities.jsp");
-			}
-			else if(facility.equalsIgnoreCase("selectfacility"))
-			{
-				facilityInDB = FacilityDAO.listFacilitiesWithName(facilityName);
-				session.setAttribute("FACILITIES", facilityInDB);	
-				session.setAttribute("backSearchFacilityPage", "searchFacility.jsp");
-				//getServletContext().getRequestDispatcher("/listFacilities.jsp").forward(request, response);
-				response.sendRedirect("listFacilities.jsp");
-			}
-			else if(facility!= null && facilityName != null)
-			{
-				facilityInDB = FacilityDAO.listSpecificFacility(facility, facilityName);
-				if(facilityInDB != null)
-				{
-				session.setAttribute("FACILITIES", facilityInDB);	
-				session.setAttribute("backSearchFacilityPage", "searchFacility.jsp");
-				//getServletContext().getRequestDispatcher("/listFacilities.jsp").forward(request, response);
-				response.sendRedirect("listFacilities.jsp");
-				}
-				else
-				{
-					//session.setAttribute("backSearchFacilityPage", "searchFacility.jsp"); - set this a error message
-					//getServletContext().getRequestDispatcher("/searchFacility.jsp").forward(request, response);
-					response.sendRedirect("searchFacility.jsp");
-				}
-			}
-		}*/
+		
 		
 		if(action.equalsIgnoreCase("listFacilitiesbyType"))
 		{
@@ -110,23 +52,7 @@ public class FacilityController extends HttpServlet {
 			response.sendRedirect("listFacilities.jsp");
 		}
 
-		if (action.equalsIgnoreCase("listSpecificFacility")) {
-			ArrayList<Facility> facilityInDB = new ArrayList<Facility>();
-			Facility selectedFacility = new Facility();
-			int selectedFacilityIndex;
-			
-			if (request.getParameter("radioFacility")!=null) {
-				selectedFacilityIndex = Integer.parseInt(request.getParameter("radioFacility")) - 1;
-				facilityInDB = FacilityDAO.listFacilities(); 
-				selectedFacility.setFacility(facilityInDB.get(selectedFacilityIndex).getFacility(), facilityInDB.get(selectedFacilityIndex).getFacilityName(), facilityInDB.get(selectedFacilityIndex).getMaxInterval(), 
-						facilityInDB.get(selectedFacilityIndex).getDuration(), facilityInDB.get(selectedFacilityIndex).getType(), facilityInDB.get(selectedFacilityIndex).getAvailability());
-				session.setAttribute("facility", selectedFacility);
-				session.setAttribute("backFacilityListPage", "listFacilities.jsp");
-				//getServletContext().getRequestDispatcher("/viewMar.jsp").forward(request, response);			
-				response.sendRedirect("viewFacility.jsp");
-			}
-		}
-		if (action.equalsIgnoreCase("updateFacility")) {
+		else if (action.equalsIgnoreCase("updateFacility")) {
 		FacilityDAO facilityUpdate = new FacilityDAO();
 		Facility facility = new Facility();
 		getUserParam(request, facility);
@@ -138,7 +64,7 @@ public class FacilityController extends HttpServlet {
 		response.sendRedirect("viewFacility.jsp");
 		}
 		}
-		if (action.equalsIgnoreCase("addFacility")) {
+		else if (action.equalsIgnoreCase("addFacility")) {
 			FacilityDAO facilityadd = new FacilityDAO();
 			Facility facility = new Facility();
 			getUserParam(request, facility);
@@ -146,7 +72,7 @@ public class FacilityController extends HttpServlet {
 			
 			facility.validatefacilityName(facility, errorMsg);
 			
-			if(errorMsg.getFacilityNameError()!="" || !errorMsg.getFacilityNameError().isEmpty())
+			if(errorMsg.getFacilityNameError()!="")
 			{
 			session.setAttribute("facilityNameError", errorMsg.getFacilityNameError() );
 			getServletContext().getRequestDispatcher("/addFacility.jsp").forward(request, response);

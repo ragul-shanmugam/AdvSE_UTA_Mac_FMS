@@ -39,7 +39,7 @@ public class UserRoleController extends HttpServlet {
 		//validate user name
 		userNameErr.validateUserExists(username, errorMsg);
 		
-		if (errorMsg.getUserNotExistError() != "" || !errorMsg.getUserNotExistError().isEmpty()) {
+		if (errorMsg.getUserNotExistError() != "") {
 			session.setAttribute("usernameNotExist", errorMsg.getUserNotExistError());
 			getServletContext().getRequestDispatcher("/searchUserRole.jsp").forward(request, response);
 		} 
